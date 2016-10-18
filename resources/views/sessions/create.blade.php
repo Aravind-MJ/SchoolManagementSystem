@@ -7,12 +7,11 @@
     <div class="container full_front_page">
         <div class="row">
 		<!-- Back to home link -->
-		<div class="back_admin" ><a href="http://www.demox.imrokraft.com/aspirantnew"><button class="button1" style="vertical-align:middle"><span>Back to Home </span></button></a></div>
-            <div class="col-md-6 col-md-offset-3 new">
+		<div class="col-md-6 col-md-offset-3 new">
 			
                 <div class="panel panel-default">
 				
-				<center> <img src="images/aspirant-login-logo.png" class="img-rounded img-rounded1"  width="204" height="106"> </center>
+				<center> <img src="images/sms.png" class="img-rounded img-rounded1"  width="204" height="106"> </center>
                     <div class="panel-heading">
                         <h3 class="panel-title">LOGIN FORM</h3>
                     </div>
