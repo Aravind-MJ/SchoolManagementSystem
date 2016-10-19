@@ -2,7 +2,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    Under Construction
+    Page Under Construction
 @stop
 
 @section('body')
