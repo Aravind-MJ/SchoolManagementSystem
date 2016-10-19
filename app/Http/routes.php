@@ -153,7 +153,6 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
         Route::get('/transportation', 'PagesController@pageconstruction');
         Route::get('/storemanagement', 'PagesController@pageconstruction');
         Route::get('/extra-curricular-activity', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity', 'PagesController@pageconstruction');
         Route::get('/extra-curricular-activity/nss', 'PagesController@pageconstruction');
         Route::get('/extra-curricular-activity/ncc', 'PagesController@pageconstruction');
         Route::get('/extra-curricular-activity/spc', 'PagesController@pageconstruction');

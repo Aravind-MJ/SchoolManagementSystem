@@ -254,7 +254,7 @@
                         <i class="fa fa-hotel"></i>
                         <span>Hostel</span>
                         <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
+                        <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
                     </li>
@@ -262,8 +262,8 @@
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
                         <a href="{{url('/transportation')}}">
+						<i class="fa fa-bus"></i>
                         <span>Transportation</span>
-                        <i class="fa fa-bus"></i>
                         <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                         </span>
