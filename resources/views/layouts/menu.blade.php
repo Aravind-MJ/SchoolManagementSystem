@@ -201,6 +201,106 @@
                     </ul>
                 </li>
                 @endif
+				@if($user->inRole('superadmin')||$user->inRole('admins'))
+                    <li class="treeview {{ set_active('SendAnSms') }}">
+                        <a href="#">
+                        <i class="fa fa-envelope"></i>
+                        <span>Time table</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> Generate Time Table</a></li>
+                    </ul>
+                </li>
+                @endif
+				@if($user->inRole('users')||$user->inRole('faculty'))
+					 <li class="treeview {{ set_active('SendAnSms') }}">
+                        <a href="#">
+                        <i class="fa fa-envelope"></i>
+                        <span>Time table</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        </a>
+					</li>
+				@endif
+				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+                    <li class="treeview {{ set_active('SendAnSms') }}">
+                        <a href="#">
+                        <i class="fa fa-envelope"></i>
+                        <span>Assignment</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        </a>
+                    </li>
+                @endif
+				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+                    <li class="treeview {{ set_active('SendAnSms') }}">
+                        <a href="#">
+                        <i class="fa fa-envelope"></i>
+                        <span>Library</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        </a>
+                    </li>
+                @endif
+				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+                    <li class="treeview {{ set_active('SendAnSms') }}">
+                        <a href="#">
+                        <i class="fa fa-envelope"></i>
+                        <span>Hostel</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        </a>
+                    </li>
+                @endif
+				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+                    <li class="treeview {{ set_active('SendAnSms') }}">
+                        <a href="#">
+                        <i class="fa fa-envelope"></i>
+                        <span>Trasportation</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        </a>
+                    </li>
+                @endif
+				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+                    <li class="treeview {{ set_active('SendAnSms') }}">
+                        <a href="#">
+                        <i class="fa fa-envelope"></i>
+                        <span>StoreManagement</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        </a>
+                    </li>
+                @endif
+				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+                    <li class="treeview {{ set_active('SendAnSms') }}">
+                        <a href="#">
+                        <i class="fa fa-envelope"></i>
+                        <span>Extra Curricualr Activity</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        </a>
+					<ul class="treeview-menu">
+                        <li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> NCC</a></li>
+						<li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> NSS</a></li>
+						<li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> SPC</a></li>
+						<li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> Scout and Guide</a></li>
+						<li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> Sports</a></li>
+						<li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> Arts</a></li>
+						<li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> Study Tour</a></li>
+						</ul>
+                    </li>
+                @endif
             <li class="header">Settings</li>
             <li><a href="{{url('changePassword/'. \App\Encrypt::encrypt($user->id))}}"><i class="fa fa-circle-o text-orange"></i> <span>Change Password</span></a></li>
         </ul>
