@@ -204,7 +204,7 @@
 				@if($user->inRole('superadmin')||$user->inRole('admins'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
                         <a href="{{url('/timetable')}}">
-                        <i class="fa fa-envelope"></i>
+                        <i class="fa fa-table"></i>
                         <span>Time table</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
@@ -218,7 +218,7 @@
 				@if($user->inRole('users')||$user->inRole('faculty'))
 					 <li class="treeview {{ set_active('SendAnSms') }}">
                         <a href="{{url('/timetable')}}">
-                        <i class="fa fa-envelope"></i>
+                        <i class="fa fa-table"></i>
                         <span>Time table</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
@@ -229,7 +229,7 @@
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
                          <a href="{{url('/assignment')}}">
-                         <i class="fa fa-envelope"></i>
+                        <i class="fa fa-file-text-o"></i>
                         <span>Assignment</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
@@ -240,7 +240,7 @@
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
                         <a href="{{url('/library')}}">
-                        <i class="fa fa-envelope"></i>
+                        <i class="fa fa-book"></i>
                         <span>Library</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
@@ -251,7 +251,7 @@
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
                         <a href="{{url('/hostel')}}">
-                        <i class="fa fa-envelope"></i>
+                        <i class="fa fa-hotel"></i>
                         <span>Hostel</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
@@ -262,8 +262,8 @@
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
                         <a href="{{url('/transportation')}}">
-                       <i class="fa fa-envelope"></i>
                         <span>Transportation</span>
+                        <i class="fa fa-bus"></i>
                         <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -273,8 +273,8 @@
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
                     <a href="{{url('/storemanagement')}}">
-                     <i class="fa fa-envelope"></i>
-                       <span>StoreManagement</span>
+                        <i class="fa fa-shopping-cart "></i>
+                        <span>StoreManagement</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -284,7 +284,7 @@
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
                         <a href="{{url('/extra-curricular-activity ')}}">
-                        <i class="fa fa-envelope"></i>
+						<i class="fa fa-gamepad"></i>
                         <span>Extra Curricular Activity</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>

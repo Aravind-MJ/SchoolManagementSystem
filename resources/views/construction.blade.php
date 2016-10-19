@@ -6,8 +6,8 @@
 @stop
 
 @section('body')
-<h1>Page Under Construction </h1>
-<h3>This page is under construction. Please come back soon!  </h3>
+<center>
+<h3> This page is under construction. Please come back soon!  </h3></center>
 @stop
 
 
