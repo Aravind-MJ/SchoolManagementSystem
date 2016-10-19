@@ -145,4 +145,32 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
     Route::get('changePassword/{id}', ['uses' => 'ChangePasswordController@edit']);
     Route::post('changePassword/{id}', ['as' => 'password.change', 'uses' => 'ChangePasswordController@update']);
 });
+        Route::get('/timetable', 'PagesController@pageconstruction');
+        Route::get('/timetable/generatetimetable', 'PagesController@pageconstruction');
+        Route::get('/assignment', 'PagesController@pageconstruction');
+        Route::get('/library', 'PagesController@pageconstruction');
+        Route::get('/hostel', 'PagesController@pageconstruction');
+        Route::get('/transportation', 'PagesController@pageconstruction');
+        Route::get('/storemanagement', 'PagesController@pageconstruction');
+        Route::get('/extra-curricular-activity', 'PagesController@pageconstruction');
+        Route::get('/extra-curricular-activity', 'PagesController@pageconstruction');
+        Route::get('/extra-curricular-activity/nss', 'PagesController@pageconstruction');
+        Route::get('/extra-curricular-activity/ncc', 'PagesController@pageconstruction');
+        Route::get('/extra-curricular-activity/spc', 'PagesController@pageconstruction');
+        Route::get('/extra-curricular-activity/scout-guide', 'PagesController@pageconstruction');
+        Route::get('/extra-curricular-activity/sports', 'PagesController@pageconstruction');
+        Route::get('/extra-curricular-activity/arts', 'PagesController@pageconstruction');
+        Route::get('/extra-curricular-activity/study-tour', 'PagesController@pageconstruction');
+
+
+
+
+
+
+
+
+
+
+
+
 

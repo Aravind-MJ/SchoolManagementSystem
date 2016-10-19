@@ -203,7 +203,7 @@
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
-                        <a href="#">
+                        <a href="{{url('/timetable')}}">
                         <i class="fa fa-envelope"></i>
                         <span>Time table</span>
                         <span class="pull-right-container">
@@ -211,13 +211,13 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> Generate Time Table</a></li>
+                        <li class="{{ set_active('') }}"><a href="{{ url('/timetable/generatetimetable') }}"><i class="fa fa-circle-o"></i> Generate Time Table</a></li>
                     </ul>
                 </li>
                 @endif
 				@if($user->inRole('users')||$user->inRole('faculty'))
 					 <li class="treeview {{ set_active('SendAnSms') }}">
-                        <a href="#">
+                        <a href="{{url('/timetable')}}">
                         <i class="fa fa-envelope"></i>
                         <span>Time table</span>
                         <span class="pull-right-container">
@@ -228,8 +228,8 @@
 				@endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
-                        <a href="#">
-                        <i class="fa fa-envelope"></i>
+                         <a href="{{url('/assignment')}}">
+                         <i class="fa fa-envelope"></i>
                         <span>Assignment</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
@@ -239,7 +239,7 @@
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
-                        <a href="#">
+                        <a href="{{url('/library')}}">
                         <i class="fa fa-envelope"></i>
                         <span>Library</span>
                         <span class="pull-right-container">
@@ -250,7 +250,7 @@
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
-                        <a href="#">
+                        <a href="{{url('/hostel')}}">
                         <i class="fa fa-envelope"></i>
                         <span>Hostel</span>
                         <span class="pull-right-container">
@@ -261,9 +261,20 @@
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
-                        <a href="#">
-                        <i class="fa fa-envelope"></i>
-                        <span>Trasportation</span>
+                        <a href="{{url('/transportation')}}">
+                       <i class="fa fa-envelope"></i>
+                        <span>Transportation</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        </a>
+                    </li>
+                @endif
+				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+                    <li class="treeview {{ set_active('SendAnSms') }}">
+                    <a href="{{url('/storemanagement')}}">
+                     <i class="fa fa-envelope"></i>
+                       <span>StoreManagement</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -272,32 +283,21 @@
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
-                        <a href="#">
+                        <a href="{{url('/extra-curricular-activity ')}}">
                         <i class="fa fa-envelope"></i>
-                        <span>StoreManagement</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                        </a>
-                    </li>
-                @endif
-				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
-                    <li class="treeview {{ set_active('SendAnSms') }}">
-                        <a href="#">
-                        <i class="fa fa-envelope"></i>
-                        <span>Extra Curricualr Activity</span>
+                        <span>Extra Curricular Activity</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
 					<ul class="treeview-menu">
-                        <li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> NCC</a></li>
-						<li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> NSS</a></li>
-						<li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> SPC</a></li>
-						<li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> Scout and Guide</a></li>
-						<li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> Sports</a></li>
-						<li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> Arts</a></li>
-						<li class="{{ set_active('') }}"><a href="{{ url('') }}"><i class="fa fa-circle-o"></i> Study Tour</a></li>
+                        <li class="{{ set_active('') }}"><a href="{{ url('/extra-curricular-activity/ncc') }}"><i class="fa fa-circle-o"></i> NCC</a></li>
+						<li class="{{ set_active('') }}"><a href="{{ url('/extra-curricular-activity/nss') }}"><i class="fa fa-circle-o"></i> NSS</a></li>
+						<li class="{{ set_active('') }}"><a href="{{ url('/extra-curricular-activity/spc') }}"><i class="fa fa-circle-o"></i> SPC</a></li>
+						<li class="{{ set_active('') }}"><a href="{{ url('/extra-curricular-activity/scout-guide') }}"><i class="fa fa-circle-o"></i> Scout and Guide</a></li>
+						<li class="{{ set_active('') }}"><a href="{{ url('/extra-curricular-activity/sports') }}"><i class="fa fa-circle-o"></i> Sports</a></li>
+						<li class="{{ set_active('') }}"><a href="{{ url('/extra-curricular-activity/arts') }}"><i class="fa fa-circle-o"></i> Arts</a></li>
+						<li class="{{ set_active('') }}"><a href="{{ url('/extra-curricular-activity/study-tour') }}"><i class="fa fa-circle-o"></i> Study Tour</a></li>
 						</ul>
                     </li>
                 @endif

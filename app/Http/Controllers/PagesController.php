@@ -56,5 +56,10 @@ class PagesController extends Controller {
     public function getContact() {
         return view('pages.contact');
     }
+public function pageconstruction()
+{
+return view ('construction');
+}
+
 
 }
