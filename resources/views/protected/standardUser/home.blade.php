@@ -7,7 +7,7 @@
 	
 	<div class="container">
         <div class="row">
-		<div class="col-md-12 col-sm-12 col-xs-12 full_profile1 ">
+		<div class="col-md-12 col-sm-12 col-xs-12 full_profile1" style="overflow-x:scroll;">
 			<div class="col-md-1 col-sm-1 col-xs-12 ">
 			
 			</div>

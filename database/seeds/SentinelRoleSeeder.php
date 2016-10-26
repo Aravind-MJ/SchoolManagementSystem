@@ -13,27 +13,42 @@ class SentinelRoleSeeder extends Seeder
     public function run()
     {
         DB::table('roles')->delete();
-
-        Sentinel::getRoleRepository()->createModel()->create([
-            'name' => 'Users',
-            'slug' => 'users',
+		
+		Sentinel::getRoleRepository()->createModel()->create([
+            'name' => 'Management',
+            'slug' => 'management',
         ]);
-
-        Sentinel::getRoleRepository()->createModel()->create([
+		
+		Sentinel::getRoleRepository()->createModel()->create([
             'name' => 'Admins',
             'slug' => 'admins',
         ]);
-        
-        Sentinel::getRoleRepository()->createModel()->create([
-            'name' => 'SuperAdmin',
-            'slug' => 'superadmin',
-        ]);
-        
-        Sentinel::getRoleRepository()->createModel()->create([
+		
+		Sentinel::getRoleRepository()->createModel()->create([
             'name' => 'Faculty',
             'slug' => 'faculty',
         ]);
-
+		
+		Sentinel::getRoleRepository()->createModel()->create([
+            'name' => 'Student',
+            'slug' => 'student',
+        ]);
+		
+		Sentinel::getRoleRepository()->createModel()->create([
+            'name' => 'Parent',
+            'slug' => 'parent',
+        ]);
+		
+		Sentinel::getRoleRepository()->createModel()->create([
+            'name' => 'PTA',
+            'slug' => 'pta',
+        ]);
+		
+		Sentinel::getRoleRepository()->createModel()->create([
+		    'name' => 'Alumni',
+			'slug' => 'alumni',
+		]);
+       
         $this->command->info('Roles seeded!');
     }
 }

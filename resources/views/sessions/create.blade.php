@@ -2,11 +2,11 @@
 <html>
 <head>
 <title>SMS</title>
-<script src="admin/js/jquery.min.js"></script>
+<script src="backend/js/jquery.min.js"></script>
 <!-- Custom Theme files -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-<link href="admin/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="backend/css/style.css" rel="stylesheet" type="text/css" media="all"/>
 <!-- for-mobile-apps -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -30,7 +30,7 @@
 @include('flash')
 						<input type="text" name="email" placeholder="Email"/>							
 					    <input type="password" name="password"/>
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						{{csrf_field()}}
 						<div class="remember">
 			             <span class="checkbox1">
 							   <label class="checkbox"><input type="checkbox" name="remember" checked=""><i> </i>Remember me</label>

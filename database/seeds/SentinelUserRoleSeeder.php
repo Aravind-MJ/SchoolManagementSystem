@@ -14,21 +14,30 @@ class SentinelUserRoleSeeder extends Seeder
     {
         DB::table('role_users')->delete();
 
-        $userUser = Sentinel::findByCredentials(['login' => 'user@user.com']);
+        $management = Sentinel::findByCredentials(['login' => 'management@management.com']);
         $adminUser = Sentinel::findByCredentials(['login' => 'admin@admin.com']);
-        $superAdminUser = Sentinel::findByCredentials(['login' => 'superadmin@superadmin.com']);
         $faculty = Sentinel::findByCredentials(['login' => 'faculty@faculty.com']);
+		$student = Sentinel::findByCredentials(['login' => 'student@student.com']);
+		$parent = Sentinel::findByCredentials(['login' => 'parent@parent.com']);
+		$pta = Sentinel::findByCredentials(['login' => 'pta@pta.com']);
+		$alumni = Sentinel::findByCredentials(['login' => 'alumni@alumni.com']);
         
-        $userRole = Sentinel::findRoleByName('Users');
+        $managementRole = Sentinel::findRoleByName('Management');
         $adminRole = Sentinel::findRoleByName('Admins');
-        $superAdminRole = Sentinel::findRoleByName('SuperAdmin');
         $facultyRole = Sentinel::findRoleByName('Faculty');
+		$studentRole = Sentinel::findRoleByName('Student');
+		$parentRole = Sentinel::findRoleByName('Parent');
+		$ptaRole = Sentinel::findRoleByName('PTA');
+		$alumniRole = Sentinel::findRoleByName('Alumni');
 
         // Assign the roles to the users
-        $userRole->users()->attach($userUser);
+        $managementRole->users()->attach($management);
         $adminRole->users()->attach($adminUser);
-        $superAdminRole->users()->attach($superAdminUser);
         $facultyRole->users()->attach($faculty);
+		$studentRole->users()->attach($student);
+		$parentRole->users()->attach($parent);
+		$ptaRole->users()->attach($pta);
+		$alumniRole->users()->attach($alumni);
 
         $this->command->info('Users assigned to roles seeded!');
     }

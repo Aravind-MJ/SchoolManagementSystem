@@ -55,7 +55,7 @@ class SessionsController extends Controller
         $faculty = Sentinel::findRoleByName('Faculty');
 
         if ($user->inRole($admin)) {
-            return redirect()->intended('admin');
+            return redirect('admin');
         } elseif ($user->inRole($users)) {
             return redirect()->intended('/');
         } else if ($user->inRole($superadmin)) {

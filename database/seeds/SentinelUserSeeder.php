@@ -15,10 +15,10 @@ class SentinelUserSeeder extends Seeder
         DB::table('users')->delete();
 
         Sentinel::registerAndActivate([
-            'email'    => 'user@user.com',
-            'password' => 'sentineluser',
-            'first_name' => 'UserFirstName',
-            'last_name' => 'UserLastName',
+            'email'    => 'management@management.com',
+            'password' => 'sentinelmanagement',
+            'first_name' => 'ManagementFirstName',
+            'last_name' => 'ManagementLastName',
         ]);
 
         Sentinel::registerAndActivate([
@@ -29,17 +29,38 @@ class SentinelUserSeeder extends Seeder
         ]);
         
         Sentinel::registerAndActivate([
-            'email'    => 'superadmin@superadmin.com',
-            'password' => 'sentinelsuperadmin',
-            'first_name' => 'SuperAdminFirstName',
-            'last_name' => 'SuperAdminLastName',
-        ]);
-        
-        Sentinel::registerAndActivate([
             'email'    => 'faculty@faculty.com',
             'password' => 'sentinelfaculty',
             'first_name' => 'FacultyFirstName',
             'last_name' => 'FacultyLastName',
+        ]);
+		
+		Sentinel::registerAndActivate([
+            'email'    => 'student@student.com',
+            'password' => 'sentinelstudent',
+            'first_name' => 'StudentFirstName',
+            'last_name' => 'StudentLastName',
+        ]);
+		
+		Sentinel::registerAndActivate([
+            'email'    => 'parent@parent.com',
+            'password' => 'sentinelparent',
+            'first_name' => 'ParentFirstName',
+            'last_name' => 'ParentLastName',
+        ]);
+		
+		Sentinel::registerAndActivate([
+            'email'    => 'pta@pta.com',
+            'password' => 'sentinelpta',
+            'first_name' => 'PTAFirstName',
+            'last_name' => 'PTALastName',
+        ]);
+		
+		Sentinel::registerAndActivate([
+            'email'    => 'alumni@alumni.com',
+            'password' => 'sentinelalumni',
+            'first_name' => 'AlumniFirstName',
+            'last_name' => 'AlumniLastName',
         ]);
 
         $this->command->info('Users seeded!');

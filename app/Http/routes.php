@@ -91,7 +91,7 @@ Route::group(['middleware' => ['auth', 'standardUser']], function () {
 # Admin Routes.
 Route::group(['middleware' => ['auth', 'admin']], function () {
     # Home
-    Route::get('admin', ['as' => 'admin_dashboard', 'uses' => 'Admin\AdminController@getHome']);
+    Route::get('/admin', ['as' => 'admin_dashboard', 'uses' => 'Admin\AdminController@getHome']);
 });
 
 # Super Admin Routes.
@@ -145,8 +145,8 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
     Route::get('changePassword/{id}', ['uses' => 'ChangePasswordController@edit']);
     Route::post('changePassword/{id}', ['as' => 'password.change', 'uses' => 'ChangePasswordController@update']);
 });
-        Route::get('/timetable', 'PagesController@pageconstruction');
-        Route::get('/timetable/generatetimetable', 'PagesController@pageconstruction');
+        Route::get('/timetable', 'timetableController@index');
+        Route::get('/timetable/generatetimetable', 'timetableController@index');
         Route::get('/assignment', 'PagesController@pageconstruction');
         Route::get('/library', 'PagesController@pageconstruction');
         Route::get('/hostel', 'PagesController@pageconstruction');
@@ -160,16 +160,3 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
         Route::get('/extra-curricular-activity/sports', 'PagesController@pageconstruction');
         Route::get('/extra-curricular-activity/arts', 'PagesController@pageconstruction');
         Route::get('/extra-curricular-activity/study-tour', 'PagesController@pageconstruction');
-
-
-
-
-
-
-
-
-
-
-
-
-
