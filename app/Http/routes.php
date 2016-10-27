@@ -159,4 +159,9 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
         Route::get('/extra-curricular-activity/scout-guide', 'PagesController@pageconstruction');
         Route::get('/extra-curricular-activity/sports', 'PagesController@pageconstruction');
         Route::get('/extra-curricular-activity/arts', 'PagesController@pageconstruction');
+
         Route::get('/extra-curricular-activity/study-tour', 'PagesController@pageconstruction');
+
+#buses routes
+        Route::resource('transportation','BusesController');
+        

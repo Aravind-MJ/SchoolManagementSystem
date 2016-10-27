@@ -5,7 +5,7 @@
 @section('content')
 
 @section('body')
-  @include('flash')
+@include('flash')
 {!! Form::open(['action' => 'NoticeController@store','method'=>'POST']) !!}
 <!--{!! Form::open() !!}-->
 <div class="box box-primary">

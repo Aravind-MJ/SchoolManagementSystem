@@ -224,10 +224,11 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
+					
 					</li>
 				@endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
-                    <li class="treeview {{ set_active('SendAnSms') }}">
+                    <li class="treeview {{ set_active('Assignment') }}">
                          <a href="{{url('/assignment')}}">
                         <i class="fa fa-file-text-o"></i>
                         <span>Assignment</span>
@@ -235,6 +236,10 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
+				    <ul class="treeview-menu">
+                        <li><a href="{{url('assignment/add-assignment')}}"><i class="fa fa-circle-o"></i> Add Assignment</a></li>
+                        <li><a href="{{URL::route('FeeTypes.index')}}"><i class="fa fa-circle-o"></i> ListFeeTypes</a></li>
+                    </ul>	
                     </li>
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
@@ -260,7 +265,7 @@
                     </li>
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
-                    <li class="treeview {{ set_active('SendAnSms') }}">
+                    <li class="treeview {{ set_active('transportation') }}">
                         <a href="{{url('/transportation')}}">
 						<i class="fa fa-bus"></i>
                         <span>Transportation</span>
@@ -268,6 +273,11 @@
                         <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
+
+                        <ul class="treeview-menu">
+                        <li><a href="{{route('transportation.create')}}" class="fa fa-circle-o"></i>Create Bus</a></li>
+                        <li><a href="{{route('transportation.index')}}" class="fa fa-circle-o"></i>List Bus</a></li>                        
+                        </ul>
                     </li>
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
