@@ -137,6 +137,10 @@ Route::group(['middleware' => ['auth', 'faculty']], function () {
     # Home
     Route::get('faculty', ['as' => 'home', 'uses' => 'Faculty\FacultyController@getHome']);
 });
+#subject crud
+
+Route::resource('Subject', 'SubjectController');
+
 
 # Routes that only current user can access
 Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
