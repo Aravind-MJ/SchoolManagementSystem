@@ -141,6 +141,8 @@ Route::group(['middleware' => ['auth', 'faculty']], function () {
 
 Route::resource('Subject', 'SubjectController');
 
+Route::resource('Timetable', 'TimetableController');
+
 
 # Routes that only current user can access
 Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
@@ -149,8 +151,6 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
     Route::get('changePassword/{id}', ['uses' => 'ChangePasswordController@edit']);
     Route::post('changePassword/{id}', ['as' => 'password.change', 'uses' => 'ChangePasswordController@update']);
 });
-        Route::get('/timetable', 'timetableController@index');
-        Route::get('/timetable/generatetimetable', 'timetableController@index');
         Route::get('/assignment', 'PagesController@pageconstruction');
         Route::get('/library', 'PagesController@pageconstruction');
         Route::get('/hostel', 'PagesController@pageconstruction');

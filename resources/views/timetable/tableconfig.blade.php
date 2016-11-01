@@ -8,32 +8,9 @@
 
 @include('flash')
 
+@include('tablelink')
 
-
-{!! Form::open(array('url' => 'foo/bar')) !!}
-
-
-<div class="box box-success">
-	<div class="box-body">
-			<table id="example2" border='1' class="table table-bordered table-hover">
-				<thead>
-				<tr>
-					<th>
-				{!! HTML::link('/', 'Table Generation')!!}
-
-				</th>
-           <th>
-             {!! HTML::link('/', 'Table Configuration')!!}
-
-              </th>
-        </tr>
-        </table>
-      </div>
-  </div>
-
-{!! Form::close() !!}
-
-      {!! Form::open(array('url' => 'Table Generation')) !!}
+      {!! Form::open(array('url' => 'Table Configuration')) !!}
 
       <div class="box box-success">
 	      <div class="box-body">
@@ -64,7 +41,7 @@
                           <option>7</option>
                          <option>8</option> </select></td>
                     </tr>
-                      <tr>
+                      <tr>                      
                        <td> <center><input type="submit" value="Save"/ required > </center></td>
                       </tr> 
                     </table>
@@ -72,6 +49,5 @@
 
 {!! Form::close() !!}
 
-@stop
 
 @endsection
