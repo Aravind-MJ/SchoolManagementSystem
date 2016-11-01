@@ -137,6 +137,10 @@ Route::group(['middleware' => ['auth', 'faculty']], function () {
     # Home
     Route::get('faculty', ['as' => 'home', 'uses' => 'Faculty\FacultyController@getHome']);
 });
+#subject crud
+
+Route::resource('Subject', 'SubjectController');
+
 
 # Routes that only current user can access
 Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
@@ -160,8 +164,23 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
         Route::get('/extra-curricular-activity/sports', 'PagesController@pageconstruction');
         Route::get('/extra-curricular-activity/arts', 'PagesController@pageconstruction');
 
+
         Route::get('/extra-curricular-activity/study-tour', 'PagesController@pageconstruction');
 
-#buses routes
+
         Route::resource('transportation','BusesController');
         
+
+        Route::get('/extra-curricular-activity/study-tour', 'PagesController@pageconstruction');
+Route::filter('permissions', function($route, $request)
+{
+    $action = $route->getActionName();
+
+    if (Sentinel::hasAccess($action))
+    {
+        return $request;
+    }
+
+    return redirect('/')->withFlashMessage('Permission denied.')->withType('danger');
+});
+

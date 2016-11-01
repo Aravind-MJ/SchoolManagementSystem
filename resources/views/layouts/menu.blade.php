@@ -70,7 +70,20 @@
             <li><a href="{{URL::route('notice.getNotice')}}"><i class="fa fa-bell"></i> List Notice</a></li>
             @endif
             @if($user->inRole('superadmin')||$user->inRole('admins'))
-            <li class="treeview">
+        <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-bookmark-o"></i>
+                    <span>Subject</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{URL::route('Subject.index')}}"><i class="fa fa-circle-o"></i> Add Subject</a></li>
+                    <li><a href="{{URL::route('Subject.show')}}"><i class="fa fa-circle-o"></i> List Subject</a></li>
+                </ul>
+            </li>    
+		<li class="treeview">
                 <a href="#">
                     <i class="fa fa-bell"></i>
                     <span>Notice</span>
