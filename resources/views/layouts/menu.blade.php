@@ -79,8 +79,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::route('Subject.index')}}"><i class="fa fa-circle-o"></i> Add Subject</a></li>
-                    <li><a href="{{URL::route('Subject.show')}}"><i class="fa fa-circle-o"></i> List Subject</a></li>
+                    <li><a href="{{ action("SubjectController@create") }}"><i class="fa fa-circle-o"></i> Add Subject</a></li>
+                    <li><a href="{{ action("SubjectController@index") }}"><i class="fa fa-circle-o"></i> List Subject</a></li>
                 </ul>
             </li>    
 		<li class="treeview">
