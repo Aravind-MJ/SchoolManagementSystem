@@ -79,8 +79,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::route('Subject.index')}}"><i class="fa fa-circle-o"></i> Add Subject</a></li>
-                    <li><a href="{{URL::route('Subject.show')}}"><i class="fa fa-circle-o"></i> List Subject</a></li>
+                    <li><a href="{{ action("SubjectController@create") }}"><i class="fa fa-circle-o"></i> Add Subject</a></li>
+                    <li><a href="{{ action("SubjectController@index") }}"><i class="fa fa-circle-o"></i> List Subject</a></li>
                 </ul>
             </li>    
 		<li class="treeview">
@@ -216,7 +216,7 @@
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
-                        <a href="{{url('/timetable')}}">
+                        <a href="{{url('/Timetable')}}">
                         <i class="fa fa-table"></i>
                         <span>Time table</span>
                         <span class="pull-right-container">
@@ -224,13 +224,13 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ set_active('') }}"><a href="{{ url('/timetable/generatetimetable') }}"><i class="fa fa-circle-o"></i> Generate Time Table</a></li>
+                        <li class="{{ set_active('') }}"><a href="{{ url('/Timetable') }}"><i class="fa fa-circle-o"></i> Generate Time Table</a></li>
                     </ul>
                 </li>
                 @endif
 				@if($user->inRole('users')||$user->inRole('faculty'))
 					 <li class="treeview {{ set_active('SendAnSms') }}">
-                        <a href="{{url('/timetable')}}">
+                        <a href="{{url('/Timetable')}}">
                         <i class="fa fa-table"></i>
                         <span>Time table</span>
                         <span class="pull-right-container">

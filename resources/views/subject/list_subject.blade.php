@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'List Notice')
+@section('title', 'List Subject')
 
 @section('content')
 
@@ -10,7 +10,6 @@
 
 @section('body')
 
-@include('flash')
 <div class="box box-primary">
     <div class="box-body">
 
@@ -29,7 +28,7 @@
                 @foreach( $allSubject as $subject )
                 <tr>
                     <td>{{ $i }}</td> 
-                    <td>{!! $subject->subject !!}</td>
+                    <td>{!! $subject->subject_name !!}</td>
                     <td class=center>
                        
                         <a href='Subject/{{ $subject->id }}/edit' class='btn btn-primary'>Edit</a>
