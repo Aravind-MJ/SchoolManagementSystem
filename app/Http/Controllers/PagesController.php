@@ -53,6 +53,29 @@ class PagesController extends Controller {
 //        return view('pages.about');
     }
 
+    public function getAssignment() {
+        //Select all records from assignment table
+        
+        $users = Sentinel::getUser();
+        if(!$users->inRole('users')){
+            return redirect('/');
+        }
+        $id = $users->id;
+        $student = DB::table('student_details')
+                ->select('batch_id')->where('user_id', $id)
+                ->first();
+        $allAssignment = DB::table('assignment')
+                ->join('batch_details', 'batch_details.id', '=', 'assignment.batch_id')
+                ->where('batch_id', $student->batch_id)
+                ->select('assignment.*', 'batch_details.batch')
+                ->orderBy('sdate','DESC')
+                ->limit(10)
+                ->get();
+        
+        return View('Assignment.list_assignment', compact('allAssignment'));
+//        return view('pages.about');
+    }
+
     public function getContact() {
         return view('pages.contact');
     }
