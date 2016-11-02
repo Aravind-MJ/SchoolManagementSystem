@@ -29,25 +29,25 @@
             </thead>
             <tbody>
                 <?php $i=1 ?>
-                @foreach( $busfee as $busfee )
+                @foreach( $busfee as $each_busfee )
                 <tr>
                     <td>{{ $i }}</td>
-                    <td>{{ $busfee->batch }}</td>
-                    <td>{{ $busfee->first_name }} {{ $busfee->last_name }}</td>
-                    <td>{{ $busfee->bus_no }}</td>
-                    <td>{{ $busfee->fee }}</td>
+                    <td>{{ $each_busfee->batch }}</td>
+                    <td>{{ $each_busfee->first_name }} {{ $each_busfee->last_name }}</td>
+                    <td>{{ $each_busfee->bus_no }}</td>
+                    <td>{{ $each_busfee->fee }}</td>
                     
                     <td class=center>                       
-                        <a href="{{route('BusFee.edit',$busfee->id)}}" class='btn btn-primary'>Edit</a>
+                        <a href="{{route('BusFee.edit',$each_busfee->id)}}" class='btn btn-primary'>Edit</a>
                     </td>                   
                     <td class=center>
-                        {!! Form::open(['route' => ['BusFee.destroy', $busfee->id], 'method' => 'DELETE', 'class' => 'delete']) !!}                        
+                        {!! Form::open(['route' => ['BusFee.destroy', $each_busfee->id], 'method' => 'DELETE', 'class' => 'delete']) !!}                        
                         <button type="submit" class="btn btn-danger">Delete</button>
                         {!! Form::close() !!}
                     </td>
                 </tr>
                 <?php $i++ ?>
-                @endforeach
+                @endforeach 
             </tbody>
 
         </table>

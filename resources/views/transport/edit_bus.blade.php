@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Add Bus')
+@section('title', 'Edit Bus')
 
 @section('body')
 @include('flash')

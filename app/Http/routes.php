@@ -169,6 +169,7 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
 
 
         Route::resource('transportation','BusesController');
+        Route::resource('BusFee','BusFeeController');
         
 
         Route::get('/extra-curricular-activity/study-tour', 'PagesController@pageconstruction');
