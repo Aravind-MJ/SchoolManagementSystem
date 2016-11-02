@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Timetable;
 use App\Batch;
 use App\Faculty;
 use App\Subject;
+use App\TimeTableConfig;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -77,7 +79,7 @@ class TimetableController extends Controller
             $data = array();
             foreach ($subject as $each_subject) {
                 $data[$each_subject->id] = $each_subject->subject_name;
-            }
+     }
             $subject = $data;
 
             return view('timetable.tableinit',compact('batch','faculty','subject'));
@@ -115,5 +117,16 @@ class TimetableController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function timetable_config(Request $requestData)
+    {
+       $timetable_config = new TimeTableConfig;
+        $timetable_config->no_of_days_week= $requestData['no_of_days_week'];
+         $timetable_config->no_of_hours_day  = $requestData['no_of_hours_day'];
+         $timetable_config->save();
+        return Redirect::back()
+                        ->withFlashMessage('Timetable Configuration Added successfully!')
+                        ->withType('success');
+  
     }
 }

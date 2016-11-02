@@ -142,7 +142,7 @@ Route::group(['middleware' => ['auth', 'faculty']], function () {
 Route::resource('Subject', 'SubjectController');
 
 Route::resource('Timetable', 'TimetableController');
-
+Route::post('Timetable/Cofiguration', 'TimetableController@timetable_config');
 
 # Routes that only current user can access
 Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
