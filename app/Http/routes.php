@@ -183,4 +183,3 @@ Route::filter('permissions', function($route, $request)
 
     return redirect('/')->withFlashMessage('Permission denied.')->withType('danger');
 });
-
