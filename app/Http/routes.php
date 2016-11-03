@@ -42,6 +42,9 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
 
     # Batch crud Routes.
     Route::resource('BatchDetails', 'BatchDetailsController');
+    Route::resource('Hostel', 'HostelController');
+     Route::get('dayscholars', ['as' => 'search.dayscholars', 'uses' => 'HostelController@search']);
+      Route::get('hostel', ['as' => 'search.hostel', 'uses' => 'HostelController@hostelsearch']);
 
     # Route to edit student profile.
     Route::post('edit/admin/student/{id}', ['as' => 'studentProfilen.update', 'uses' => 'SuperAdmin\RegistrationController@update']);
@@ -142,7 +145,7 @@ Route::group(['middleware' => ['auth', 'faculty']], function () {
 Route::resource('Subject', 'SubjectController');
 
 Route::resource('Timetable', 'TimetableController');
-
+Route::post('Timetable/Cofiguration', 'TimetableController@timetable_config');
 
 # Routes that only current user can access
 Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
@@ -153,7 +156,7 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
 });
         Route::get('/assignment', 'PagesController@pageconstruction');
         Route::get('/library', 'PagesController@pageconstruction');
-        Route::get('/hostel', 'PagesController@pageconstruction');
+        //Route::get('/hostel', 'PagesController@pageconstruction');
         Route::get('/transportation', 'PagesController@pageconstruction');
         Route::get('/storemanagement', 'PagesController@pageconstruction');
         Route::get('/extra-curricular-activity', 'PagesController@pageconstruction');
