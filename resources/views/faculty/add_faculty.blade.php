@@ -6,7 +6,6 @@
 
 @section('body')
 
-@include('flash')
 
 {!! Form::open(['action' => 'FacultyController@store','enctype' => 'multipart/form-data']) !!}
 <!--{!! Form::open() !!}-->

@@ -51,7 +51,10 @@
             {!! Form::text('guardian', null, ['class'=>'form-control', 'placeholder'=>'Enter guardian name ']) !!}
             {!! errors_for('guardian', $errors) !!}
         </div>
-
+<div class="form-group">
+            {!! Form::Label('hostel', 'Hostel Facilities Needed') !!}<br>
+            {!! Form::radio('hostel', 'Yes') !!}{!! Form::Label('hostel', 'Yes') !!}
+            {!! Form::radio('hostel', 'No') !!}{!! Form::Label('hostel', 'No') !!}
         <div class="form-group">
             {!! Form::label('address', 'Address') !!}
             {!! Form::textarea('address', null,  ['class'=>'form-control', 'placeholder'=>'Address']) !!}
