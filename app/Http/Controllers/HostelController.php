@@ -50,7 +50,7 @@ class HostelController extends Controller {
            $data[$batch->id] = $batch->batch;
         }
         $batch = $data;
-        return View('Hostel.list_hostel', compact('allStudents', 'batch', 'id'));
+        return View('hostel.list_hostel', compact('allStudents', 'batch', 'id'));
     }
 
     /**
@@ -59,19 +59,33 @@ class HostelController extends Controller {
      * @return Response
      */
     public function create() {
+        $allStudents = DB::table('student_details')
+                ->join('users', 'users.id', '=', 'student_details.user_id')
+                
+                ->join('batch_details', 'batch_details.id', '=', 'student_details.batch_id')
+                
+                ->select('users.*', 'student_details.*','batch_details.*')
+                ->where('student_details.hostel', 'no')
+                ->orderBy('student_details.created_at', 'DESC')
+                ->get();
+        foreach ($allStudents as $student) {
+            $student->enc_id = Encrypt::encrypt($student->id);
+            $student->enc_userid = Encrypt::encrypt($student->user_id);
+        
+        }
         //Fetch Batch Details
-//        $batch = DB::table('batch_details')
-//                ->select('id', 'batch')              
-//                ->get();
-//        $data = array();
-//        foreach ($batch as $batch) {
-//           $data[$batch->id] = $batch->batch;
-//        }
-//        $batch = $data;
-//
-//        return view('student.add_student', compact('id', 'batch'));
+        $batch = DB::table('batch_details')
+                ->select('id', 'batch')
+                ->orderBy('batch_details.created_at', 'ASC')
+                ->get();
+//        $batch = Batch::lists('batch', 'id')->prepend('Select Batch', '');
+        $data = array();
+        foreach ($batch as $batch) {
+           $data[$batch->id] = $batch->batch;
+        }
+        $batch = $data;
+        return View('hostel.list_day scholars', compact('allStudents', 'batch', 'id'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -249,21 +263,26 @@ class HostelController extends Controller {
         // Returns an array of articles that have the query string located somewhere within 
 
         $query = DB::table('student_details')
-                ->join('users', 'users.id', '=', 'student_details.user_id')  
-                 ->join('fee','fee.student_id','=','student_details.user_id')
-                ->join('fee_types','fee_types.batch_id','=', 'student_details.batch_id')
-                ->select('users.*', 'student_details.*','fee_types.*', 'fee.*')
-                ->where('student_details.deleted_at', NULL);
+                ->join('users', 'users.id', '=', 'student_details.user_id')
+                
+                ->join('batch_details', 'batch_details.id', '=', 'student_details.batch_id')
+                
+                ->select('users.*', 'student_details.*','batch_details.*')
+                ->where('student_details.hostel', 'no')
+                ->orderBy('student_details.created_at', 'DESC');
+               
+//        foreach ($allStudents as $student) {
+//            $student->enc_id = Encrypt::encrypt($student->id);
+//            $student->enc_userid = Encrypt::encrypt($student->user_id);
         
+        
+        //Fetch Batch Details
+   
 
         if ($batch != 0) {
             $query->where('student_details.batch_id', $batch);
         }
-        
-//        if (!empty($search)) {
-//            $query->where('users.first_name', 'LIKE', '%' . $search . '%');
-//        }
-       
+              
         $allStudents = $query->get();
         foreach ($allStudents as $student) {
             $student->enc_id = Encrypt::encrypt($student->id);
@@ -282,11 +301,67 @@ class HostelController extends Controller {
         
         // returns a view and passes the view the list of articles and the original query.
 //        return route('Student.index');
-        return View('Feetypes.fee_by_batch', 
+        return View('hostel.list_day scholars', 
             ['allStudents' => $allStudents, 
             'batch' => $batch, 'selbatch' => $selectedBatch]
         );
     }
+    
+    
+    public function hostelsearch() {
+
+        // Gets the query string and batch from our form submission 
+
+        $search = Request::input('param2');
+        $selectedBatch = $batch = Request::input('param1');
+
+        // Returns an array of articles that have the query string located somewhere within 
+
+        $query = DB::table('student_details')
+                ->join('users', 'users.id', '=', 'student_details.user_id')
+                
+                ->join('batch_details', 'batch_details.id', '=', 'student_details.batch_id')
+                
+                ->select('users.*', 'student_details.*','batch_details.*')
+                ->where('student_details.hostel', 'yes')
+                ->orderBy('student_details.created_at', 'DESC');
+               
+//        foreach ($allStudents as $student) {
+//            $student->enc_id = Encrypt::encrypt($student->id);
+//            $student->enc_userid = Encrypt::encrypt($student->user_id);
+        
+        
+        //Fetch Batch Details
+   
+
+        if ($batch != 0) {
+            $query->where('student_details.batch_id', $batch);
+        }
+              
+        $allStudents = $query->get();
+        foreach ($allStudents as $student) {
+            $student->enc_id = Encrypt::encrypt($student->id);
+            $student->enc_userid = Encrypt::encrypt($student->user_id);
+                
+        }
+        //Fetch Batch Details
+        $batch = DB::table('batch_details')
+                ->select('id', 'batch')              
+                ->get();
+        $data = array();
+        foreach ($batch as $batch) {
+           $data[$batch->id] = $batch->batch;
+        }
+        $batch = $data;
+        
+        // returns a view and passes the view the list of articles and the original query.
+//        return route('Student.index');
+        return View('hostel.list_day scholars', 
+            ['allStudents' => $allStudents, 
+            'batch' => $batch, 'selbatch' => $selectedBatch]
+        );
+    }
+
 
 }
 

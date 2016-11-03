@@ -265,13 +265,14 @@
                     <li class="treeview {{ set_active('SendAnSms') }}">
                         <a href="{{url('/hostel')}}">
                         <i class="fa fa-hotel"></i>
-                        <span>Hostel</span>
+                        <span>Hostel students Vs days Scholars</span>
                         <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
                         <ul class="treeview-menu">
                         <li><a href="{{URL::route('Hostel.index')}}"><i class="fa fa-circle-o"></i>List of Hostel Students</a></li>
+                        <li><a href="{{URL::route('Hostel.create')}}"><i class="fa fa-circle-o"></i>List Day Scholars</a></li>
                         
                     </ul>
                     </li>

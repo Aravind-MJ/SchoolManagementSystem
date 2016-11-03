@@ -2,7 +2,7 @@
 
 @extends('layouts.layout')
 
-@section('title', 'Hostelers By Batch')
+@section('title', 'Days Scholars By Batch')
 
 @section('content')
 
@@ -13,7 +13,7 @@
     <div class="box-body">
         <?php  $selbatch = isset($selbatch)? $selbatch : null;?>
          <div class="form-group">
-       {!! Form::open(array('route' => 'search.hostel', 'class'=>'form navbar-form navbar-right searchform', 'method'=>'get')) !!}
+        {!! Form::open(array('route' => 'search.dayscholars', 'class'=>'form navbar-form navbar-right searchform', 'method'=>'get')) !!}
         @if(isset($batch))
         @if(!empty($batch))
           </div>  
