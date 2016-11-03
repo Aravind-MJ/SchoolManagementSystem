@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
 
     # Batch crud Routes.
     Route::resource('BatchDetails', 'BatchDetailsController');
+    Route::resource('Hostel', 'HostelController');
 
     # Route to edit student profile.
     Route::post('edit/admin/student/{id}', ['as' => 'studentProfilen.update', 'uses' => 'SuperAdmin\RegistrationController@update']);
@@ -153,7 +154,7 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
 });
         Route::get('/assignment', 'PagesController@pageconstruction');
         Route::get('/library', 'PagesController@pageconstruction');
-        Route::get('/hostel', 'PagesController@pageconstruction');
+        //Route::get('/hostel', 'PagesController@pageconstruction');
         Route::get('/transportation', 'PagesController@pageconstruction');
         Route::get('/storemanagement', 'PagesController@pageconstruction');
         Route::get('/extra-curricular-activity', 'PagesController@pageconstruction');

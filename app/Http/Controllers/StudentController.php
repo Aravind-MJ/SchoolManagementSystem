@@ -31,6 +31,7 @@ class StudentController extends Controller {
                 ->join('users', 'users.id', '=', 'student_details.user_id')
                 ->join('batch_details', 'batch_details.id', '=', 'student_details.batch_id')
                 ->select('users.*', 'student_details.*', 'batch_details.batch')
+                ->where('student_details.gender', 'male')
                 ->where('student_details.deleted_at', NULL)
                 ->orderBy('student_details.created_at', 'DESC')
                 ->get();
@@ -101,6 +102,7 @@ class StudentController extends Controller {
         $student->gender = $requestData['gender'];
         $student->dob = date('Y-m-d', strtotime($requestData['dob']));
         $student->guardian = $requestData['guardian'];
+        $student->hostel = $requestData['hostel'];
         $student->address = $requestData['address'];
         $student->phone = $requestData['phone'];
         $student->school = $requestData['school'];
