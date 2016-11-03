@@ -3,7 +3,7 @@
 @section('title', 'Add Bus')
 
 @section('body')
-@include('flash')
+
 {!! Form::open(['route' => 'transportation.store','method'=>'POST']) !!}
 <!--{!! Form::open() !!}-->
 <div class="box box-primary">

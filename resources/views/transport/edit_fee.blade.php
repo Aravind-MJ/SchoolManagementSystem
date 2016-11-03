@@ -3,7 +3,7 @@
 @section('title', 'Edit Bus Fee')
 
 @section('body')
-@include('flash')
+
 
 {!! Form::model($busfees, ['method'=>'PATCH','route' => ['BusFee.update', $busfees->id]]) !!}
 

@@ -22,16 +22,26 @@ class BusFeeController extends Controller {
                 ->select('id', 'batch')
                 ->orderBy('batch_details.created_at', 'ASC')
                 ->get();
-//        $batch = Batch::lists('batch', 'id')->prepend('Select Batch', '');
+
         $data = array();
         foreach ($batch as $batch) {
            $data[$batch->id] = $batch->batch;
         }
         $batch = $data;
-        	
+
+        $users = DB::table('users')
+                  ->join('student_details','student_details.user_id', '=','users.id')
+                  ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$batch_id])         
+                  ->select('users.id','first_name','last_name')
+                  ->get();
+          $data=array();
+          foreach($users as $each){
+              $data[$each->id]=$each->first_name.' '.$each->last_name;
+          }
+        $users=$data;	
 
    		if($batch_id==null){
-   			$users = array();
+        $users = array();
    		}else{
    			$users = DB::table('users')
                   ->join('student_details','student_details.user_id', '=','users.id')
@@ -45,7 +55,6 @@ class BusFeeController extends Controller {
         $users=$data;
    		}
         
-
        	$buses = DB::table('buses')
                   ->select('id','bus_no')
                   ->get();
