@@ -10,12 +10,14 @@
     <div class="box-body">
         <div class="form-group">
             {!! Form::Label('param1', 'Batch') !!}
-            {!! Form::select('param1', $batch,  $batch_id, ['class' => 'form-control']) !!}
+            {!! Form::select('param1', $batch,  $batch_id, array('placeholder' => 'Please select
+             batch','class' => 'form-control','id'=>'param1')) !!}
         </div> 
 
         <div class="form-group">
             {!! Form::Label('student_id', 'Student') !!}
-            {!! Form::select('student_id', $users,  null, ['class' => 'form-control']) !!}
+            {!! Form::select('student_id', $users, array('0'=>"Select a Batch to Show it's students"),
+            null, array('class'=>'form-control','id'=>'param2', 'placeholder'=>'Search for student...','disabled')) !!}
         </div>  
 
         <div class="form-group">
@@ -39,6 +41,21 @@
     </div>
 
 </div>
+@endsection
+@section('pagescript')
+<script>
+    $('#param1').change(function () {
+        var batch_id = $('#param1').val();
+        $.get('{{url('progressFetchStudents')}}?batch_id=' + batch_id,
+                function (response) {
+                    if (response != '') {
+                        $('#param2').html(response).removeAttr('disabled');
+                    } else {
+                        $('#param2').html('<option>No students found</option>').attr('disabled', 'disabled');
+                    }
+                })
+    });
+</script>
 @endsection
 @section('pagescript')
 <script type="text/javascript">

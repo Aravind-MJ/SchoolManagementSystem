@@ -33,6 +33,7 @@ class BusFeeController extends Controller {
                   ->join('student_details','student_details.user_id', '=','users.id')
                   ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$batch_id])         
                   ->select('users.id','first_name','last_name')
+                  ->orderBy('users.created_at', 'ASC')
                   ->get();
           $data=array();
           foreach($users as $each){
@@ -41,7 +42,8 @@ class BusFeeController extends Controller {
         $users=$data;	
 
    		if($batch_id==null){
-        $users = array();
+
+      
    		}else{
    			$users = DB::table('users')
                   ->join('student_details','student_details.user_id', '=','users.id')
@@ -137,6 +139,7 @@ class BusFeeController extends Controller {
               $data[$each->id]=$each->first_name.' '.$each->last_name;
           }
         $users=$data;
+        $data=array();
       }else{
         $batch_id = $busfees->batch;
         $users = DB::table('users')
