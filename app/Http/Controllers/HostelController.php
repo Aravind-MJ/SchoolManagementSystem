@@ -136,7 +136,19 @@ class HostelController extends Controller {
      * @return Response
      */
     public function show($id) {
-//   $student = Student::find($id);
+
+	
+	$queryhostel = DB::table('student_details')->where('user_id', $id)->update(['hostel' => 'yes']);
+      
+        if ($queryhostel==1) {
+            return redirect()->route('Hostel.index')
+                            ->withFlashMessage('student Turned into Hostelate  !')
+                            ->withType('success');
+        } else {
+            return redirect()->route('Hostel.index')
+                            ->withFlashMessage('Student Transfer Failed!')
+                            ->withType('danger');
+        }
         
     }
 
@@ -148,18 +160,18 @@ class HostelController extends Controller {
      */
     public function edit($id) {
 
-        $student = Student::find($id);
-    $student->hostel = 'No';
-        
-        $student->save();
-
-        if ($student->save()) {
-            return redirect::back()
-                            ->withFlashMessage('Student Fee Details Updated successfully!')
+		$queryhDBostel = DB::table('student_details')->where('user_id', $id)->update(['hostel' => 'no']);
+      
+		
+	
+      
+        if ($queryhDBostel==1) {
+            return redirect()->route('Hostel.index')
+                            ->withFlashMessage('student Turned into Day scholars  !')
                             ->withType('success');
         } else {
-            return redirect::back()
-                            ->withFlashMessage('Student  Fee Details Update Failed!')
+            return redirect()->route('Hostel.index')
+                            ->withFlashMessage('Student Transfer Failed!')
                             ->withType('danger');
         }
         
@@ -184,14 +196,14 @@ class HostelController extends Controller {
 
 
               
-        $studentEncrptId = Encrypt::encrypt($students->student_id);
+        /*$studentEncrptId = Encrypt::encrypt($students->student_id);
         
 
         //Redirecting to edit_student.blade.php 
         return View('Feetypes.edit_fee_by_batch', [
             'students'         => $students,
             'studentEncryptId' => $studentEncrptId
-        ]);
+        ]); */
     }
 
     /**
@@ -201,18 +213,8 @@ class HostelController extends Controller {
      * @return Responser
      */
     public function update($id) {
-        $student->hostel = 'Yes';
-		        $student->save();
-
-        if ($student->save()) {
-            return redirect::back()
-                            ->withFlashMessage('updated successfully!')
-                            ->withType('success');
-        } else {
-            return redirect::back()
-                            ->withFlashMessage('Student  Fee Details Update Failed!')
-                            ->withType('danger');
-        }     
+        
+		
        
     }
 

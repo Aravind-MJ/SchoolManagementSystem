@@ -57,7 +57,7 @@
                                              </td>
                     <td>{{ $student->guardian }}</td>
                     <td>{{ $student->phone }}</td>
-					<td><a href='Hostel/{{ $student->id }}/' class='btn btn-primary btn-block'>Change to hostellers</a></td>
+					<td><a href='Hostel/{{ $student->user_id }}' class='btn btn-primary btn-block'>Change to hostellers</a></td>
                    
                 </tr>
                 <?php $i++ ?>
