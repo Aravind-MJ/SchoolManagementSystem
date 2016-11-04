@@ -259,10 +259,7 @@ class HostelController extends Controller {
                 ->where('student_details.hostel', 'no')
                 ->orderBy('student_details.created_at', 'DESC');
                
-//        foreach ($allStudents as $student) {
-//            $student->enc_id = Encrypt::encrypt($student->id);
-//            $student->enc_userid = Encrypt::encrypt($student->user_id);
-        
+
         
         //Fetch Batch Details
    
@@ -344,7 +341,7 @@ class HostelController extends Controller {
         
         // returns a view and passes the view the list of articles and the original query.
 //        return route('Student.index');
-        return View('hostel.list_day scholars', 
+        return View('hostel.list_hostel', 
             ['allStudents' => $allStudents, 
             'batch' => $batch, 'selbatch' => $selectedBatch]
         );
