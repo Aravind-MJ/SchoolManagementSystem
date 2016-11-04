@@ -42,6 +42,7 @@
                     <th>Address</th>
                     <th>Guardian</th>
                    <th>Contact no</th>  
+				     <th>edit</th>
                    
                 </tr>
             </thead>
@@ -56,6 +57,7 @@
                                              </td>
                     <td>{{ $student->guardian }}</td>
                     <td>{{ $student->phone }}</td>
+					<td><a href='Hostel/{{ $student->id }}/edit' class='btn btn-primary btn-block'>change to hostellers</a></td>
                    
                 </tr>
                 <?php $i++ ?>

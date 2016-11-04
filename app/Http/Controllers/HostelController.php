@@ -19,7 +19,6 @@ use DB;
 use App\Encrypt;
 use Illuminate\Support\Facades\Request;
 use DateTime;
-
 class HostelController extends Controller {
 
     
@@ -137,7 +136,8 @@ class HostelController extends Controller {
      * @return Response
      */
     public function show($id) {
-//        
+//   $student = Student::find($id);
+        
     }
 
     /**
@@ -148,19 +148,22 @@ class HostelController extends Controller {
      */
     public function edit($id) {
 
-        $data   = array();
-        $enc_id = $id;
-        $id     = Encrypt::decrypt($id);
+        $student = Student::find($id);
+    $student->hostel = 'No';
         
-//echo $id;
-        //Fetch Student Details
-         $students = DB::table('student_details')
-                 ->join('users', 'users.id', '=', 'student_details.user_id')  
-                 ->join('fee','fee.student_id','=','student_details.user_id')
-                 ->select('users.first_name', 'users.last_name', 'student_details.id as student_id', 'fee.first',
-                        'fee.second', 'fee.third', 'fee.discount', 'fee.balance')
-                 ->where('student_details.id', $id)
-                 ->first();
+        $student->save();
+
+        if ($student->save()) {
+            return redirect::back()
+                            ->withFlashMessage('Student Fee Details Updated successfully!')
+                            ->withType('success');
+        } else {
+            return redirect::back()
+                            ->withFlashMessage('Student  Fee Details Update Failed!')
+                            ->withType('danger');
+        }
+        
+
          
          //Fetch Batch Details
          
@@ -197,35 +200,20 @@ class HostelController extends Controller {
      * @param  int $id
      * @return Responser
      */
-    public function update($id, Requests\PublishFeedetailsRequest $requestData) {
-        //update student_details data 
-       
-        $id      =  Encrypt::decrypt($id);
-        $student = Feedetails::find($id);
-//        $student->first_name= $requestData['first_name'];
-//        
-//        $student->last_name= $requestData['last_name'];
-//        
-        $student->first = $requestData['first'];
-        
-        $student->second = $requestData['second'];
-        $student->third= $requestData['third'];
-        $student->discount= $requestData['discount'];
-        $student->balance= $requestData['balance'];
-     
-
-        
-        $student->save();
+    public function update($id) {
+        $student->hostel = 'Yes';
+		        $student->save();
 
         if ($student->save()) {
             return redirect::back()
-                            ->withFlashMessage('Student Fee Details Updated successfully!')
+                            ->withFlashMessage('updated successfully!')
                             ->withType('success');
         } else {
             return redirect::back()
                             ->withFlashMessage('Student  Fee Details Update Failed!')
                             ->withType('danger');
-        }
+        }     
+       
     }
 
     /**
