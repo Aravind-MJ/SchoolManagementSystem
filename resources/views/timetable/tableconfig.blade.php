@@ -18,7 +18,7 @@
         {!! Form::label('day', 'No of working days in a week') !!}
 		</div>
 		<div class="col-md-8">
-        {!! Form::text('no_of_days_week', null, ['class' => 'form-control', 'placeholder'=>'']) !!}
+        {!! Form::select('no_of_days_week', array(1,2,3,4,5,6,7), null, ['class' => 'form-control']) !!}
 		</div>
 		<br/><br/>
         </div>
@@ -27,7 +27,7 @@
         {!! Form::label('hour', 'No of working hours in a day') !!}
 		</div>
 		<div class="col-md-8">
-       {!! Form::text('no_of_hours_day', null, ['class' => 'form-control', 'placeholder'=>'']) !!}
+      {!! Form::select('no_of_hours_day', array(1,2,3,4,5,6,7,8,9), null, ['class' => 'form-control']) !!}
 	   </div>
         </div>
 		<br/><br/>
