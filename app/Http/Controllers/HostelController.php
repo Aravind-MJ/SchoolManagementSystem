@@ -52,11 +52,6 @@ class HostelController extends Controller {
         return View('hostel.list_hostel', compact('allStudents', 'batch', 'id'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
     public function create() {
         $allStudents = DB::table('student_details')
                 ->join('users', 'users.id', '=', 'student_details.user_id')
@@ -152,22 +147,14 @@ class HostelController extends Controller {
         
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
     public function edit($id) {
 
 		$queryhDBostel = DB::table('student_details')->where('user_id', $id)->update(['hostel' => 'no']);
       
-		
-	
-      
         if ($queryhDBostel==1) {
             return redirect()->route('Hostel.index')
                             ->withFlashMessage('student Turned into Day scholars  !')
+
                             ->withType('success');
         } else {
             return redirect()->route('Hostel.index')
@@ -176,46 +163,11 @@ class HostelController extends Controller {
         }
         
 
-         
-         //Fetch Batch Details
-         
-         /*
-        $batch = DB::table('batch_details')
-                ->select('id', 'batch')              
-                ->get();
-        
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
-        
-          * 
-          */
-        //echo $student->user_id;die;
-        //Fetch User Details
-
-
-              
-        /*$studentEncrptId = Encrypt::encrypt($students->student_id);
-        
-
-        //Redirecting to edit_student.blade.php 
-        return View('Feetypes.edit_fee_by_batch', [
-            'students'         => $students,
-            'studentEncryptId' => $studentEncrptId
-        ]); */
+     
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int $id
-     * @return Responser
-     */
     public function update($id) {
         
-		
-       
+
     }
 
     /**
@@ -226,6 +178,9 @@ class HostelController extends Controller {
      */
     public function destroy($id) {
 //        $enc_id = $id;
+//        $now = new DateTime();
+//        DB::table('users')->where('id', $user_id)->skip(1)->take(1)->update(['deleted_at' => $now]);
+//        Student::find($id)->delete();
 //        $id = Encrypt::decrypt($id);
 //        //find result by id and delete 
 //       $student = DB::table('student_details')
@@ -235,9 +190,6 @@ class HostelController extends Controller {
 //                ->first();
 //
 //        $user_id = $student->user_id;
-//        $now = new DateTime();
-//        DB::table('users')->where('id', $user_id)->skip(1)->take(1)->update(['deleted_at' => $now]);
-//        Student::find($id)->delete();
 ////        User::find($user_id)->delete();
 //        //Redirecting to index() method
 //        return Redirect::back();
@@ -248,7 +200,7 @@ class HostelController extends Controller {
         // Gets the query string and batch from our form submission 
 
         $search = Request::input('param2');
-        $selectedBatch = $batch = Request::input('param1');
+       $selectedBatch = $batch = Request::input('param1');
 
         // Returns an array of articles that have the query string located somewhere within 
 
@@ -260,9 +212,7 @@ class HostelController extends Controller {
                 ->select('users.*', 'student_details.*','batch_details.*')
                 ->where('student_details.hostel', 'no')
                 ->orderBy('student_details.created_at', 'DESC');
-               
-
-        
+          
         //Fetch Batch Details
    
 
@@ -300,7 +250,7 @@ class HostelController extends Controller {
         // Gets the query string and batch from our form submission 
 
         $search = Request::input('param2');
-        $selectedBatch = $batch = Request::input('param1');
+      $selectedBatch = $batch = Request::input('param1');
 
         // Returns an array of articles that have the query string located somewhere within 
 

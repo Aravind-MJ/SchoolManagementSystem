@@ -21,7 +21,6 @@
         {!! Form::select('param1', $batch,$selbatch, array('placeholder' => 'Please select batch','class' => 'form-control')) !!}
            </div> 
           <div class="form-group">
-<!--  {!! Form::text('param2', null, array('class'=>'form-control', 'placeholder'=>'Search for student...')) !!}-->
         {!! Form::submit('Search', array('class'=>'btn btn-default')) !!}
         {!! Form::close() !!}
         @endif
@@ -37,12 +36,12 @@
         <table id="example2" class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Sl.No</th>
+                     <th>Sl.No</th>
                     <th>Full name</th>
                     <th>Address</th>
                     <th>Guardian</th>
-                   <th>Contact no</th>  
-				     <th>edit</th>
+                    <th>Contact no</th>  
+		    <th>edit</th>
                    
                 </tr>
             </thead>
@@ -53,11 +52,11 @@
                 <tr>                   
                     <td>{{ $i }}</td>
                     <td>{{ $student->first_name}} {{$student->last_name }} </td>
-                    <td class= btn btn-primary btn-block> {{ $student ->address}}                     
+                    <td> {{ $student ->address}}                     
                                              </td>
                     <td>{{ $student->guardian }}</td>
                     <td>{{ $student->phone }}</td>
-					<td><a href='Hostel/{{ $student->user_id }}/edit' class='btn btn-primary btn-block'>change to hostellers</a></td>
+					<td><a href='Hostel/{{ $student->user_id }}/edit' class='btn btn-primary btn-block'>change to Day Scholars</a></td>
                    
                 </tr>
                 <?php $i++ ?>

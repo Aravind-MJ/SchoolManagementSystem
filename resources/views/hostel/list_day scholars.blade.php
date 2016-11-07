@@ -53,7 +53,7 @@
                 <tr>                   
                     <td>{{ $i }}</td>
                     <td>{{ $student->first_name}} {{$student->last_name }} </td>
-                    <td class= btn btn-primary btn-block> {{ $student ->address}}                     
+                    <td> {{ $student ->address}}                     
                                              </td>
                     <td>{{ $student->guardian }}</td>
                     <td>{{ $student->phone }}</td>

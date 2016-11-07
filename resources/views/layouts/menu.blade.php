@@ -274,6 +274,20 @@
                         </span>
                         </a>
                     </li>
+                    <li class="treeview {{ set_active('SendAnSms') }}">
+                        <a href="{{url('/hostel')}}">
+                        <i class="fa fa-hotel"></i>
+                        <span>Feedetails for Hostel Students</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        </a>
+                        <ul class="treeview-menu">
+                        <li><a href="{{URL::route('Hostel.index')}}"><i class="fa fa-circle-o"></i>Feedetails of Hostel Students</a></li>
+                       
+                        
+                    </ul>
+                    </li>
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('transportation') }}">
