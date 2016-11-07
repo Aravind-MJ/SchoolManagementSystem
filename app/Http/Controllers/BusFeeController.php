@@ -17,8 +17,8 @@ use App\Http\Requests\CreateBusFeeRequest;
 class BusFeeController extends Controller {
 
    public function create() {
-   		$batch_id = Request::input('param1');	
-   		$batch = DB::table('batch_details')
+ $batch_id = Request::input('param1');	   
+$batch = DB::table('batch_details')
                 ->select('id', 'batch')
                 ->orderBy('batch_details.created_at', 'ASC')
                 ->get();
@@ -41,7 +41,7 @@ class BusFeeController extends Controller {
           }
         $users=$data;	
 
-   		if($batch_id==null){
+   	 if($batch_id==null){
 
       
    		}else{
@@ -66,9 +66,9 @@ class BusFeeController extends Controller {
         }
         $buses = $data;
 
- 		return view('transport.create_fee', compact('batch','batch_id','users','buses'));
+ 		return view('transport.add_fee', compact('batch','batch_id','users','buses'));
  
-   }
+   } 
 
    public function store(CreateBusFeeRequest $requestData) {
     	//dd($requestData);
@@ -103,11 +103,13 @@ class BusFeeController extends Controller {
     			->join('buses','buses.id','=','bus_fee.bus_id')
     			->join('batch_details','batch_details.id','=','bus_fee.batch')
     			->select('bus_fee.*','batch_details.batch','users.first_name','users.last_name','buses.bus_no')
+          ->orderBy('bus_fee.id')
                 ->get();
 
 
-        return View('transport.list_fee', compact('busfee'));
+        return View('transport.listall_fee', compact('busfee'));
     }
+
 
     public function edit($id) {
         $busfees = new Busfee;
@@ -141,7 +143,6 @@ class BusFeeController extends Controller {
         $users=$data;
         $data=array();
       }else{
-        $batch_id = $busfees->batch;
         $users = DB::table('users')
                   ->join('student_details','student_details.user_id', '=','users.id')
                   ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$batch_id])         
@@ -176,9 +177,7 @@ class BusFeeController extends Controller {
         $buses->fee = $requestData['fee'];
 
         $buses->save();
-      }
-
-        catch(Exception $e){
+      }catch(Exception $e){
        return redirect()->route('BusFee.index')
                         ->withFlashMessage('Bus Fee Edition Failed!')
                         ->withType('danger');

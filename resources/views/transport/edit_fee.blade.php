@@ -42,4 +42,11 @@
 
 </div>
 @endsection
- 
+ @section('pagescript')
+<script type="text/javascript">
+    $('#param1').change(function(){  
+        var batch_id = $('#param1').val();
+        window.location.href='{{url("BusFee/".$busfees->id."/edit")}}/?param1='+batch_id;
+    });
+</script>
+@endsection

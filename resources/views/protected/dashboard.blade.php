@@ -11,7 +11,7 @@
               <!-- small box -->
               <div class="small-box bg-aqua">
                 <div class="inner">
-                  <h3>{{$count['student']}}</h3>
+                  <h3>{{$count['users']}}</h3>
 
                   <p>Students</p>
                 </div>
@@ -41,7 +41,7 @@
               <!-- small box -->
               <div class="small-box bg-purple">
                 <div class="inner">
-                  <h3>{{$count['student']}}</h3>
+                  <h3>{{$count['users']}}</h3>
 
                   <p>PTA</p>
                 </div>
