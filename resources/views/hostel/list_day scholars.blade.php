@@ -7,7 +7,7 @@
 @section('content')
 
 @section('body')
-@include('flash')
+
 <div class='col-md-offset-1 col-md-9'>
 <div class="box box-primary">
     <div class="box-body">
@@ -42,6 +42,7 @@
                     <th>Address</th>
                     <th>Guardian</th>
                    <th>Contact no</th>  
+				    <th>edit</th>
                    
                 </tr>
             </thead>
@@ -56,6 +57,7 @@
                                              </td>
                     <td>{{ $student->guardian }}</td>
                     <td>{{ $student->phone }}</td>
+					<td><a href='Hostel/{{ $student->user_id }}' class='btn btn-primary btn-block'>Change to hostellers</a></td>
                    
                 </tr>
                 <?php $i++ ?>

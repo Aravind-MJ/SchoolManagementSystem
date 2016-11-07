@@ -30,7 +30,7 @@ class TimetableController extends Controller
      */
     public function create()
     {
-        
+ 
     }
 
     /**
@@ -120,9 +120,9 @@ class TimetableController extends Controller
     }
     public function timetable_config(Request $requestData)
     {
-       $timetable_config = new TimeTableConfig;
-        $timetable_config->no_of_days_week= $requestData['no_of_days_week'];
-         $timetable_config->no_of_hours_day  = $requestData['no_of_hours_day'];
+       $timetable_config = TimeTableConfig::find(1);
+        $timetable_config->no_of_days_week = $requestData['no_of_days_week'];
+         $timetable_config->no_of_hours_day = $requestData['no_of_hours_day'];
          $timetable_config->save();
         return Redirect::back()
                         ->withFlashMessage('Timetable Configuration Added successfully!')

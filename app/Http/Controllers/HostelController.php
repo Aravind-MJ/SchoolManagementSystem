@@ -19,7 +19,6 @@ use DB;
 use App\Encrypt;
 use Illuminate\Support\Facades\Request;
 use DateTime;
-
 class HostelController extends Controller {
 
     
@@ -137,7 +136,20 @@ class HostelController extends Controller {
      * @return Response
      */
     public function show($id) {
-//        
+
+	
+	$queryhostel = DB::table('student_details')->where('user_id', $id)->update(['hostel' => 'yes']);
+      
+        if ($queryhostel==1) {
+            return redirect()->route('Hostel.index')
+                            ->withFlashMessage('student Turned into Hostelate  !')
+                            ->withType('success');
+        } else {
+            return redirect()->route('Hostel.index')
+                            ->withFlashMessage('Student Transfer Failed!')
+                            ->withType('danger');
+        }
+        
     }
 
     /**
@@ -148,19 +160,22 @@ class HostelController extends Controller {
      */
     public function edit($id) {
 
-        $data   = array();
-        $enc_id = $id;
-        $id     = Encrypt::decrypt($id);
+		$queryhDBostel = DB::table('student_details')->where('user_id', $id)->update(['hostel' => 'no']);
+      
+		
+	
+      
+        if ($queryhDBostel==1) {
+            return redirect()->route('Hostel.index')
+                            ->withFlashMessage('student Turned into Day scholars  !')
+                            ->withType('success');
+        } else {
+            return redirect()->route('Hostel.index')
+                            ->withFlashMessage('Student Transfer Failed!')
+                            ->withType('danger');
+        }
         
-//echo $id;
-        //Fetch Student Details
-         $students = DB::table('student_details')
-                 ->join('users', 'users.id', '=', 'student_details.user_id')  
-                 ->join('fee','fee.student_id','=','student_details.user_id')
-                 ->select('users.first_name', 'users.last_name', 'student_details.id as student_id', 'fee.first',
-                        'fee.second', 'fee.third', 'fee.discount', 'fee.balance')
-                 ->where('student_details.id', $id)
-                 ->first();
+
          
          //Fetch Batch Details
          
@@ -181,14 +196,14 @@ class HostelController extends Controller {
 
 
               
-        $studentEncrptId = Encrypt::encrypt($students->student_id);
+        /*$studentEncrptId = Encrypt::encrypt($students->student_id);
         
 
         //Redirecting to edit_student.blade.php 
         return View('Feetypes.edit_fee_by_batch', [
             'students'         => $students,
             'studentEncryptId' => $studentEncrptId
-        ]);
+        ]); */
     }
 
     /**
@@ -197,35 +212,10 @@ class HostelController extends Controller {
      * @param  int $id
      * @return Responser
      */
-    public function update($id, Requests\PublishFeedetailsRequest $requestData) {
-        //update student_details data 
+    public function update($id) {
+        
+		
        
-        $id      =  Encrypt::decrypt($id);
-        $student = Feedetails::find($id);
-//        $student->first_name= $requestData['first_name'];
-//        
-//        $student->last_name= $requestData['last_name'];
-//        
-        $student->first = $requestData['first'];
-        
-        $student->second = $requestData['second'];
-        $student->third= $requestData['third'];
-        $student->discount= $requestData['discount'];
-        $student->balance= $requestData['balance'];
-     
-
-        
-        $student->save();
-
-        if ($student->save()) {
-            return redirect::back()
-                            ->withFlashMessage('Student Fee Details Updated successfully!')
-                            ->withType('success');
-        } else {
-            return redirect::back()
-                            ->withFlashMessage('Student  Fee Details Update Failed!')
-                            ->withType('danger');
-        }
     }
 
     /**
@@ -271,10 +261,7 @@ class HostelController extends Controller {
                 ->where('student_details.hostel', 'no')
                 ->orderBy('student_details.created_at', 'DESC');
                
-//        foreach ($allStudents as $student) {
-//            $student->enc_id = Encrypt::encrypt($student->id);
-//            $student->enc_userid = Encrypt::encrypt($student->user_id);
-        
+
         
         //Fetch Batch Details
    
@@ -356,7 +343,7 @@ class HostelController extends Controller {
         
         // returns a view and passes the view the list of articles and the original query.
 //        return route('Student.index');
-        return View('hostel.list_day scholars', 
+        return View('hostel.list_hostel', 
             ['allStudents' => $allStudents, 
             'batch' => $batch, 'selbatch' => $selectedBatch]
         );
