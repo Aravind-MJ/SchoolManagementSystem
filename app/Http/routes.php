@@ -43,6 +43,14 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
     # Batch crud Routes.
     Route::resource('BatchDetails', 'BatchDetailsController');
 
+    # Activity crud Routes.
+    Route::resource('Activity', 'ActivityTypeController');
+
+     # Activity Details crud Routes.
+    Route::resource('ActivityDetails', 'ActivityDetailsController');
+
+
+
     # Route to edit student profile.
     Route::post('edit/admin/student/{id}', ['as' => 'studentProfilen.update', 'uses' => 'SuperAdmin\RegistrationController@update']);
 
@@ -156,14 +164,7 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
         Route::get('/hostel', 'PagesController@pageconstruction');
         Route::get('/transportation', 'PagesController@pageconstruction');
         Route::get('/storemanagement', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity/nss', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity/ncc', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity/spc', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity/scout-guide', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity/sports', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity/arts', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity/study-tour', 'PagesController@pageconstruction');
+    
 Route::filter('permissions', function($route, $request)
 {
     $action = $route->getActionName();
