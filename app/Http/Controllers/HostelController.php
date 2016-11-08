@@ -69,16 +69,8 @@ class HostelController extends Controller {
         
         }
         //Fetch Batch Details
-        $batch = DB::table('batch_details')
-                ->select('id', 'batch')
-                ->orderBy('batch_details.created_at', 'ASC')
-                ->get();
-//        $batch = Batch::lists('batch', 'id')->prepend('Select Batch', '');
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+        $batch = new Batch;
+        $batch = $batch->fetch();
         return View('hostel.list_day scholars', compact('allStudents', 'batch', 'id'));
     }
     /**
@@ -228,14 +220,8 @@ class HostelController extends Controller {
                 
         }
         //Fetch Batch Details
-        $batch = DB::table('batch_details')
-                ->select('id', 'batch')              
-                ->get();
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+        $batch = new Batch;
+        $batch = $batch->fetch();
         
         // returns a view and passes the view the list of articles and the original query.
 //        return route('Student.index');
@@ -283,15 +269,8 @@ class HostelController extends Controller {
                 
         }
         //Fetch Batch Details
-        $batch = DB::table('batch_details')
-                ->select('id', 'batch')              
-                ->get();
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
-        
+       $batch = new Batch;
+       $batch = $batch->fetch();
         // returns a view and passes the view the list of articles and the original query.
 //        return route('Student.index');
         return View('hostel.list_hostel', 
