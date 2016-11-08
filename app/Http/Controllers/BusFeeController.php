@@ -24,26 +24,13 @@ $batch = DB::table('batch_details')
                 ->get();
 
         $data = array();
-        foreach ($batch as $batch) {
+        foreach ($batch as $batch) {r
            $data[$batch->id] = $batch->batch;
         }
         $batch = $data;
 
-        $users = DB::table('users')
-                  ->join('student_details','student_details.user_id', '=','users.id')
-                  ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$batch_id])         
-                  ->select('users.id','first_name','last_name')
-                  ->orderBy('users.created_at', 'ASC')
-                  ->get();
-          $data=array();
-          foreach($users as $each){
-              $data[$each->id]=$each->first_name.' '.$each->last_name;
-          }
-        $users=$data;	
-
    	 if($batch_id==null){
-
-      
+        $users = array();      
    		}else{
    			$users = DB::table('users')
                   ->join('student_details','student_details.user_id', '=','users.id')
@@ -57,7 +44,8 @@ $batch = DB::table('batch_details')
         $users=$data;
    		}
         
-       	$buses = DB::table('buses')
+        $buses = new Buses;
+       	$buses = $buses
                   ->select('id','bus_no')
                   ->get();
         $data=array();         

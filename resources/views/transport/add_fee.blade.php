@@ -13,28 +13,33 @@
             {!! Form::select('param1',(['0' => 'Select batch'] + $batch),$batch_id,['class' => 'form-control']) !!}
         </div> 
 
-        <div class="form-group">
-            {!! Form::Label('student_id', 'Student') !!}
-            {!! Form::select('student_id',(['0' => 'Select student'] + $users),  null, ['class' => 'form-control']) !!}
-        </div>  
+        <div class="box-body">
 
-        <div class="form-group">
-            {!! Form::Label('bus_id', 'Bus') !!}
-            {!! Form::select('bus_id', (['0' => 'Select bus'] + $buses), null, ['class' => 'form-control']) !!}
-        </div>
 
-        
+        <table id="example2" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>SL.No</th>
+                    <th>Student</th>
+                    <th>Bus</th>
+                    <th>Fee</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $i=1 ?>
+                @foreach($users as $each_users)
+                <tr>
+                    <td>{{ $i }}</td>
+                    <td>{{ $each_users->first_name }} {{ $each_users->last_name }}</td>
+                    <td>{{ $each_users->bus_no }}</td>
+                    <td>{{ $each_users->fee }}</td>                   
+                </tr>
+                <?php $i++ ?>
+                @endforeach 
+            </tbody>
 
-        <div class="form-group">
-            {!! Form::Label('fee', 'Fee') !!}
-            {!! Form::text('fee', null, ['class' => 'form-control']) !!}
-        </div> 
-        
-        <br>
-        <div class="form-group">
-            {!! Form::submit( 'Submit', ['class'=>'btn btn-primary']) !!} 
-        </div>
-
+        </table>
+    </div>
         {!! Form::close() !!}
     </div>
 
@@ -47,4 +52,20 @@
         window.location.href='{{url("BusFee/create")}}/?param1='+batch_id;
     });
 </script>
+@endsection
+@section('dataTable')
+<script type="text/javascript">
+    $(function () {
+        $("#example1").dataTable();
+        $('#example2').dataTable({
+            "bPaginate": true,
+            "bLengthChange": false,
+            "bFilter": true,
+            "bSort": true,
+            "bInfo": true,
+            "bAutoWidth": false
+        });
+    });
+</script>
+@stop
 @endsection
