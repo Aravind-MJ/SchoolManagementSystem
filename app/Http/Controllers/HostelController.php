@@ -42,6 +42,7 @@ class HostelController extends Controller {
         $batch = DB::table('batch_details')
                 ->select('id', 'batch')
                 ->orderBy('batch_details.created_at', 'ASC')
+                
                 ->get();
 //        $batch = Batch::lists('batch', 'id')->prepend('Select Batch', '');
         $data = array();

@@ -272,7 +272,12 @@
                         <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                        </a>
+                       </a>
+                        <ul class="treeview-menu">
+                        <li><a href="{{URL::route('Hostel.index')}}"><i class="fa fa-circle-o"></i>Hostel Students</a></li>
+                         <li><a href="{{URL::route('Hostel.create')}}"><i class="fa fa-circle-o"></i>Dayscholer</a></li>
+                   
+                    </ul>
                     </li>
                     <li class="treeview {{ set_active('SendAnSms') }}">
                         <a href="{{url('/hostel')}}">
@@ -283,7 +288,7 @@
                         </span>
                         </a>
                         <ul class="treeview-menu">
-                        <li><a href="{{URL::route('Hostel.index')}}"><i class="fa fa-circle-o"></i>Feedetails of Hostel Students</a></li>
+                        <li><a href="{{URL::route('Fee.create')}}"><i class="fa fa-circle-o"></i>Feedetails of Hostel Students</a></li>
                        
                         
                     </ul>
