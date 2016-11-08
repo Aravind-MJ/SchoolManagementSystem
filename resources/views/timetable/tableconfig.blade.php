@@ -7,7 +7,6 @@
 @section('body')
 
 @include('tablelink')
-
       {!! Form::open(['action' => 'TimetableController@timetable_config','method'=>'POST']) !!}
      
       <div class="box box-success">
@@ -18,16 +17,16 @@
         {!! Form::label('day', 'No of working days in a week') !!}
 		</div>
 		<div class="col-md-8">
-        {!! Form::select('no_of_days_week', array(1,2,3,4,5,6,7), null, ['class' => 'form-control']) !!}
+        {!! Form::select('no_of_days_week', array(1=>1,2=>2,'3'=>3,4=>4,5=>5,6=>6,7=>7), $current_no_of_days_week, ['class' => 'form-control']) !!}
 		</div>
 		<br/><br/>
         </div>
          <div class="form-group">
 		 <div class="col-md-4">
-        {!! Form::label('hour', 'No of working hours in a day') !!}
+        {!! Form::label('hour', 'No of working periods in a day') !!}
 		</div>
 		<div class="col-md-8">
-      {!! Form::select('no_of_hours_day', array(1,2,3,4,5,6,7,8,9), null, ['class' => 'form-control']) !!}
+      {!! Form::select('no_of_hours_day', array(1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9), $current_no_of_hours_day, ['class' => 'form-control']) !!}
 	   </div>
         </div>
 		<br/><br/>
