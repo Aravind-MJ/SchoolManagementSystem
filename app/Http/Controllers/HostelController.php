@@ -39,17 +39,8 @@ class HostelController extends Controller {
         
         }
         //Fetch Batch Details
-        $batch = DB::table('batch_details')
-                ->select('id', 'batch')
-                ->orderBy('batch_details.created_at', 'ASC')
-                
-                ->get();
-//        $batch = Batch::lists('batch', 'id')->prepend('Select Batch', '');
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+         $batch = new Batch;
+        $batch = $batch->fetch();
         return View('hostel.list_hostel', compact('allStudents', 'batch', 'id'));
     }
 

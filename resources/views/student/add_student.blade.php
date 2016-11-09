@@ -30,7 +30,7 @@
         </div>
 
         <div class="form-group">
-            {!! Form::Label('batch', 'Batch') !!}
+            {!! Form::Label('batch', 'Class') !!}
             {!! Form::select('batch_id', $batch, null, ['class' => 'form-control']) !!}
         </div>
         

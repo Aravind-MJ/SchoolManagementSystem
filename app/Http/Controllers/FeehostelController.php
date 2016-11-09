@@ -41,16 +41,8 @@ class FeehostelController extends Controller
            
         }
         $users=$data;
-         $batch = DB::table('batch_details')
-                ->select('id', 'batch')
-                ->orderBy('batch_details.created_at', 'ASC')
-                ->get();
-//        $batch = Batch::lists('batch', 'id')->prepend('Select Batch', '');
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+          $batch = new Batch;
+        $batch = $batch->fetch();
        return view('hostel.add_feedetails_for hostel', compact('student_id', 'Feedetails','batch', 'users','id'));
     }
 

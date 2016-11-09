@@ -18,16 +18,8 @@ class BusFeeController extends Controller {
 
    public function create() {
  $batch_id = Request::input('param1');	   
-$batch = DB::table('batch_details')
-                ->select('id', 'batch')
-                ->orderBy('batch_details.created_at', 'ASC')
-                ->get();
-
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+ $batch = new Batch;
+        $batch = $batch->fetch();
 
         $users = DB::table('users')
                   ->join('student_details','student_details.user_id', '=','users.id')
@@ -115,17 +107,8 @@ $batch = DB::table('batch_details')
         $busfees = $busfees->find($id);
         $batch_id = Request::input('param1');
 
-        $batch = DB::table('batch_details')
-                ->select('id', 'batch')
-                ->orderBy('batch_details.created_at', 'ASC')
-                ->get();
-//        $batch = Batch::lists('batch', 'id')->prepend('Select Batch', '');
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
-          
+         $batch = new Batch;
+        $batch = $batch->fetch();
 
       if($batch_id==null){
         $batch_id = $busfees->batch;
