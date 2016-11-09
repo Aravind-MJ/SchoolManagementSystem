@@ -2,7 +2,7 @@
 
 @extends('layouts.layout')
 
-@section('title', 'Days Scholars By Batch')
+@section('title', 'Days Scholars By Class')
 
 @section('content')
 
@@ -18,6 +18,7 @@
         @if(!empty($batch))
           </div>  
         <div class="form-group">
+            <h4>Class</h4>
         {!! Form::select('param1', $batch,$selbatch, array('placeholder' => 'Please select batch','class' => 'form-control')) !!}
            </div> 
           <div class="form-group">

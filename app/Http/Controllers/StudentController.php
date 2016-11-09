@@ -51,21 +51,10 @@ class StudentController extends Controller {
 
     public function create() {
         //Fetch Batch Details
-<<<<<<< Updated upstream
-		
-        $batch = DB::table('batch_details')
-                ->select('id', 'batch')              
-                ->get();
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
-=======
+
          $batch = new ClassDetails;
         $batch = $batch->fetch();
 
->>>>>>> Stashed changes
         return view('student.add_student', compact('id', 'batch'));
     }
 

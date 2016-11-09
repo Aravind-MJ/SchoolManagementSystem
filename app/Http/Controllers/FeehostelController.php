@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
-use App\Batch;
+use App\ClassDetails;
 use DB;
 
 class FeehostelController extends Controller
@@ -63,8 +63,8 @@ class FeehostelController extends Controller
         
         // Assign the role to the users
         {
-            $Batchdetails = new \App\Batchdetails;
-            $Batchdetails->batch = $requestData['batch'];
+            $Batchdetails = new \App\Classdetails;
+            $Batchdetails->class = $requestData['class'];
             $Batchdetails->year = date("Y/m/d", strtotime($requestData['year']));
             $Batchdetails->month = $requestData['month'];
           

@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
-use App\Batch;
+use App\ClassDetails;
 use App\Student;
 use App\User;
 use App\Feetypes;
@@ -27,9 +27,9 @@ class HostelController extends Controller {
         $allStudents = DB::table('student_details')
                 ->join('users', 'users.id', '=', 'student_details.user_id')
                 
-                ->join('batch_details', 'batch_details.id', '=', 'student_details.batch_id')
+                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
                 
-                ->select('users.*', 'student_details.*','batch_details.*')
+                ->select('users.*', 'student_details.*','class_details.*')
                 ->where('student_details.hostel', 'Yes')
                 ->orderBy('student_details.created_at', 'DESC')
                 ->get();
@@ -39,7 +39,7 @@ class HostelController extends Controller {
         
         }
         //Fetch Batch Details
-         $batch = new Batch;
+         $batch = new ClassDetails;
         $batch = $batch->fetch();
         return View('hostel.list_hostel', compact('allStudents', 'batch', 'id'));
     }
@@ -48,9 +48,9 @@ class HostelController extends Controller {
         $allStudents = DB::table('student_details')
                 ->join('users', 'users.id', '=', 'student_details.user_id')
                 
-                ->join('batch_details', 'batch_details.id', '=', 'student_details.batch_id')
+                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
                 
-                ->select('users.*', 'student_details.*','batch_details.*')
+                ->select('users.*', 'student_details.*','class_details.*')
                 ->where('student_details.hostel', 'no')
                 ->orderBy('student_details.created_at', 'DESC')
                 ->get();
@@ -60,7 +60,7 @@ class HostelController extends Controller {
         
         }
         //Fetch Batch Details
-        $batch = new Batch;
+        $batch = new ClassDetails;
         $batch = $batch->fetch();
         return View('hostel.list_day scholars', compact('allStudents', 'batch', 'id'));
     }
@@ -191,9 +191,9 @@ class HostelController extends Controller {
         $query = DB::table('student_details')
                 ->join('users', 'users.id', '=', 'student_details.user_id')
                 
-                ->join('batch_details', 'batch_details.id', '=', 'student_details.batch_id')
+                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
                 
-                ->select('users.*', 'student_details.*','batch_details.*')
+                ->select('users.*', 'student_details.*','class_details.*')
                 ->where('student_details.hostel', 'no')
                 ->orderBy('student_details.created_at', 'DESC');
           
@@ -211,7 +211,7 @@ class HostelController extends Controller {
                 
         }
         //Fetch Batch Details
-        $batch = new Batch;
+        $batch = new ClassDetails;
         $batch = $batch->fetch();
         
         // returns a view and passes the view the list of articles and the original query.
@@ -235,9 +235,9 @@ class HostelController extends Controller {
         $query = DB::table('student_details')
                 ->join('users', 'users.id', '=', 'student_details.user_id')
                 
-                ->join('batch_details', 'batch_details.id', '=', 'student_details.batch_id')
+                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
                 
-                ->select('users.*', 'student_details.*','batch_details.*')
+                ->select('users.*', 'student_details.*','class_details.*')
                 ->where('student_details.hostel', 'yes')
                 ->orderBy('student_details.created_at', 'DESC');
                
@@ -260,7 +260,7 @@ class HostelController extends Controller {
                 
         }
         //Fetch Batch Details
-       $batch = new Batch;
+       $batch = new ClassDetails;
        $batch = $batch->fetch();
         // returns a view and passes the view the list of articles and the original query.
 //        return route('Student.index');

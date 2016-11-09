@@ -138,14 +138,14 @@
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-delicious"></i>
-                    <span>Batch Details</span>
+                    <span>Class Details</span>
                     <span class="pull-right-container">
                         <span class="fa fa-angle-left pull-right"></span>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::route('BatchDetails.create')}}"><i class="fa fa-circle-o"></i> Add BatchDetails</a></li>
-                    <li><a href="{{URL::route('BatchDetails.index')}}"><i class="fa fa-circle-o"></i> List BatchDetails</a></li>
+                    <li><a href="{{URL::route('BatchDetails.create')}}"><i class="fa fa-circle-o"></i> Add ClassDetails</a></li>
+                    <li><a href="{{URL::route('BatchDetails.index')}}"><i class="fa fa-circle-o"></i> List ClassDetails</a></li>
                 </ul>
             </li>
             @endif

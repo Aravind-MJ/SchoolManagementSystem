@@ -11,15 +11,16 @@ class ClassDetails extends Model
     public function fetch() {
         $year = new Variables;
         $year = $year->get('AY');
-    $batch = $this
-            ->select('id', 'class')
+      $batch = $this
+            ->select('id', 'class','division')
             ->where('year',$year)
             ->orderBy('class_details.created_at', 'ASC')
             ->get();
 //        $batch = Batch::lists('batch', 'id')->prepend('Select Batch', '');
         $data = array();
         foreach ($batch as $batches) {
-           $data[$batches->id] = $batches->class;
+           $data[$batches->id] = $batches->class.' '.$batches->division;
+           
         }
         return $data;
     }
