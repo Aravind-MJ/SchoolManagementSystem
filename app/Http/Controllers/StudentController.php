@@ -1,8 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
-//use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -27,6 +24,7 @@ class StudentController extends Controller {
      */
     public function index() {
         //select list of student
+		
         $allStudents = DB::table('student_details')
                 ->join('users', 'users.id', '=', 'student_details.user_id')
                 ->join('batch_details', 'batch_details.id', '=', 'student_details.batch_id')
@@ -58,8 +56,10 @@ class StudentController extends Controller {
      *
      * @return Response
      */
+
     public function create() {
         //Fetch Batch Details
+		
         $batch = DB::table('batch_details')
                 ->select('id', 'batch')              
                 ->get();
@@ -68,7 +68,6 @@ class StudentController extends Controller {
            $data[$batch->id] = $batch->batch;
         }
         $batch = $data;
-
         return view('student.add_student', compact('id', 'batch'));
     }
 
@@ -103,6 +102,7 @@ class StudentController extends Controller {
         $student->dob = date('Y-m-d', strtotime($requestData['dob']));
         $student->guardian = $requestData['guardian'];
         $student->hostel = $requestData['hostel'];
+        $student->hostelfee = $requestData['hostelfee'];
         $student->address = $requestData['address'];
         $student->phone = $requestData['phone'];
         $student->school = $requestData['school'];
@@ -113,6 +113,7 @@ class StudentController extends Controller {
 //
 //            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 //        ]);
+
 
         if ($requestData->hasFile('photo')) {
 
@@ -297,7 +298,8 @@ class StudentController extends Controller {
         //Fetch Batch Details
         $batch = DB::table('batch_details')
                 ->select('id', 'batch')              
-                ->get();
+        
+        ->get();
         $data = array();
         foreach ($batch as $batch) {
            $data[$batch->id] = $batch->batch;
