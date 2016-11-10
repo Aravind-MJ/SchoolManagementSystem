@@ -77,6 +77,10 @@ Route::group(['middleware' => ['auth', 'redirectStandardUser']], function () {
 
     # Search Student Route.
     Route::get('Search', ['as' => 'search.queries', 'uses' => 'StudentController@search']);
+    
+    # Library crud Route.
+    Route::resource('Library', 'LibraryController');
+    Route::get('library/issue', ['uses' => 'LibraryController@issueBook']);
 });
 
 # Standard User Routes.

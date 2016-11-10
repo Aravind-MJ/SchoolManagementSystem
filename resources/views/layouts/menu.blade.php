@@ -253,7 +253,7 @@
                     </ul>	
                     </li>
                 @endif
-				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+		@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
                         <a href="{{url('/library')}}">
                         <i class="fa fa-book"></i>
@@ -262,6 +262,11 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
+                        <ul class="treeview-menu">
+                        <li><a href="{{URL::route('Library.create')}}"><i class="fa fa-circle-o"></i> Add Book</a></li>
+                        <li><a href="{{URL::route('Library.index')}}"><i class="fa fa-circle-o"></i> View Book</a></li>
+                        <li><a href="{{ url('library/issue') }}"><i class="fa fa-circle-o"></i> Issue Book</a></li>
+                    </ul>
                     </li>
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
