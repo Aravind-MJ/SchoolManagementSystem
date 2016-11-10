@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use App\ClassDetails;
 use App\Student;
+use App\FeeDetails;
 use App\User;
 use Input;
 use Validator;
@@ -38,7 +39,7 @@ class StudentController extends Controller {
             $student->enc_userid = Encrypt::encrypt($student->user_id);
         }
         //Fetch Batch Details
-         $batch = new Batch;
+         $batch = new ClassDetails;
         $batch = $batch->fetch();
         return View('student.list_student', compact('allStudents', 'class', 'id'));
     }
@@ -81,6 +82,9 @@ class StudentController extends Controller {
 
         // Assign the role to the users
         $usersRole->users()->attach($user);
+        
+       
+        
 
         $student = new Student;
         $student->batch_id = $requestData['batch_id'];
@@ -95,6 +99,7 @@ class StudentController extends Controller {
         $student->school = $requestData['school'];
         $student->cee_rank = $requestData['cee_rank'];
         $student->percentage = $requestData['percentage'];
+        
 
 //        $this->validate($requestData['photo'], [
 //
@@ -115,6 +120,14 @@ class StudentController extends Controller {
             $student->photo = $name;
         }
 
+        
+        
+        $fee = new FeeDetails;
+        $fee->firstname= $requestData['first_name'];
+         $fee->lastname= $requestData['last_name'];
+        $fee->paid = $requestData['hostelfee'];
+        $fee->save();
+            
         $student->save();
         if ($student->save()) {
             return Redirect::back()
