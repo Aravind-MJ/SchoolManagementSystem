@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use App\Encrypt;
 use App\Library;
+use App\ClassDetails;
 
 class LibraryController extends Controller {
 
@@ -134,7 +135,10 @@ class LibraryController extends Controller {
     
     public function issueBook() {
         
-        return View('Library.issue_book');
+        //Fetch Class Details
+        $class = new ClassDetails;
+        $class = $class->fetch();
+        return View('Library.issue_book', compact('class'));
     }
     
     public function filterStudent() {

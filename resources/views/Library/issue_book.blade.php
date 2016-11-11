@@ -18,13 +18,19 @@
                 <h3 class="box-title">Find Student</h3>
             </div>
             <div class="box-body">
-                <div class="form-group">
-                    
-                    
+                <div class="form-group col-md-12">
+                    <div class="col-md-6">
+                        {!! Form::Label('class', 'Class') !!}
+                        {!! Form::select('batch_id', array_unique($class[0]), null, ['class' => 'form-control', 'id' => 'class']) !!}
+                    </div>
+
+                    <div class="col-md-6">
+                        {!! Form::Label('division', 'Division') !!}
+                        {!! Form::select('batch_id', array_unique($class[1]), null, ['class' => 'form-control']) !!}
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
     <!--</div>
     <div class="row">-->

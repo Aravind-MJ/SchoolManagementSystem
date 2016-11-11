@@ -18,10 +18,11 @@ class ClassDetails extends Model
             ->get();
 //        $batch = Batch::lists('batch', 'id')->prepend('Select Batch', '');
         $data = array();
+        $division = array();
         foreach ($batch as $batches) {
-           $data[$batches->id] = $batches->class.' '.$batches->division;
-           
+           $data[$batches->id] = $batches->class;
+           $division[$batches->id] = $batches->division;
         }
-        return $data;
+        return array($data, $division);
     }
 }
