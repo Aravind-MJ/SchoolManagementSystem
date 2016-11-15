@@ -60,8 +60,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ action("StudentController@create") }}"><i class="fa fa-circle-o"></i> Add Student</a></li>
-                    <li><a href="{{ action("StudentController@index") }}"><i class="fa fa-circle-o"></i> List Students</a></li>
+                    {{--<li><a href="{{ route("Student.create") }}"><i class="fa fa-circle-o"></i> Add Student</a></li>--}}
+                    {{--<li><a href="{{ route("Student.index") }}"><i class="fa fa-circle-o"></i> List Students</a></li>--}}
                 </ul>
             </li>
             @endif
@@ -78,8 +78,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ action("SubjectController@create") }}"><i class="fa fa-circle-o"></i> Add Subject</a></li>
-                    <li><a href="{{ action("SubjectController@index") }}"><i class="fa fa-circle-o"></i> List Subject</a></li>
+                    <li><a href="{{ route("Subject.create") }}"><i class="fa fa-circle-o"></i> Add Subject</a></li>
+                    <li><a href="{{ route("Subject.index") }}"><i class="fa fa-circle-o"></i> List Subject</a></li>
                 </ul>
             </li>    
 		<li class="treeview">
@@ -145,8 +145,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::route('BatchDetails.create')}}"><i class="fa fa-circle-o"></i> Add ClassDetails</a></li>
-                    <li><a href="{{URL::route('BatchDetails.index')}}"><i class="fa fa-circle-o"></i> List ClassDetails</a></li>
+                    {{--<li><a href="{{URL::route('BatchDetails.create')}}"><i class="fa fa-circle-o"></i> Add ClassDetails</a></li>--}}
+                    {{--<li><a href="{{URL::route('BatchDetails.index')}}"><i class="fa fa-circle-o"></i> List ClassDetails</a></li>--}}
                 </ul>
             </li>
             @endif
@@ -240,8 +240,6 @@
 					</li>
 				@endif
 
-				@if($user->inRole('faculty'))
-
                     <li class="treeview {{ set_active('Assignment') }}">
                          <a href="{{url('/assignment')}}">
                         <i class="fa fa-file-text-o"></i>
@@ -249,15 +247,12 @@
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
+                        </a>
                 <ul class="treeview-menu">
                     <li><a href="{{URL::route('Assignment.create')}}"><i class="fa fa-circle-o"></i> Add Assignment</a></li>
                     <li><a href="{{URL::route('Assignment.index')}}"><i class="fa fa-circle-o"></i> List Assignment</a></li>
                 </ul>
                     </li>
-                 @endif
-                 @if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users'))
-            <li><a href="{{url('/assignment')}}"><i class="fa fa-bell"></i> List Assignment</a></li>
-            @endif    
             
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
 
@@ -280,7 +275,7 @@
                         <ul class="treeview-menu">
                         <li><a href="{{URL::route('Library.create')}}"><i class="fa fa-circle-o"></i> Add Book</a></li>
                         <li><a href="{{URL::route('Library.index')}}"><i class="fa fa-circle-o"></i> View Book</a></li>
-                        <li><a href="{{ url('library/issue') }}"><i class="fa fa-circle-o"></i> Issue Book</a></li>
+                        {{--<li><a href="{{ url('library/issue') }}"><i class="fa fa-circle-o"></i> Issue Book</a></li>--}}
                     </ul>
                     </li>
                 @endif
@@ -325,11 +320,11 @@
                         </a>
 
                         <ul class="treeview-menu">
-                        <li><a href="{{route('transportation.create')}}" class="fa fa-circle-o"></i>Create Bus</a></li>
-                        <li><a href="{{route('transportation.index')}}" class="fa fa-circle-o"></i>List Bus</a></li>                        
-                        <li><a href="{{route('BusFee.create')}}" class="fa fa-circle-o"></i>Add Bus Fee</a></li>                        
-                        <li><a href="{{route('BusFee.index')}}" class="fa fa-circle-o"></i>List Bus Fee</a></li>                        
-                        <li><a href="{{route('BusFee.create')}}" class="fa fa-circle-o"></i>Add Bus Fee</a></li>                        
+                        <li><a href="{{route('transportation.create')}}"><i class="fa fa-circle-o"></i>Create Bus</a></li>
+                        <li><a href="{{route('transportation.index')}}"><i class="fa fa-circle-o"></i>List Bus</a></li>
+                        <li><a href="{{route('BusFee.create')}}"><i class="fa fa-circle-o"></i>Add Bus Fee</a></li>
+                        <li><a href="{{route('BusFee.index')}}"><i class="fa fa-circle-o"></i>List Bus Fee</a></li>
+                        <li><a href="{{route('BusFee.create')}}"><i class="fa fa-circle-o"></i>Add Bus Fee</a></li>
                         </ul>
                     </li>
                 @endif

@@ -177,7 +177,6 @@ class TimetableController extends Controller
         foreach ($check_faculty as $check) {
             $faculty = new User;
             $faculty = $faculty->find($check->faculty_id);
-            $name = $faculty->first_name . ' ' . $faculty->last_name;
             if ($check->nop > $this->TOTAL_PERIODS) {
                 $difference = $check->nop - $this->TOTAL_PERIODS;
                 array_push($this->ERRORS,
@@ -281,13 +280,16 @@ class TimetableController extends Controller
 
         //Check whether multiple faculties are in charge of any batch.
         $cmic = new Batch;
-        $cmic = $cmic->select(DB::raw('COUNT(*) as count,batch'))->groupBy('in_charge')->get();
+        $cmic = $cmic->select(DB::raw('COUNT(*) as count,batch,in_charge'))->groupBy('in_charge')->get();
         foreach ($cmic as $check) {
             if ($check->count > 1) {
+                $faculty = new User;
+                $faculty = $faculty->find($check->in_charge);
                 array_push($this->ERRORS,
                     new Error(
-                        'Multiple faculties in charge of '
-                        . $this->bold($check, 'batch'),
+                        'Faculty '
+                        . $this->bold($faculty, ['first_name','last_name'])
+                        . ' is in charge of multiple classes',
                         'danger'
                     )
                 );

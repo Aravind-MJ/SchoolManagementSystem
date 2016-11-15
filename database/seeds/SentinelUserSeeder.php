@@ -22,6 +22,13 @@ class SentinelUserSeeder extends Seeder
         ]);
 
         Sentinel::registerAndActivate([
+            'email'    => 'administrator@administrator.com',
+            'password' => 'sentineladministrator',
+            'first_name' => 'AdministratorFirstName',
+            'last_name' => 'AdministratorLastName',
+        ]);
+
+        Sentinel::registerAndActivate([
             'email'    => 'admin@admin.com',
             'password' => 'sentineladmin',
             'first_name' => 'AdminFirstName',

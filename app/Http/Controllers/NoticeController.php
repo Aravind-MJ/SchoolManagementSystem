@@ -7,7 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use App\Batch;
-use App\Assignment;
+use App\Notice;
 
 class NoticeController extends Controller {
 

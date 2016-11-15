@@ -34,7 +34,7 @@ class LibraryController extends Controller {
             $book->enc_id = Encrypt::encrypt($book->id);
         }
 
-        return View('library.list_book', compact('allBooks'));
+        return View('Library.list_book', compact('allBooks'));
     }
 
     /**

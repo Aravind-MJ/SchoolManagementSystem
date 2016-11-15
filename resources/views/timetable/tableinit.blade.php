@@ -3,18 +3,19 @@
 @section('title', 'Time Table')
 
 @section('body')
-
-@include('tablelink')
+<div class="box box-success">
+    <div class="box-body">
+        @include('tablelink')<br>
 <div class="row">
     <div class="col-md-6">
         {!! Form::open(['route' => ['Timetable.store'], 'method' => 'POST','class' => 'init-form']) !!}
-        <div class="alert alert-info" style="display: none;" id="Notice">
-            <span class="fa fa-info" style="font-size: 20px"></span>
-            <strong style="font-size: 16px; padding: 10px;">You have selected an option to edit. Changes values here itself for Update.</strong>
-        </div>
         {!! Form::hidden('_method','POST')!!}
         <div class="box box-success">
             <div class="box-body">
+            <div class="alert alert-info" style="display: none;" id="Notice">
+                <span class="fa fa-info" style="font-size: 20px"></span>
+                <strong style="font-size: 16px; padding: 10px;">You have selected an option to edit. Changes values here itself for Update.</strong>
+            </div>
                 <div class="form-group">
                     {!! Form::label('batch', 'Batch') !!}
                     {!! Form::select('batch',$batch,null,['class' => 'form-control', 'placeholder'=>''])!!}
@@ -119,6 +120,8 @@
         </table>
         </div>
         </div>
+    </div>
+</div>
     </div>
 </div>
 @endsection

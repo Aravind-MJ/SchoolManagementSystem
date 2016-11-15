@@ -41,21 +41,23 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
     Route::resource('Notice', 'NoticeController');
 
     # Batch crud Routes.
-    Route::resource('BatchDetails', 'BatchDetailsController');
+//    Route::resource('BatchDetails', 'BatchDetailsController');
     Route::resource('Hostel', 'HostelController');
     Route::resource('Fee', 'FeehostelController');
-     Route::get('dayscholars', ['as' => 'search.dayscholars', 'uses' => 'HostelController@search']);
-      Route::get('hostel', ['as' => 'search.hostel', 'uses' => 'HostelController@hostelsearch']);
+    Route::get('dayscholars', ['as' => 'search.dayscholars', 'uses' => 'HostelController@search']);
+    Route::get('hostel', ['as' => 'search.hostel', 'uses' => 'HostelController@hostelsearch']);
 
     # Activity crud Routes.
     Route::resource('Activity', 'ActivityTypeController');
 
-     # Activity Details crud Routes.
+    # Activity Details crud Routes.
     Route::resource('ActivityDetails', 'ActivityDetailsController');
 
-    Route::resource('StoreType','StoreTypeController');
+    Route::resource('StoreType', 'StoreTypeController');
 
-    Route::resource('StoreManagement','StoreManagementController');
+    Route::resource('Assignment', 'AssignmentController');
+
+    Route::resource('StoreManagement', 'StoreManagementController');
 
     # Route to edit student profile.
     Route::post('edit/admin/student/{id}', ['as' => 'studentProfilen.update', 'uses' => 'SuperAdmin\RegistrationController@update']);
@@ -64,7 +66,7 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
     Route::post('edit/admin/faculty/{id}', ['as' => 'facultyProfile.update', 'uses' => 'SuperAdmin\RegistrationController@update']);
 
     #Search Student Route
-    Route::post('Search', ['as' => 'search.queries', 'uses' => 'StudentController@search']);
+//    Route::post('Search', ['as' => 'search.queries', 'uses' => 'StudentController@search']);
 
     # Sms Api Route
     Route::get('SendAnSms/students', 'SmsApiController@students');
@@ -83,11 +85,11 @@ Route::group(['middleware' => ['auth', 'redirectStandardUser']], function () {
     Route::post('fetchMark', ['uses' => 'MarkDetailsController@fetchMark']);
 
     # Student Registration crud Route.
-    Route::resource('Student', 'StudentController');
+//    Route::resource('Student', 'StudentController');
 
     # Search Student Route.
-    Route::get('Search', ['as' => 'search.queries', 'uses' => 'StudentController@search']);
-    
+//    Route::get('Search', ['as' => 'search.queries', 'uses' => 'StudentController@search']);
+
     # Library crud Route.
     Route::resource('Library', 'LibraryController');
     Route::get('library/issue', ['uses' => 'LibraryController@issueBook']);
@@ -169,17 +171,18 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
     Route::get('changePassword/{id}', ['uses' => 'ChangePasswordController@edit']);
     Route::post('changePassword/{id}', ['as' => 'password.change', 'uses' => 'ChangePasswordController@update']);
 });
-        
-        Route::resource('transportation','BusesController');
-        Route::resource('BusFee','BusFeeController');
 
-        
-Route::filter('permissions', function($route, $request)
-{
+Route::resource('transportation', 'BusesController');
+Route::resource('BusFee', 'BusFeeController');
+
+Route::get('construction', function(){
+    return view('construction');
+});
+
+Route::filter('permissions', function ($route, $request) {
     $action = $route->getActionName();
 
-    if (Sentinel::hasAccess($action))
-    {
+    if (Sentinel::hasAccess($action)) {
         return $request;
     }
 
