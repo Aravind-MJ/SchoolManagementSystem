@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -28,6 +29,7 @@ class AssignmentController extends Controller {
                 ->get();
 
         return View('assignment.list_assignment', compact('allAssignment'));
+
     }
 
     /**
@@ -48,7 +50,9 @@ class AssignmentController extends Controller {
         $batch = $data;
         //Redirecting to add_notice.blade.php 
 
+
         return view('assignment.add_assignment', compact('id', 'batch'));
+
     }
 
     /**
@@ -56,6 +60,7 @@ class AssignmentController extends Controller {
      *
      * @return Response
      */
+
     public function store(Request $requestData) {
 
         //store assignment in assignment table
@@ -66,12 +71,13 @@ class AssignmentController extends Controller {
         $assignment->save();
         return Redirect::back()
                         ->withFlashMessage('assignment Added successfully!')
+
                         ->withType('success');
     }
 
     /**
      * Display the specified resource.
-     *
+
      * @param  int $id
      * @return Response
      */
@@ -83,11 +89,13 @@ class AssignmentController extends Controller {
                 ->get();
 
         return View('assignment.user_assignment', compact('allAssignment'));
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
+
      * @param  int $id
      * @return Response
      */
@@ -110,11 +118,13 @@ class AssignmentController extends Controller {
         $batch = $data;
 
         return View('assignment.edit_assignment', compact('assignment', 'batch', 'id'));
+
     }
 
     /**
      * Update the specified resource in storage.
      *
+
      * @param  int $id
      * @return Response
      */
@@ -134,6 +144,7 @@ class AssignmentController extends Controller {
     /**
      * Remove the specified resource from storage.
      *
+
      * @param  int $id
      * @return Response
      */
@@ -144,5 +155,4 @@ class AssignmentController extends Controller {
         //Redirecting to index() method
         return Redirect::back();
     }
-
 }

@@ -1,13 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
-
-//use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
-use App\Batch;
+use App\ClassDetails;
 use App\Student;
+use App\FeeDetails;
 use App\User;
 use Input;
 use Validator;
@@ -27,10 +25,12 @@ class StudentController extends Controller {
      */
     public function index() {
         //select list of student
+		
         $allStudents = DB::table('student_details')
                 ->join('users', 'users.id', '=', 'student_details.user_id')
-                ->join('batch_details', 'batch_details.id', '=', 'student_details.batch_id')
-                ->select('users.*', 'student_details.*', 'batch_details.batch')
+                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
+                ->select('users.*', 'student_details.*', 'class_details.class')
+                ->where('student_details.gender', 'male')
                 ->where('student_details.deleted_at', NULL)
                 ->orderBy('student_details.created_at', 'DESC')
                 ->get();
@@ -39,17 +39,9 @@ class StudentController extends Controller {
             $student->enc_userid = Encrypt::encrypt($student->user_id);
         }
         //Fetch Batch Details
-        $batch = DB::table('batch_details')
-                ->select('id', 'batch')
-                ->orderBy('batch_details.created_at', 'ASC')
-                ->get();
-//        $batch = Batch::lists('batch', 'id')->prepend('Select Batch', '');
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
-        return View('student.list_student', compact('allStudents', 'batch', 'id'));
+         $batch = new ClassDetails;
+        $batch = $batch->fetch();
+        return View('student.list_student', compact('allStudents', 'class', 'id'));
     }
 
     /**
@@ -57,16 +49,12 @@ class StudentController extends Controller {
      *
      * @return Response
      */
+
     public function create() {
         //Fetch Batch Details
-        $batch = DB::table('batch_details')
-                ->select('id', 'batch')              
-                ->get();
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+
+         $batch = new ClassDetails;
+        $batch = $batch->fetch();
 
         return view('student.add_student', compact('id', 'batch'));
     }
@@ -94,6 +82,9 @@ class StudentController extends Controller {
 
         // Assign the role to the users
         $usersRole->users()->attach($user);
+        
+       
+        
 
         $student = new Student;
         $student->batch_id = $requestData['batch_id'];
@@ -101,16 +92,20 @@ class StudentController extends Controller {
         $student->gender = $requestData['gender'];
         $student->dob = date('Y-m-d', strtotime($requestData['dob']));
         $student->guardian = $requestData['guardian'];
+        $student->hostel = $requestData['hostel'];
+        $student->hostelfee = $requestData['hostelfee'];
         $student->address = $requestData['address'];
         $student->phone = $requestData['phone'];
         $student->school = $requestData['school'];
         $student->cee_rank = $requestData['cee_rank'];
         $student->percentage = $requestData['percentage'];
+        
 
 //        $this->validate($requestData['photo'], [
 //
 //            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 //        ]);
+
 
         if ($requestData->hasFile('photo')) {
 
@@ -125,6 +120,14 @@ class StudentController extends Controller {
             $student->photo = $name;
         }
 
+        
+        
+        $fee = new FeeDetails;
+        $fee->firstname= $requestData['first_name'];
+         $fee->lastname= $requestData['last_name'];
+        $fee->paid = $requestData['hostelfee'];
+        $fee->save();
+            
         $student->save();
         if ($student->save()) {
             return Redirect::back()
@@ -149,8 +152,8 @@ class StudentController extends Controller {
         //Get results by targeting id
         $student = DB::table('student_details')
                 ->join('users', 'users.id', '=', 'student_details.user_id')
-                ->join('batch_details', 'batch_details.id', '=', 'student_details.batch_id')
-                ->select('users.*', 'student_details.*', 'batch_details.batch')
+                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
+                ->select('users.*', 'student_details.*', 'class_details.class')
                 ->where('student_details.id', $id)
                 ->first();
         $student->enc_id = Encrypt::encrypt($student->id);
@@ -171,20 +174,14 @@ class StudentController extends Controller {
         $id = Encrypt::decrypt($id);
         //Fetch Student Details
         $student = DB::table('student_details')
-                ->join('batch_details', 'batch_details.id', '=', 'student_details.batch_id')
-                ->select('student_details.*', 'batch_details.batch')
+                ->join('class_details', 'class_details.id', '=', 'class_details.batch_id')
+                ->select('student_details.*', 'class_details.class')
                 ->where('student_details.id', $id)
                 ->first();
 
          //Fetch Batch Details
-        $batch = DB::table('batch_details')
-                ->select('id', 'batch')              
-                ->get();
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+        $batch = new ClassDetails;
+        $batch = $batch->fetch();
 
         //Fetch User Details
         $user = DB::table('users')
@@ -194,7 +191,7 @@ class StudentController extends Controller {
         $user->enc_id = Encrypt::encrypt($user->id);
 
         //Redirecting to edit_student.blade.php 
-        return View('student.edit_student', compact('user', 'batch', 'id', 'student'));
+        return View('student.edit_student', compact('user', 'class', 'id', 'student'));
     }
 
     /**
@@ -278,8 +275,8 @@ class StudentController extends Controller {
 
         $query = DB::table('student_details')
                 ->join('users', 'users.id', '=', 'student_details.user_id')
-                ->join('batch_details', 'batch_details.id', '=', 'student_details.batch_id')
-                ->select('users.*', 'student_details.*', 'batch_details.batch')
+                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
+                ->select('users.*', 'student_details.*', 'class_details.class')
                 ->where('student_details.deleted_at', NULL);
         if ($batch != 0) {
             $query->where('student_details.batch_id', 'LIKE', '%' . $batch . '%');
@@ -293,18 +290,13 @@ class StudentController extends Controller {
             $student->enc_userid = Encrypt::encrypt($student->user_id);
         }
         //Fetch Batch Details
-        $batch = DB::table('batch_details')
-                ->select('id', 'batch')              
-                ->get();
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+
+        $batch = new ClassDetails;
+        $batch = $batch->fetch();
 
         // returns a view and passes the view the list of articles and the original query.
 //        return route('Student.index');
-        return View('student.list_student', compact('allStudents', 'batch', 'id'));
+        return View('student.list_student', compact('allStudents', 'class', 'id'));
     }
 
 }

@@ -30,7 +30,7 @@
         </div>
 
         <div class="form-group">
-            {!! Form::Label('batch', 'Batch') !!}
+            {!! Form::Label('batch', 'Class') !!}
             {!! Form::select('batch_id', $batch, null, ['class' => 'form-control']) !!}
         </div>
         
@@ -50,6 +50,16 @@
             {!! Form::label('guardian', 'Guardian') !!}
             {!! Form::text('guardian', null, ['class'=>'form-control', 'placeholder'=>'Enter guardian name ']) !!}
             {!! errors_for('guardian', $errors) !!}
+        </div>
+        <div class="form-group"> hostel needed?
+            <input type="radio" id="hostel" value="yes" name="hostel" onclick="sasi()" /> Yes
+            <input type="radio" id="hostel" value="no" name="hostel" onclick="sasi()" /> NO
+     </div>
+           
+            <div class="form-group" id="sasi1">
+            {!! Form::Label('hostelfee', 'Hostel fee paid?') !!}<br>
+            {!! Form::radio('hostelfee', 'yes') !!}{!! Form::Label('hostelfee', 'yes') !!}
+            {!! Form::radio('hostelfee', 'no') !!}{!! Form::Label('hostelfee', 'no') !!}
         </div>
 
         <div class="form-group">
@@ -107,4 +117,10 @@
 @stop
 
 @endsection
- 
+ <script type="text/javascript">
+    function sasi() {
+        var chkYes = document.getElementById("hostel");
+        var dvPassport = document.getElementById("sasi1");
+        dvPassport.style.display = chkYes.checked ? "block" : "none";
+    }
+</script>

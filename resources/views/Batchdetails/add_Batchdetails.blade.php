@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Add BatchDetails')
+@section('title', 'Add ClassDetails')
 
 <!--@section('content')
 
@@ -18,12 +18,12 @@
 
         <!-- first_name Field -->
         <div class="form-group">
-            {!! Form::label('batch', 'Batch') !!}
+            {!! Form::label('batch', 'Class') !!}
             {!! Form::text('batch', null, ['class' => 'form-control', 'placeholder'=>'Enter  Batch']) !!}
             {!! errors_for('batch', $errors) !!}
         </div>
          <div class="form-group">
-            {!! Form::label('syllabus', 'Syllabus') !!}
+            {!! Form::label('syllabus', 'Division') !!}
             {!! Form::text('syllabus', null, ['class' => 'form-control', 'placeholder'=>'Enter Syllabus']) !!}
             {!! errors_for('syllabus', $errors) !!}
         </div>

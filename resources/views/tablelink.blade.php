@@ -1,17 +1,16 @@
 <div class="box box-success">
 	<div class="box-body">
-			<table id="example2" border='1' class="table table-bordered table-hover">
-				<thead>
-				<tr>
-					<th>
-                   <a href="{{route('Timetable.show','init')}}">Table Generation
 
-				</th>
-                    <th>
-                    <a href="{{route('Timetable.show','config')}}">Table Configuration
+			<div class="col-md-4">
+                <a href="{{route('Timetable.index')}}" class="btn btn-primary btn-block">Table Generation</a>
+            </div>
 
-                    </th>
-				</tr>
-			</table>		
+			<div class="col-md-4">
+			    <a href="{{route('Timetable.show','init')}}" class="btn btn-success btn-block">Table Options</a>
+			</div>
+
+			<div class="col-md-4">
+                <a href="{{route('Timetable.show','config')}}" class="btn btn-warning btn-block">Table Configurations</a>
+            </div>
 	</div>
 </div>

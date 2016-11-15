@@ -20,8 +20,8 @@
             <tbody> 
                  
                 <tr>                   
-                    <tr><th>Batch     </th><td>{{ $Batchdetails->batch}}</td></tr>
-                    <tr><th>Syllabus  </th><td>{{ $Batchdetails->syllabus}}</td></tr>
+                    <tr><th>Class     </th><td>{{ $Batchdetails->class}}</td></tr>
+                    <tr><th>Division </th><td>{{ $Batchdetails->division}}</td></tr>
                     <tr><th>Time_shift</th><td>{{ $Batchdetails->time_shift}}</td></tr>
                     <tr><th>Year      </th><td>{{ $Batchdetails->year}}</td></tr>
                     <tr><th>In_charge </th><td>{{ $Batchdetails->first_name}}</td></tr>

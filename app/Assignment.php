@@ -11,4 +11,3 @@ public function batch() {
         return $this->hasMany('App\Batch');
    }
 
-}

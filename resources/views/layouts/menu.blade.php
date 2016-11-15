@@ -1,4 +1,3 @@
-=============================================== -->
 
 <!-- Left side column. contains the sidebar -->
 <aside class="main-sidebar">
@@ -140,14 +139,14 @@
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-delicious"></i>
-                    <span>Batch Details</span>
+                    <span>Class Details</span>
                     <span class="pull-right-container">
                         <span class="fa fa-angle-left pull-right"></span>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::route('BatchDetails.create')}}"><i class="fa fa-circle-o"></i> Add BatchDetails</a></li>
-                    <li><a href="{{URL::route('BatchDetails.index')}}"><i class="fa fa-circle-o"></i> List BatchDetails</a></li>
+                    <li><a href="{{URL::route('BatchDetails.create')}}"><i class="fa fa-circle-o"></i> Add ClassDetails</a></li>
+                    <li><a href="{{URL::route('BatchDetails.index')}}"><i class="fa fa-circle-o"></i> List ClassDetails</a></li>
                 </ul>
             </li>
             @endif
@@ -237,9 +236,12 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
+					
 					</li>
 				@endif
+
 				@if($user->inRole('faculty'))
+
                     <li class="treeview {{ set_active('Assignment') }}">
                          <a href="{{url('/assignment')}}">
                         <i class="fa fa-file-text-o"></i>
@@ -247,7 +249,6 @@
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                        </a>
                 <ul class="treeview-menu">
                     <li><a href="{{URL::route('Assignment.create')}}"><i class="fa fa-circle-o"></i> Add Assignment</a></li>
                     <li><a href="{{URL::route('Assignment.index')}}"><i class="fa fa-circle-o"></i> List Assignment</a></li>
@@ -259,6 +260,15 @@
             @endif    
             
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+
+				    <ul class="treeview-menu">
+                        <li><a href="{{url('assignment/add-assignment')}}"><i class="fa fa-circle-o"></i> Add Assignment</a></li>
+                        <li><a href="{{URL::route('FeeTypes.index')}}"><i class="fa fa-circle-o"></i> ListFeeTypes</a></li>
+                    </ul>	
+                    </li>
+                @endif
+		@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+
                     <li class="treeview {{ set_active('SendAnSms') }}">
                         <a href="{{url('/library')}}">
                         <i class="fa fa-book"></i>
@@ -267,6 +277,11 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
+                        <ul class="treeview-menu">
+                        <li><a href="{{URL::route('Library.create')}}"><i class="fa fa-circle-o"></i> Add Book</a></li>
+                        <li><a href="{{URL::route('Library.index')}}"><i class="fa fa-circle-o"></i> View Book</a></li>
+                        <li><a href="{{ url('library/issue') }}"><i class="fa fa-circle-o"></i> Issue Book</a></li>
+                    </ul>
                     </li>
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
@@ -277,11 +292,30 @@
                         <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                         </span>
+                       </a>
+                        <ul class="treeview-menu">
+                        <li><a href="{{URL::route('Hostel.index')}}"><i class="fa fa-circle-o"></i>Hostel Students</a></li>
+                         <li><a href="{{URL::route('Hostel.create')}}"><i class="fa fa-circle-o"></i>Dayscholer</a></li>
+                   
+                    </ul>
+                    </li>
+                    <li class="treeview {{ set_active('SendAnSms') }}">
+                        <a href="{{url('/hostel')}}">
+                        <i class="fa fa-hotel"></i>
+                        <span>Feedetails for Hostel Students</span>
+                        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                         </a>
+                        <ul class="treeview-menu">
+                        <li><a href="{{URL::route('Fee.create')}}"><i class="fa fa-circle-o"></i>Feedetails of Hostel Students</a></li>
+                       
+                        
+                    </ul>
                     </li>
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
-                    <li class="treeview {{ set_active('SendAnSms') }}">
+                    <li class="treeview {{ set_active('transportation') }}">
                         <a href="{{url('/transportation')}}">
 						<i class="fa fa-bus"></i>
                         <span>Transportation</span>
@@ -289,6 +323,14 @@
                         <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
+
+                        <ul class="treeview-menu">
+                        <li><a href="{{route('transportation.create')}}" class="fa fa-circle-o"></i>Create Bus</a></li>
+                        <li><a href="{{route('transportation.index')}}" class="fa fa-circle-o"></i>List Bus</a></li>                        
+                        <li><a href="{{route('BusFee.create')}}" class="fa fa-circle-o"></i>Add Bus Fee</a></li>                        
+                        <li><a href="{{route('BusFee.index')}}" class="fa fa-circle-o"></i>List Bus Fee</a></li>                        
+                        <li><a href="{{route('BusFee.create')}}" class="fa fa-circle-o"></i>Add Bus Fee</a></li>                        
+                        </ul>
                     </li>
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
@@ -348,5 +390,3 @@
     </section>
     <!-- /.sidebar -->
 </aside>
-
-<!-- ===============================================

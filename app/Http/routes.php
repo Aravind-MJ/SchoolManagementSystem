@@ -42,6 +42,10 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
 
     # Batch crud Routes.
     Route::resource('BatchDetails', 'BatchDetailsController');
+    Route::resource('Hostel', 'HostelController');
+    Route::resource('Fee', 'FeehostelController');
+     Route::get('dayscholars', ['as' => 'search.dayscholars', 'uses' => 'HostelController@search']);
+      Route::get('hostel', ['as' => 'search.hostel', 'uses' => 'HostelController@hostelsearch']);
 
     # Activity crud Routes.
     Route::resource('Activity', 'ActivityTypeController');
@@ -83,6 +87,10 @@ Route::group(['middleware' => ['auth', 'redirectStandardUser']], function () {
 
     # Search Student Route.
     Route::get('Search', ['as' => 'search.queries', 'uses' => 'StudentController@search']);
+    
+    # Library crud Route.
+    Route::resource('Library', 'LibraryController');
+    Route::get('library/issue', ['uses' => 'LibraryController@issueBook']);
 });
 
 # Standard User Routes.
@@ -152,7 +160,7 @@ Route::group(['middleware' => ['auth', 'faculty']], function () {
 Route::resource('Subject', 'SubjectController');
 
 Route::resource('Timetable', 'TimetableController');
-
+Route::post('Timetable/config', 'TimetableController@timetable_config');
 
 # Routes that only current user can access
 Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
@@ -161,11 +169,11 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
     Route::get('changePassword/{id}', ['uses' => 'ChangePasswordController@edit']);
     Route::post('changePassword/{id}', ['as' => 'password.change', 'uses' => 'ChangePasswordController@update']);
 });
-        Route::get('/assignment', 'PagesController@pageconstruction');
-        Route::get('/library', 'PagesController@pageconstruction');
-        Route::get('/hostel', 'PagesController@pageconstruction');
-        Route::get('/transportation', 'PagesController@pageconstruction');
-    
+        
+        Route::resource('transportation','BusesController');
+        Route::resource('BusFee','BusFeeController');
+
+        
 Route::filter('permissions', function($route, $request)
 {
     $action = $route->getActionName();
