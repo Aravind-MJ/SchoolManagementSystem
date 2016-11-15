@@ -3,26 +3,32 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class ClassDetails extends Model
 {
     protected $table = 'class_details';
     
     public function fetch() {
-        $year = new Variables;
-        $year = $year->get('AY');
-      $batch = $this
-            ->select('id', 'class','division')
-            ->where('year',$year)
-            ->orderBy('class_details.created_at', 'ASC')
+        $data = new \stdClass;
+        $data->class = array();
+        $data->division = array();
+        $class = $this
+            ->select(DB::raw('DISTINCT(class)'))
+            ->orderBy('class')
             ->get();
-//        $batch = Batch::lists('batch', 'id')->prepend('Select Batch', '');
-        $data = array();
-        $division = array();
-        foreach ($batch as $batches) {
-           $data[$batches->id] = $batches->class;
-           $division[$batches->id] = $batches->division;
+        foreach($class as $each_class){
+            $data->class[$each_class->class]=$each_class->class;
         }
-        return array($data, $division);
+        
+        $division = $this
+            ->select(DB::raw('DISTINCT(division)'))
+            ->orderBy('division')
+            ->get();
+        foreach($division as $each_division){
+            $data->division[$each_division->division]=$each_division->division;
+        }
+        
+        return $data;
     }
 }

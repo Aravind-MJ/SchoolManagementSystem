@@ -11,24 +11,31 @@
 <div class='col-md-offset-1 col-md-9'>
 <div class="box box-primary">
     <div class="box-body">
-        <?php  $selbatch = isset($selbatch)? $selbatch : null;?>
-         <div class="form-group">
+        <?php  $division = isset($division)? $division : null;?>
+ <div class="form-group">
         {!! Form::open(array('route' => 'search.dayscholars', 'class'=>'form navbar-form navbar-right searchform', 'method'=>'get')) !!}
         @if(isset($batch))
         @if(!empty($batch))
           </div>  
-        <div class="form-group">
+         <div class="col-md-6">
             <h4>Class</h4>
-        {!! Form::select('param1', $batch,$selbatch, array('placeholder' => 'Please select batch','class' => 'form-control')) !!}
+        {!! Form::select('batch', $batch->class, null, ['class' => 'form-control']) !!}
            </div> 
-          <div class="form-group">
-<!--  {!! Form::text('param2', null, array('class'=>'form-control', 'placeholder'=>'Search for student...')) !!}-->
+          <div class="col-md-6">
+            <h4>Division</h4>
+        {!! Form::select('division',$batch->division, null, ['class' => 'form-control']) !!}
+          </div>
+        <br>
+          <div  class="col-md-6">
+<!-- {!! Form::text('param2', null, array('class'=>'form-control', 'placeholder'=>'Search for student...')) !!}-->
         {!! Form::submit('Search', array('class'=>'btn btn-default')) !!}
         {!! Form::close() !!}
         @endif
         @endif
          </div>  
         </div>
+         </div>
+    </div>
 </div>
     <div class="box box-primary">
          <div class="box-body">

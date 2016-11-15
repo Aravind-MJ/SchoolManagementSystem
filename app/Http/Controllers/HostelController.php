@@ -183,8 +183,9 @@ class HostelController extends Controller {
 
         // Gets the query string and batch from our form submission 
 
-        $search = Request::input('param2');
-       $selectedBatch = $batch = Request::input('param1');
+        $batch = Request::input('batch');
+      $division = $batch = Request::input('division');
+
 
         // Returns an array of articles that have the query string located somewhere within 
 
@@ -199,9 +200,11 @@ class HostelController extends Controller {
           
         //Fetch Batch Details
    
-
-        if ($batch != 0) {
-            $query->where('student_details.batch_id', $batch);
+       if (isset($batch)) {
+            $query->where('class_details.class', $batch);
+        }
+        if (isset($division)) {
+            $query->where('class_details.division', $division);
         }
               
         $allStudents = $query->get();
@@ -218,7 +221,7 @@ class HostelController extends Controller {
 //        return route('Student.index');
         return View('hostel.list_day scholars', 
             ['allStudents' => $allStudents, 
-            'batch' => $batch, 'selbatch' => $selectedBatch]
+            'batch' => $batch, 'division' => $division]
         );
     }
     
@@ -227,30 +230,26 @@ class HostelController extends Controller {
 
         // Gets the query string and batch from our form submission 
 
-        $search = Request::input('param2');
-      $selectedBatch = $batch = Request::input('param1');
+        $batch = Request::input('batch');
+       $division = Request::input('division');
 
         // Returns an array of articles that have the query string located somewhere within 
 
         $query = DB::table('student_details')
                 ->join('users', 'users.id', '=', 'student_details.user_id')
-                
                 ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
-                
                 ->select('users.*', 'student_details.*','class_details.*')
-                ->where('student_details.hostel', 'yes')
+                ->where('student_details.hostel','yes')
                 ->orderBy('student_details.created_at', 'DESC');
-               
-//        foreach ($allStudents as $student) {
-//            $student->enc_id = Encrypt::encrypt($student->id);
-//            $student->enc_userid = Encrypt::encrypt($student->user_id);
-        
-        
+       
         //Fetch Batch Details
    
 
-        if ($batch != 0) {
-            $query->where('student_details.batch_id', $batch);
+        if (isset($batch)) {
+            $query->where('class_details.class', $batch);
+        }
+        if (isset($division)) {
+            $query->where('class_details.division', $division);
         }
               
         $allStudents = $query->get();
@@ -266,7 +265,7 @@ class HostelController extends Controller {
 //        return route('Student.index');
         return View('hostel.list_hostel', 
             ['allStudents' => $allStudents, 
-            'batch' => $batch, 'selbatch' => $selectedBatch]
+            'batch' => $batch,'division' => $division]
         );
     }
 
