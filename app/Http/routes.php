@@ -49,7 +49,9 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
      # Activity Details crud Routes.
     Route::resource('ActivityDetails', 'ActivityDetailsController');
 
+    Route::resource('StoreType','StoreTypeController');
 
+    Route::resource('StoreManagement','StoreManagementController');
 
     # Route to edit student profile.
     Route::post('edit/admin/student/{id}', ['as' => 'studentProfilen.update', 'uses' => 'SuperAdmin\RegistrationController@update']);
@@ -163,7 +165,6 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
         Route::get('/library', 'PagesController@pageconstruction');
         Route::get('/hostel', 'PagesController@pageconstruction');
         Route::get('/transportation', 'PagesController@pageconstruction');
-        Route::get('/storemanagement', 'PagesController@pageconstruction');
     
 Route::filter('permissions', function($route, $request)
 {

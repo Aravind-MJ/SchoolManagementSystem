@@ -22,8 +22,8 @@ class ActivitytypeRequest extends Request {
      */
     public function rules() {
         return [
-            'activity_type' => 'required|regex:/^[(a-zA-Z\s\!-_)]+$/u',
             
+            'activity_type' => 'required|regex:/^[(a-zA-Z\s)]+$/u',  
         ];
     }
 

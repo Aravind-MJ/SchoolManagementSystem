@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'List Activity')
+@section('title', 'List Item Details')
 
 @section('body')
 <div class='col-md-offset-1 col-md-10'>
@@ -10,10 +10,12 @@
             <thead>
                 <tr>
                     <th style="width: 30%">Sl.No</th>
-                    <th style="width: 30%">Student</th>
-                    <th style="width: 30%">Batch</th>
-                    <th style="width: 30%">Activity Type</th>
-                    <th style="width: 30%">Remark</th>
+                    <th style="width: 30%">Store Type</th>
+                    <th style="width: 30%">Brand</th>
+                    <th style="width: 30%">Cost</th>
+                    <th style="width: 30%">Detail</th>
+                    <th style="width: 30%">Stock</th>
+                    <th style="width: 30%">Limit</th>
                     <!--<th>Photo</th>-->
                     <th style="width: 5%">Edit</th>
                     <th style="width: 5%">Delete</th>
@@ -21,22 +23,24 @@
             </thead>
             <tbody>
                 <?php $i=1?>
-                @foreach( $allActivityDetails as $ActivityDetails)
+                @foreach( $AllStore as $Store)
                 <tr>
-                    <td>{{ $i }}</td> 
-                    <td>{{ $ActivityDetails->first_name}}</td>
-                    <td>{{ $ActivityDetails->batch}}</td>
-                    <td>{{ $ActivityDetails->activity_type}}</td> 
-                    <td>{{ $ActivityDetails->remark }}</td> 
-
+                    <td>{{ $i }}</td>
+                    
+                     <td>{{$Store->store_type}}</td>
+                     <td>{{$Store->item_brand}}</td>
+                     <td>{{$Store->item_cost}}</td>
+                     <td>{{$Store->item_detail}}</td>
+                     <td>{{$Store->item_stock}}</td>
+                     <td>{{$Store->item_limit}}</td>
                     <td class=center>
-                        <a class="btn btn-primary btn-block" href="{{url('ActivityDetails/'.$ActivityDetails->id).'/edit'}}">Edit</a>
+                        <a class="btn btn-primary btn-block" href="{{url('StoreManagement/'.$Store->id).'/edit'}}">Edit</a>
                     </td>
                     
                     <td class=center>
-                        {!! Form::open(['route' => ['ActivityDetails.destroy', $ActivityDetails->id], 'method' => 'POST', 'onsubmit' => 'return ConfirmDelete()'])  !!}
+                        {!! Form::open(['route' => ['StoreManagement.destroy', $Store->id], 'method' => 'POST', 'onsubmit' => 'return ConfirmDelete()'])  !!}
                         <input type="hidden" name="_method" value="delete">
-                        <input type="hidden" name="id" value="{{$ActivityDetails->id}}">
+                        <input type="hidden" name="id" value="{{$Store->id}}">
                         <button type="submit" class="btn btn-danger btn-block">Delete</button>
                         {!! Form::close() !!}
                     </td>

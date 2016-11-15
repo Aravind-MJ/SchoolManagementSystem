@@ -1,18 +1,19 @@
 @extends('layouts.layout')
 
-@section('title', 'Add Activity')
+@section('title', 'Add Items')
 
 @section('body')
-
-{!! Form::open(['route' => 'Activity.store', 'method'=>'post','enctype' => 'multipart/form-data']) !!}
+@include('flash')
+{!! Form::open(['route' => 'StoreType.store', 'method'=>'post']) !!}
 <!--{!! Form::open() !!}-->
 <div class="box box-primary">
     <div class="box-body">
 
         <div class="form-group">
-            {!! Form::Label('activity_type', 'Activity Type') !!}
-            {!! Form::text('activity_type', null, ['class' => 'form-control']) !!}
+            {!! Form::Label('store_type','Item') !!}
+            {!! Form::text('store_type', null, ['class' => 'form-control']) !!}
         </div>
+
         <br>
         <div class="form-group">
             {!! Form::submit( 'Submit', ['class'=>'btn btn-primary']) !!} 

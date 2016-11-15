@@ -1,4 +1,4 @@
-<!-- =============================================== -->
+=============================================== -->
 
 <!-- Left side column. contains the sidebar -->
 <aside class="main-sidebar">
@@ -292,16 +292,24 @@
                     </li>
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
-                    <li class="treeview {{ set_active('SendAnSms') }}">
-                    <a href="{{url('/storemanagement')}}">
+                    <li class="treeview {{ set_active('StoreManagement') }}">
+                    <a href="#">
                         <i class="fa fa-shopping-cart "></i>
                         <span>StoreManagement</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
+                     <ul class="treeview-menu">
+                            <li><a href="{{URL::route('StoreType.create')}}"><i class="fa fa-circle-o"></i> Add Items</a></li>
+                            <li><a href="{{URL::route('StoreType.index')}}"><i class="fa fa-circle-o"></i> List Items</a></li>
+                            <li><a href="{{URL::route('StoreManagement.create')}}"><i class="fa fa-circle-o"></i> Add Item Details</a></li>
+                            <li><a href="{{URL::route('StoreManagement.index')}}"><i class="fa fa-circle-o"></i> List Item Details</a></li>
+                          </ul>
                     </li>
                 @endif
+
+
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('Activity Types') }}">
                         <a href="#">
@@ -341,4 +349,4 @@
     <!-- /.sidebar -->
 </aside>
 
-<!-- =============================================== -->
+<!-- ===============================================
