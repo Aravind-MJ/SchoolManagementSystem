@@ -9,36 +9,36 @@
 @endif-->
 
 @section('body')
-{!! Form::open(['route' => 'Feedetails.store', 'method'=>'post','enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['route' => 'Fee.store', 'method'=>'post','enctype' => 'multipart/form-data']) !!}
 @include('flash')
 <!--{!! Form::open() !!}-->
   <div class="col-md-6 col-md-offset-1">
         <div class="box box-primary">
           <div class="box-body">
                  
-                  <div class="form-group">
-                        {!! Form::label('student_name', 'StudentName') !!}
-                        {!! Form::select('student_name',$users,null, ['class'=>'form-control', 'placeholder'=>'enter name']) !!}
-                        {!! errors_for('student_name', $errors) !!}
-                  </div>
+                  
                      <div class="form-group">
-                        {!! Form::label('batch', 'StudentName') !!}
+                        {!! Form::label('batch', 'Batch') !!}
                         {!! Form::select('batch',$batch,null, ['class'=>'form-control', 'placeholder'=>'enter name']) !!}
                         {!! errors_for('student_name', $errors) !!}
                      </div>
                     <div class="form-group">
                         {!! Form::label('year', 'Year') !!}
-                        {!! Form::text('year',null, ['class'=>'form-control', 'placeholder'=>'First-Installment']) !!}
+                     {!!Form::selectYear('year', 2010, 2020,null,['class' => 'form-control', 'placeholder'=>'Enter  year'])!!}
                         {!! errors_for('first', $errors) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('month', 'Month') !!}
-                        {!! Form::text('month',null, ['class'=>'form-control', 'placeholder'=>'Second-Installment']) !!}
+                       {!! Form::label('month', 'Month') !!}
+                       {!!Form::select('month', array(
+                                         "1" => "January", "2" => "February", "3" => "March", "4" => "April",
+                                         "5" => "May", "6" => "June", "7" => "July", "8" => "August",
+                                         "9" => "September", "10" => "October", "11" => "November", "12" => "December",),
+                                         null,['class' => 'form-control', 'placeholder'=>'Enter Month'])!!}
                         {!! errors_for('month', $errors) !!}
                     </div>
                      <div class="form-group">
                         {!! Form::label('fee', 'Fee') !!}
-                        {!! Form::text('fee',null, ['class'=>'form-control', 'placeholder'=>'Third-Installment']) !!}
+                        {!! Form::text('fee',null, ['class'=>'form-control', 'placeholder'=>'Enter Fee']) !!}
                         {!! errors_for('fee', $errors) !!}
                     </div>
                    

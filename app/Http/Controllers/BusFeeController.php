@@ -17,35 +17,44 @@ use App\Http\Requests\CreateBusFeeRequest;
 class BusFeeController extends Controller {
 
    public function create() {
- $batch_id = Request::input('param1');	   
+ $batch_id = Request::input('param1');     
 $batch = DB::table('batch_details')
                 ->select('id', 'batch')
                 ->orderBy('batch_details.created_at', 'ASC')
                 ->get();
 
         $data = array();
-        foreach ($batch as $batch) {r
+        foreach ($batch as $batch) {
            $data[$batch->id] = $batch->batch;
         }
         $batch = $data;
 
-   	 if($batch_id==null){
-        $users = array();      
-   		}else{
-   			$users = DB::table('users')
+        $users = DB::table('users')
+                  ->join('student_details','student_details.user_id', '=','users.id')
+         
+                  ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$batch_id])         
+                  ->select('users.id','first_name','last_name')
+                  ->orderBy('users.created_at', 'ASC')
+                  ->get();
+          $data=array();
+          foreach($users as $each){
+              $data[$each->id]=$each->first_name.' '.$each->last_name;
+          }
+        $users=$data; 
+
+     if($batch_id==null){
+      $users = array();
+      }else{
+      
+    
+        $users = DB::table('users')
                   ->join('student_details','student_details.user_id', '=','users.id')
                   ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$batch_id])         
                   ->select('users.id','first_name','last_name')
-                  ->get();
-        	$data=array();
-        	foreach($users as $each){
-            	$data[$each->id]=$each->first_name.' '.$each->last_name;
-        	}
-        $users=$data;
-   		}
+                  ->get();         
+      }
         
-        $buses = new Buses;
-       	$buses = $buses
+        $buses = DB::table('buses')
                   ->select('id','bus_no')
                   ->get();
         $data=array();         
@@ -53,14 +62,16 @@ $batch = DB::table('batch_details')
             $data[$buses->id]=$buses->bus_no;
         }
         $buses = $data;
+        foreach ($users as $key => $value) {
+        }
 
- 		return view('transport.add_fee', compact('batch','batch_id','users','buses'));
+    return view('transport.add_fee', compact('batch','batch_id','users','buses'));
  
    } 
 
    public function store(CreateBusFeeRequest $requestData) {
-    	//dd($requestData);
-    	try{
+      //dd($requestData);
+      try{
         //store bus in create bus table
         $busfee = new Busfee;
         $busfee->batch = $requestData['param1'];
@@ -69,12 +80,12 @@ $batch = DB::table('batch_details')
         $busfee->fee = $requestData['fee'];
 
         $busfee->save();
-    	}
+      }
     catch(Exception $e){
-    	 return redirect()->back()
+       return redirect()->back()
                         ->withFlashMessage('Bus Fee Creation Failed!')
                         ->withType('danger');
-    	}
+      }
         return redirect()->back()
                         ->withFlashMessage('Bus Fee Created Successfully!')
                         ->withType('success');
@@ -85,12 +96,12 @@ $batch = DB::table('batch_details')
 
     public function index(){
 
-    	$busfee = DB::table('bus_fee')
-    			->join('users','users.id','=','bus_fee.student_id')
-    			->join('student_details','student_details.user_id', '=','users.id')
-    			->join('buses','buses.id','=','bus_fee.bus_id')
-    			->join('batch_details','batch_details.id','=','bus_fee.batch')
-    			->select('bus_fee.*','batch_details.batch','users.first_name','users.last_name','buses.bus_no')
+      $busfee = DB::table('bus_fee')
+          ->join('users','users.id','=','bus_fee.student_id')
+          ->join('student_details','student_details.user_id', '=','users.id')
+          ->join('buses','buses.id','=','bus_fee.bus_id')
+          ->join('batch_details','batch_details.id','=','bus_fee.batch')
+          ->select('bus_fee.*','batch_details.batch','users.first_name','users.last_name','buses.bus_no')
           ->orderBy('bus_fee.id')
                 ->get();
 

@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
     # Batch crud Routes.
     Route::resource('BatchDetails', 'BatchDetailsController');
     Route::resource('Hostel', 'HostelController');
+    Route::resource('Fee', 'FeehostelController');
      Route::get('dayscholars', ['as' => 'search.dayscholars', 'uses' => 'HostelController@search']);
       Route::get('hostel', ['as' => 'search.hostel', 'uses' => 'HostelController@hostelsearch']);
 
@@ -145,7 +146,7 @@ Route::group(['middleware' => ['auth', 'faculty']], function () {
 Route::resource('Subject', 'SubjectController');
 
 Route::resource('Timetable', 'TimetableController');
-Route::post('Timetable/Cofiguration', 'TimetableController@timetable_config');
+Route::post('Timetable/config', 'TimetableController@timetable_config');
 
 # Routes that only current user can access
 Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
