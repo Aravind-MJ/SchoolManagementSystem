@@ -43,6 +43,7 @@ class BusFeeController extends Controller
             ->select('id', 'bus_no')
             ->get();
         $data = array();
+        
         foreach ($buses as $buses) {
             $data[$buses->id] = $buses->bus_no;
         }

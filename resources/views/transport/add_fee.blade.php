@@ -13,7 +13,7 @@
             {!! Form::Label('param1', 'Batch') !!}
             {!! Form::select('param1',(['0' => 'Select batch'] + $batch),$batch_id,['class' => 'form-control']) !!}
 			{!! Form::close() !!}
-        </div> 
+        </div>
 		<div class="form-group">
 		<table id="example1" class="table table-bordered table-hover">
             <thead>
@@ -33,7 +33,6 @@
                 
                 <tr>
                     <td>{{ $i }}</td>
-                  
                     <td>{{ $user->first_name}} {{ $user->last_name}}</td>
 						@if($user->bus_id==null)
 							<td colspan="4"><center><a href="{{url('BusFee/create')}}/?param1={{$batch_id}}&student_id={{$user->id}}"
@@ -72,6 +71,7 @@
     </div>
 
 </div>
+
 @endsection
 @section('pagescript')
 <script type="text/javascript">
@@ -94,6 +94,7 @@
 	}
 </script>
 @endsection
+@stop
 @section('confirmDelete')
 <script>
     $(".delete").on("submit", function(){
