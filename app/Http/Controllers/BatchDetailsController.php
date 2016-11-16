@@ -31,7 +31,7 @@ class BatchDetailsController extends Controller {
              $Batchdetails->enc_id = Encrypt::encrypt($Batchdetails->id);
              $Batchdetails->time_shift = $time_shift[$Batchdetails->time_shift];
         }
-        //Redirecting to list_faculty.blade.php with $allFaculties       
+
         return View('Batchdetails.list_Batchdetails', compact('allBatchdetails'));
     }
 

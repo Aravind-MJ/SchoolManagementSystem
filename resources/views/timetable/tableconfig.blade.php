@@ -5,12 +5,11 @@
 @section('content')
 
 @section('body')
-
-@include('tablelink')
       {!! Form::open(['action' => 'TimetableController@timetable_config','method'=>'POST']) !!}
      
       <div class="box box-success">
 	      <div class="box-body">
+            @include('tablelink')
 				<table id="example2" border='1' class="table table-bordered table-hover">
         <br/><div class="form-group">
 		<div class="col-md-4">

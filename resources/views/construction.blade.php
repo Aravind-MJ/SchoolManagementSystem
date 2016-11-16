@@ -7,8 +7,8 @@
 
 @section('body')
 <div class="constructionback"><center>
-<h3> This page is under construction. Please come back soon!  </h3></center>
-@stop
+<h3> This page is under construction. Please come back Later!  </h3></center>
+@endsection
 
 
 

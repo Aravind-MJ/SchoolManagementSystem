@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
-use App\Batch;
+use App\ClassDetails;
 use DB;
 
 class FeehostelController extends Controller
@@ -41,16 +41,8 @@ class FeehostelController extends Controller
            
         }
         $users=$data;
-         $batch = DB::table('batch_details')
-                ->select('id', 'batch')
-                ->orderBy('batch_details.created_at', 'ASC')
-                ->get();
-//        $batch = Batch::lists('batch', 'id')->prepend('Select Batch', '');
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+          $batch = new Batch;
+        $batch = $batch->fetch();
        return view('hostel.add_feedetails_for hostel', compact('student_id', 'Feedetails','batch', 'users','id'));
     }
 
@@ -71,8 +63,8 @@ class FeehostelController extends Controller
         
         // Assign the role to the users
         {
-            $Batchdetails = new \App\Batchdetails;
-            $Batchdetails->batch = $requestData['batch'];
+            $Batchdetails = new \App\Classdetails;
+            $Batchdetails->class = $requestData['class'];
             $Batchdetails->year = date("Y/m/d", strtotime($requestData['year']));
             $Batchdetails->month = $requestData['month'];
           

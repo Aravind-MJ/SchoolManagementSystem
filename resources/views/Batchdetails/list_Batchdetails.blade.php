@@ -2,12 +2,6 @@
 
 @section('title', 'List Batchdetails')
 
-<!--@section('content')
-
-@if (session()->has('flash_message'))
-<p>{{ session()->get('flash_message') }}</p>
-@endif-->
-
 @section('body')
 @include('flash')
 
@@ -38,7 +32,7 @@
               
 
                     <td class=center>
-                        <a class="btn btn-default btn-success" href="{{url('BatchDetails/'.$Batchdetails->enc_id).'/edit'}}">Edit</a>
+                        <a class="btn btn-success" href="{{url('BatchDetails/'.$Batchdetails->enc_id).'/edit'}}">Edit</a>
                     </td>
                     <td class=center>
                         {!! Form::open(['route' => ['BatchDetails.destroy', $Batchdetails->enc_id], 'method' => 'POST','onsubmit' => 'return ConfirmDelete()'])  !!}

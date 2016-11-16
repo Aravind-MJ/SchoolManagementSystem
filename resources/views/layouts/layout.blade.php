@@ -186,6 +186,10 @@
                     endDate: '0',
                     autoclose: true
                 });
+
+                $( "#datepicker1" ).datepicker({
+                    startDate:'-1d'
+                });
             });
         </script>
         <script>
@@ -203,9 +207,6 @@
         @yield('dataTable')
 
   <script>
-  $(function() {
-    $( "#datepicker1" ).datepicker();
-  });
 
   $(function() {
     $( "#datepicker2" ).datepicker();

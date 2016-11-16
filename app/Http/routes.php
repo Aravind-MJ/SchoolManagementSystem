@@ -41,11 +41,23 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
     Route::resource('Notice', 'NoticeController');
 
     # Batch crud Routes.
-    Route::resource('BatchDetails', 'BatchDetailsController');
+//    Route::resource('BatchDetails', 'BatchDetailsController');
     Route::resource('Hostel', 'HostelController');
     Route::resource('Fee', 'FeehostelController');
-     Route::get('dayscholars', ['as' => 'search.dayscholars', 'uses' => 'HostelController@search']);
-      Route::get('hostel', ['as' => 'search.hostel', 'uses' => 'HostelController@hostelsearch']);
+    Route::get('dayscholars', ['as' => 'search.dayscholars', 'uses' => 'HostelController@search']);
+    Route::get('hostel', ['as' => 'search.hostel', 'uses' => 'HostelController@hostelsearch']);
+
+    # Activity crud Routes.
+    Route::resource('Activity', 'ActivityTypeController');
+
+    # Activity Details crud Routes.
+    Route::resource('ActivityDetails', 'ActivityDetailsController');
+
+    Route::resource('StoreType', 'StoreTypeController');
+
+    Route::resource('Assignment', 'AssignmentController');
+
+    Route::resource('StoreManagement', 'StoreManagementController');
 
     # Route to edit student profile.
     Route::post('edit/admin/student/{id}', ['as' => 'studentProfilen.update', 'uses' => 'SuperAdmin\RegistrationController@update']);
@@ -54,7 +66,7 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
     Route::post('edit/admin/faculty/{id}', ['as' => 'facultyProfile.update', 'uses' => 'SuperAdmin\RegistrationController@update']);
 
     #Search Student Route
-    Route::post('Search', ['as' => 'search.queries', 'uses' => 'StudentController@search']);
+//    Route::post('Search', ['as' => 'search.queries', 'uses' => 'StudentController@search']);
 
     # Sms Api Route
     Route::get('SendAnSms/students', 'SmsApiController@students');
@@ -73,10 +85,14 @@ Route::group(['middleware' => ['auth', 'redirectStandardUser']], function () {
     Route::post('fetchMark', ['uses' => 'MarkDetailsController@fetchMark']);
 
     # Student Registration crud Route.
-    Route::resource('Student', 'StudentController');
+//    Route::resource('Student', 'StudentController');
 
     # Search Student Route.
-    Route::get('Search', ['as' => 'search.queries', 'uses' => 'StudentController@search']);
+//    Route::get('Search', ['as' => 'search.queries', 'uses' => 'StudentController@search']);
+
+    # Library crud Route.
+    Route::resource('Library', 'LibraryController');
+    Route::get('library/issue', ['uses' => 'LibraryController@issueBook']);
 });
 
 # Standard User Routes.
@@ -155,33 +171,18 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
     Route::get('changePassword/{id}', ['uses' => 'ChangePasswordController@edit']);
     Route::post('changePassword/{id}', ['as' => 'password.change', 'uses' => 'ChangePasswordController@update']);
 });
-        Route::get('/assignment', 'PagesController@pageconstruction');
-        Route::get('/library', 'PagesController@pageconstruction');
-        //Route::get('/hostel', 'PagesController@pageconstruction');
-        Route::get('/transportation', 'PagesController@pageconstruction');
-        Route::get('/storemanagement', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity/nss', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity/ncc', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity/spc', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity/scout-guide', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity/sports', 'PagesController@pageconstruction');
-        Route::get('/extra-curricular-activity/arts', 'PagesController@pageconstruction');
 
+Route::resource('transportation', 'BusesController');
+Route::resource('BusFee', 'BusFeeController');
 
-        Route::get('/extra-curricular-activity/study-tour', 'PagesController@pageconstruction');
+Route::get('construction', function(){
+    return view('construction');
+});
 
-
-        Route::resource('transportation','BusesController');
-        Route::resource('BusFee','BusFeeController');
-
-        Route::get('/extra-curricular-activity/study-tour', 'PagesController@pageconstruction');
-Route::filter('permissions', function($route, $request)
-{
+Route::filter('permissions', function ($route, $request) {
     $action = $route->getActionName();
 
-    if (Sentinel::hasAccess($action))
-    {
+    if (Sentinel::hasAccess($action)) {
         return $request;
     }
 

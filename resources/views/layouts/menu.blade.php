@@ -1,3 +1,4 @@
+
 <!-- Left side column. contains the sidebar -->
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -59,8 +60,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ action("StudentController@create") }}"><i class="fa fa-circle-o"></i> Add Student</a></li>
-                    <li><a href="{{ action("StudentController@index") }}"><i class="fa fa-circle-o"></i> List Students</a></li>
+                    {{--<li><a href="{{ route("Student.create") }}"><i class="fa fa-circle-o"></i> Add Student</a></li>--}}
+                    {{--<li><a href="{{ route("Student.index") }}"><i class="fa fa-circle-o"></i> List Students</a></li>--}}
                 </ul>
             </li>
             @endif
@@ -77,8 +78,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ action("SubjectController@create") }}"><i class="fa fa-circle-o"></i> Add Subject</a></li>
-                    <li><a href="{{ action("SubjectController@index") }}"><i class="fa fa-circle-o"></i> List Subject</a></li>
+                    <li><a href="{{ route("Subject.create") }}"><i class="fa fa-circle-o"></i> Add Subject</a></li>
+                    <li><a href="{{ route("Subject.index") }}"><i class="fa fa-circle-o"></i> List Subject</a></li>
                 </ul>
             </li>    
 		<li class="treeview">
@@ -138,14 +139,14 @@
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-delicious"></i>
-                    <span>Batch Details</span>
+                    <span>Class Details</span>
                     <span class="pull-right-container">
                         <span class="fa fa-angle-left pull-right"></span>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::route('BatchDetails.create')}}"><i class="fa fa-circle-o"></i> Add BatchDetails</a></li>
-                    <li><a href="{{URL::route('BatchDetails.index')}}"><i class="fa fa-circle-o"></i> List BatchDetails</a></li>
+                    {{--<li><a href="{{URL::route('BatchDetails.create')}}"><i class="fa fa-circle-o"></i> Add ClassDetails</a></li>--}}
+                    {{--<li><a href="{{URL::route('BatchDetails.index')}}"><i class="fa fa-circle-o"></i> List ClassDetails</a></li>--}}
                 </ul>
             </li>
             @endif
@@ -238,7 +239,7 @@
 					
 					</li>
 				@endif
-				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+
                     <li class="treeview {{ set_active('Assignment') }}">
                          <a href="{{url('/assignment')}}">
                         <i class="fa fa-file-text-o"></i>
@@ -247,13 +248,22 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{URL::route('Assignment.create')}}"><i class="fa fa-circle-o"></i> Add Assignment</a></li>
+                    <li><a href="{{URL::route('Assignment.index')}}"><i class="fa fa-circle-o"></i> List Assignment</a></li>
+                </ul>
+                    </li>
+            
+				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+
 				    <ul class="treeview-menu">
                         <li><a href="{{url('assignment/add-assignment')}}"><i class="fa fa-circle-o"></i> Add Assignment</a></li>
                         <li><a href="{{URL::route('FeeTypes.index')}}"><i class="fa fa-circle-o"></i> ListFeeTypes</a></li>
                     </ul>	
                     </li>
                 @endif
-				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+		@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+
                     <li class="treeview {{ set_active('SendAnSms') }}">
                         <a href="{{url('/library')}}">
                         <i class="fa fa-book"></i>
@@ -262,6 +272,11 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
+                        <ul class="treeview-menu">
+                        <li><a href="{{URL::route('Library.create')}}"><i class="fa fa-circle-o"></i> Add Book</a></li>
+                        <li><a href="{{URL::route('Library.index')}}"><i class="fa fa-circle-o"></i> View Book</a></li>
+                        {{--<li><a href="{{ url('library/issue') }}"><i class="fa fa-circle-o"></i> Issue Book</a></li>--}}
+                    </ul>
                     </li>
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
@@ -305,45 +320,65 @@
                         </a>
 
                         <ul class="treeview-menu">
-                        <li><a href="{{route('transportation.create')}}" class="fa fa-circle-o"></i>Create Bus</a></li>
-                        <li><a href="{{route('transportation.index')}}" class="fa fa-circle-o"></i>List Bus</a></li>                        
-                        <li><a href="{{route('BusFee.create')}}" class="fa fa-circle-o"></i>Add Bus Fee</a></li>                        
-                        <li><a href="{{route('BusFee.index')}}" class="fa fa-circle-o"></i>List Bus Fee</a></li>                        
-                        <li><a href="{{route('BusFee.create')}}" class="fa fa-circle-o"></i>Add Bus Fee</a></li>                        
+                        <li><a href="{{route('transportation.create')}}"><i class="fa fa-circle-o"></i>Create Bus</a></li>
+                        <li><a href="{{route('transportation.index')}}"><i class="fa fa-circle-o"></i>List Bus</a></li>
+                        <li><a href="{{route('BusFee.create')}}"><i class="fa fa-circle-o"></i>Add Bus Fee</a></li>
+                        <li><a href="{{route('BusFee.index')}}"><i class="fa fa-circle-o"></i>List Bus Fee</a></li>
+                        <li><a href="{{route('BusFee.create')}}"><i class="fa fa-circle-o"></i>Add Bus Fee</a></li>
                         </ul>
                     </li>
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
-                    <li class="treeview {{ set_active('SendAnSms') }}">
-                    <a href="{{url('/storemanagement')}}">
+                    <li class="treeview {{ set_active('StoreManagement') }}">
+                    <a href="#">
                         <i class="fa fa-shopping-cart "></i>
                         <span>StoreManagement</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
+                     <ul class="treeview-menu">
+                            <li><a href="{{URL::route('StoreType.create')}}"><i class="fa fa-circle-o"></i> Add Items</a></li>
+                            <li><a href="{{URL::route('StoreType.index')}}"><i class="fa fa-circle-o"></i> List Items</a></li>
+                            <li><a href="{{URL::route('StoreManagement.create')}}"><i class="fa fa-circle-o"></i> Add Item Details</a></li>
+                            <li><a href="{{URL::route('StoreManagement.index')}}"><i class="fa fa-circle-o"></i> List Item Details</a></li>
+                          </ul>
                     </li>
                 @endif
+
+
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
-                    <li class="treeview {{ set_active('SendAnSms') }}">
-                        <a href="{{url('/extra-curricular-activity ')}}">
-						<i class="fa fa-gamepad"></i>
-                        <span>Extra Curricular Activity</span>
+                    <li class="treeview {{ set_active('Activity Types') }}">
+                        <a href="#">
+						<i class="fa fa-trophy"></i>
+                        <span>Activity Types</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
-					<ul class="treeview-menu">
-                        <li class="{{ set_active('') }}"><a href="{{ url('/extra-curricular-activity/ncc') }}"><i class="fa fa-circle-o"></i> NCC</a></li>
-						<li class="{{ set_active('') }}"><a href="{{ url('/extra-curricular-activity/nss') }}"><i class="fa fa-circle-o"></i> NSS</a></li>
-						<li class="{{ set_active('') }}"><a href="{{ url('/extra-curricular-activity/spc') }}"><i class="fa fa-circle-o"></i> SPC</a></li>
-						<li class="{{ set_active('') }}"><a href="{{ url('/extra-curricular-activity/scout-guide') }}"><i class="fa fa-circle-o"></i> Scout and Guide</a></li>
-						<li class="{{ set_active('') }}"><a href="{{ url('/extra-curricular-activity/sports') }}"><i class="fa fa-circle-o"></i> Sports</a></li>
-						<li class="{{ set_active('') }}"><a href="{{ url('/extra-curricular-activity/arts') }}"><i class="fa fa-circle-o"></i> Arts</a></li>
-						<li class="{{ set_active('') }}"><a href="{{ url('/extra-curricular-activity/study-tour') }}"><i class="fa fa-circle-o"></i> Study Tour</a></li>
-						</ul>
+                        <ul class="treeview-menu">
+                            <li><a href="{{URL::route('Activity.create')}}"><i class="fa fa-circle-o"></i> Add Activity</a></li>
+                            <li><a href="{{URL::route('Activity.index')}}"><i class="fa fa-circle-o"></i> List Activity</a></li>
+                        </ul>
                     </li>
                 @endif
+
+                @if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+                    <li class="treeview {{ set_active('Activity Types') }}">
+                        <a href="#">
+                        <i class="fa fa-gamepad"></i>
+                        <span>Activity Details</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{URL::route('ActivityDetails.create')}}"><i class="fa fa-circle-o"></i> Add Activity Detail</a></li>
+                            <li><a href="{{URL::route('ActivityDetails.index')}}"><i class="fa fa-circle-o"></i> List Activity Detail</a></li>
+                        </ul>
+                    </li>
+                @endif
+                    
             <li class="header">Settings</li>
             <li><a href="{{url('changePassword/'. \App\Encrypt::encrypt($user->id))}}"><i class="fa fa-circle-o text-orange"></i> <span>Change Password</span></a></li>
         </ul>

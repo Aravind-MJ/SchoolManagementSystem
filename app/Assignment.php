@@ -4,7 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class assignment extends Model
+class Assignment extends Model
 {
-   protected $table = "assignment";
+    protected $table = "assignment";
+
+    public function batch()
+    {
+        return $this->hasMany('App\Batch');
+    }
 }
+

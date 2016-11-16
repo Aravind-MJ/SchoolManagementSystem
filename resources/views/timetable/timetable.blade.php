@@ -6,10 +6,13 @@
 
 @section('body')
 
-@include('flash')
-
+<div class="box box-success">
+    <div class="box-body">
 @include('tablelink')
 
 <a href="{{route('Timetable.create')}}" class="btn btn-primary">Generate</a>
+
+    </div>
+</div>
 
 @endsection
