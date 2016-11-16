@@ -5,7 +5,7 @@
 @section('content')
 
 @section('body')
-@include('flash')
+
 <!--<div class='col-md-offset-1 col-md-9'>-->
 <div class="box box-primary">
     <div class="box-body">
@@ -44,7 +44,7 @@
                 <tr>
                     <td>{{ $i }}</td>
                     <td>{{ $student->first_name }} {{ $student->last_name}}</td>
-                    <td>{{ $student->batch }}</td>
+                    <td>{{ $student->class }}</td>
                     <td>{{ $student->dob }}</td>
                     <td><img src="{{ asset('images/students/'. $student->photo) }}"  alt="photo" width="50" height="50"/></td>
                     <td class=center>                      

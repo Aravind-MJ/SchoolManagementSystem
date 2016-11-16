@@ -56,6 +56,7 @@ class StudentController extends Controller {
          $batch = new ClassDetails;
         $batch = $batch->fetch();
 
+		
         return view('student.add_student', compact('id', 'batch'));
     }
 
@@ -92,14 +93,19 @@ class StudentController extends Controller {
         $student->gender = $requestData['gender'];
         $student->dob = date('Y-m-d', strtotime($requestData['dob']));
         $student->guardian = $requestData['guardian'];
+        $student->religion = $requestData['religion'];
+        $student->category = $requestData['category'];
         $student->hostel = $requestData['hostel'];
         $student->hostelfee = $requestData['hostelfee'];
-        $student->address = $requestData['address'];
+        $student->housename = $requestData['housename'];
+        $student->place = $requestData['place'];
+        $student->district = $requestData['district'];
+        $student->state = $requestData['state'];
         $student->phone = $requestData['phone'];
         $student->school = $requestData['school'];
-        $student->cee_rank = $requestData['cee_rank'];
-        $student->percentage = $requestData['percentage'];
+       
         
+
 
 //        $this->validate($requestData['photo'], [
 //
@@ -174,7 +180,7 @@ class StudentController extends Controller {
         $id = Encrypt::decrypt($id);
         //Fetch Student Details
         $student = DB::table('student_details')
-                ->join('class_details', 'class_details.id', '=', 'class_details.batch_id')
+                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
                 ->select('student_details.*', 'class_details.class')
                 ->where('student_details.id', $id)
                 ->first();
@@ -191,7 +197,7 @@ class StudentController extends Controller {
         $user->enc_id = Encrypt::encrypt($user->id);
 
         //Redirecting to edit_student.blade.php 
-        return View('student.edit_student', compact('user', 'class', 'id', 'student'));
+        return View('student.edit_student', compact('user', 'class', 'id', 'student' , 'batch'));
     }
 
     /**
@@ -205,15 +211,18 @@ class StudentController extends Controller {
         $student = Student::find($id);
         $student->batch_id = $requestData['batch_id'];
         $student->gender = $requestData['gender'];
-        $student->dob = date('Y-m-d', strtotime($requestData['dob']));
+        $student->religion = $requestData['religion'];
+        $student->category = $requestData['category'];
+         $student->dob = date('Y-m-d', strtotime($requestData['dob']));
         $student->guardian = $requestData['guardian'];
-        $student->address = $requestData['address'];
+         $student->hostel = $requestData['hostel'];
+        $student->hostelfee = $requestData['hostelfee'];
+          $student->housename = $requestData['housename'];
+        $student->place = $requestData['place'];
+        $student->district = $requestData['district'];
+        $student->state = $requestData['state'];
         $student->phone = $requestData['phone'];
         $student->school = $requestData['school'];
-        $student->cee_rank = $requestData['cee_rank'];
-        $student->percentage = $requestData['percentage'];
-
-
         if ($requestData->hasFile('photo')) {
 
             $file = $requestData->file('photo');
@@ -225,6 +234,7 @@ class StudentController extends Controller {
 //        $image      = Imag::make($file->getRealPath())->resize('320','240')->save($file);
 
             $student->photo = $name;
+
         }
         $student->save();
 

@@ -37,11 +37,15 @@ class RegisterStudentRequest extends Request {
             'gender' => 'required',
             'dob' => 'required',
             'guardian' => 'required',
-            'address' => 'required|min:5',
+            'religion' => 'required',
+            'category' => 'required',
+            'hostelfee' => 'required',
+            'housename' => 'required',
+            'place' => 'required',
+            'district' => 'required',
+            'state' => 'required',
             'phone' => 'required|regex:/[0-9]{10}/',
-            'school' => 'required|regex:/^[A-Za-z. - ,]+$/',
-            'cee_rank' => 'required|numeric',
-            'percentage' => 'required|numeric',   
+            'school' => 'required|regex:/^[A-Za-z. - ,]+$/',  
             'email' => 'required|email|unique:users,email'
              //'photo' =>'required|mimes:jpeg,png,jpg|max:2000'
         ];
@@ -54,14 +58,20 @@ class RegisterStudentRequest extends Request {
             'gender' => 'required',
             'dob' => 'required',
             'guardian' => 'required',
-            'address' => 'required|min:5',
+            'religion' => 'required',
+            'category' => 'required',
+            'hostelfee' => 'required',
+            'housename' => 'required',
+            'place' => 'required',
+            'district' => 'required',
+            'state' => 'required',
             'phone' => 'required|regex:/[0-9]{10}/',
-            'school' => 'required|regex:/^[A-Za-z. - ,]+$/',
-            'cee_rank' => 'required|numeric',
-            'percentage' => 'required|numeric',
-            'photo' =>'mimes:jpeg,png,jpg|max:2000'
+            'school' => 'required|regex:/^[A-Za-z. - ,]+$/'
+            //'photo' =>'mimes:jpeg,png,jpg|max:2000'
         
         ];
+
+
         }
         default:break;
     }
