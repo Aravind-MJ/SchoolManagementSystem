@@ -18,15 +18,17 @@
                  
                   
                      <div class="form-group">
-                        {!! Form::label('batch', 'Batch') !!}
+                        {!! Form::label('batch', 'Class') !!}
                         {!! Form::select('batch',$batch,null, ['class'=>'form-control', 'placeholder'=>'enter name']) !!}
                         {!! errors_for('student_name', $errors) !!}
                      </div>
+                     <!--
                     <div class="form-group">
                         {!! Form::label('year', 'Year') !!}
                      {!!Form::selectYear('year', 2010, 2020,null,['class' => 'form-control', 'placeholder'=>'Enter  year'])!!}
                         {!! errors_for('first', $errors) !!}
                     </div>
+                    -->
                     <div class="form-group">
                        {!! Form::label('month', 'Month') !!}
                        {!!Form::select('month', array(

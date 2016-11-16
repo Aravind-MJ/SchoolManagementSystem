@@ -6,24 +6,25 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
-use App\Batch;
+use App\Assignment;
 use App\Notice;
+use App\ClassDetails;
 
 class NoticeController extends Controller {
 
-    protected $notice, $batch;
+    protected $notice, $batch, $claz;
 
-    public function __construct(Notice $notice, Batch $batch) {
+    public function __construct(Notice $notice, ClassDetails $claz ) {
         $this->notice = $notice;
-        $this->batch = $batch;
+		$this->claz = $claz;
     }
 
     public function index() {
 
         //Select all records from notice table    
         $allNotice = $this->notice
-                ->join('batch_details', 'batch_details.id', '=', 'notice.batch_id')
-                ->select('notice.*', 'batch_details.batch')
+                ->join('class_details', 'class_details.id', '=', 'notice.batch_id')
+                ->select('notice.*', 'class_details.class', 'class_details.division')
                 ->orderBy('notice.created_at', 'DESC')
                 ->get();
 
@@ -33,19 +34,14 @@ class NoticeController extends Controller {
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return Re
+     sponse
      */
     public function create() {
 
         //Fetch Batch Details
-        $batch =$this->batch
-                ->select('id', 'batch')
-                ->get();
-        $data = array();
-        foreach ($batch as $batch) {
-            $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+        $batch = new ClassDetails;
+		$batch = $batch->fetch();
         //Redirecting to add_notice.blade.php 
 
         return view('notice.add_notice', compact('id', 'batch'));
@@ -59,9 +55,17 @@ class NoticeController extends Controller {
     public function store(Requests\PublishNoticeRequest $requestData) {
 
         //store notice in notice table
-        $notice = $this->notice;
-        $notice->batch_id = $requestData['batch_id'];
-        $notice->message = $requestData['message'];
+        
+		$class = $requestData['class'];
+		$division = $requestData['division'];
+		$clazdiv = $this->claz
+		->select('id')
+		->where(['class' =>$class, 'division' => $division])
+		->first();
+		
+       $notice = $this->notice; 	
+	$notice->message = $requestData['message'];
+    $notice->batch_id = $clazdiv->id;	
         $notice->save();
         return Redirect::back()
                         ->withFlashMessage('Notice Added successfully!')
@@ -85,24 +89,17 @@ class NoticeController extends Controller {
      * @return Response
      */
     public function edit($id) {
-
-        $notice = $this->notice
-                ->join('batch_details', 'batch_details.id', '=', 'notice.batch_id')
-                ->select('notice.*', 'batch_details.batch')
+               $notice = $this->notice
+                ->join('class_details', 'class_details.id', '=', 'notice.batch_id')
+                ->select('notice.*', 'class_details.class', 'class_details.division')
                 ->where('notice.id', $id)
                 ->first();
 
         //Fetch Batch Details
-        $batch = $this->batch
-                ->select('id', 'batch')
-                ->get();
-        $data = array();
-        foreach ($batch as $batch) {
-            $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+        $batch = new ClassDetails;
+		$batch = $batch->fetch();        
 
-        return View('notice.edit_notice', compact('notice', 'batch', 'id'));
+        return View('notice.edit_notice', compact('notice', 'batch', 'id'));             		
     }
 
     /**
@@ -113,14 +110,23 @@ class NoticeController extends Controller {
      */
     public function update($id, Requests\PublishNoticeRequest $requestData) {
         //update values in notice
-
-        $notice = \App\Notice::find($id);
-        $notice->batch_id = $requestData['batch_id'];
-        $notice->message = $requestData['message'];
-        $notice->save();
+      
+       $class = $requestData['class'];
+		$division = $requestData['division'];
+		$clazdiv = $this->claz
+		->select('id')
+		->where(['class' =>$class, 'division' => $division])
+		->first();
+		
+       $notice = $this->notice; 	
+	$notice->message = $requestData['message'];
+    $notice->batch_id = $clazdiv->id;	
+	$notice->save();
+        
         return redirect()->route('Notice.index')
                         ->withFlashMessage('Notice Updated successfully!')
                         ->withType('success');
+                        
     }
 
     /**

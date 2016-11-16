@@ -2,15 +2,13 @@
 
 @section('title', 'Add Feetypes')
 
-<!--@section('content')
+@section('content')
 
-@if (session()->has('flash_message'))
-<p>{{ session()->get('flash_message') }}</p>
-@endif-->
+
 
 @section('body')
 {!! Form::open(['route' => 'FeeTypes.store', 'method'=>'post','enctype' => 'multipart/form-data']) !!}
-@include('flash')
+
 <!--{!! Form::open() !!}-->
 <div class="box box-primary">
     <div class="box-body">

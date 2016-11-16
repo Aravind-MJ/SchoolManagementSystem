@@ -31,7 +31,7 @@ class PublishNoticeRequest extends Request {
         case 'POST':
         {
             return [
-            'batch_id' => 'required',
+            'class' => 'required',
             'message' => 'required|min:5'
         ];
         }
@@ -39,7 +39,7 @@ class PublishNoticeRequest extends Request {
         case 'PATCH':
         {
             return [
-            'batch_id' => 'required',
+            'class' => 'required',
             'message' => 'required:min:5'
         ];
         }

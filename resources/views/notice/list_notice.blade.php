@@ -3,14 +3,7 @@
 @section('title', 'List Notice')
 
 @section('content')
-
-@if (session()->has('flash_message'))
-<p>{{ session()->get('flash_message') }}</p>
-@endif
-
 @section('body')
-
-@include('flash')
 <div class="box box-primary">
     <div class="box-body">
 
@@ -21,7 +14,8 @@
                     <th>Sl.No</th>
                     <th>Date</th>
                     <th>Message</th>
-                    <th>Batch</th>
+                    <th>class</th>
+					<th>division</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -33,7 +27,8 @@
                     <td>{{ $i }}</td>
                     <td>{{ date('d-m-Y', strtotime($notice->created_at)) }}</td>
                     <td>{!! $notice->message !!}</td>
-                    <td>{{ $notice->batch }}</td>
+                    <td>{{ $notice->class}}</td>
+					<td>{{$notice->division}}</td>
                     <td class=center>
                        
                         <a href='Notice/{{ $notice->id }}/edit' class='btn btn-primary'>Edit</a>
@@ -42,7 +37,7 @@
                     <td class=center>
                         {!! Form::open(['action' => ['NoticeController@destroy', $notice->id], 'method' => 'POST', 'class' => 'delete']) !!}
                         {!! csrf_field() !!}
-                        <input type="hidden" name="_method" value="delete">
+                        <input type="hidden" name="method" value="delete">
                         <input type="hidden" name="id" value="{{$notice->id}}">
                         <button type="submit" class="btn btn-danger">Delete</button>
                         {!! Form::close() !!}
