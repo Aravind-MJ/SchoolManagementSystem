@@ -31,4 +31,16 @@ class ClassDetails extends Model
         
         return $data;
     }
+    
+//    public function fetchClass() {
+//        
+//          $fetchclasses = $this       
+//                  ->select('id','class')
+//                  ->get();
+//        $class=array();
+//        foreach($fetchclasses as $fetchclass){
+//            $class[$fetchclass->id]=$fetchclass->class;
+//        }
+//        return $class;
+//    }
 }

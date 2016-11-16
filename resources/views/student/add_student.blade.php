@@ -25,8 +25,12 @@
         </div>
         <div class= "col-md-12">
          <div class="form-group col-md-6">
-            {!! Form::Label('batch', 'Class') !!}
-            {!! Form::select('batch_id', $batch, null, ['class' => 'form-control']) !!}
+            {!! Form::Label('class', 'Class') !!}
+            {!! Form::select('class', $batch->class, null, ['class' => 'form-control']) !!}
+        </div>
+             <div class="form-group col-md-6">
+            {!! Form::Label('class', 'Class') !!}
+            {!! Form::select('division', $batch->division, null, ['class' => 'form-control']) !!}
         </div>
         
         <div class="form-group col-md-6">

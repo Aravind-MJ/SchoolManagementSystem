@@ -39,9 +39,9 @@ class StudentController extends Controller {
             $student->enc_userid = Encrypt::encrypt($student->user_id);
         }
         //Fetch Batch Details
-         $batch = new ClassDetails;
+        $batch = new ClassDetails;
         $batch = $batch->fetch();
-        return View('student.list_student', compact('allStudents', 'class', 'id'));
+        return View('student.list_student', compact('allStudents', 'class','new', 'id'));
     }
 
     /**
@@ -53,7 +53,7 @@ class StudentController extends Controller {
     public function create() {
         //Fetch Batch Details
 
-         $batch = new ClassDetails;
+        $batch = new ClassDetails;
         $batch = $batch->fetch();
 
 		
@@ -77,18 +77,23 @@ class StudentController extends Controller {
         $input = array('email' => $user->email, 'password' => $requestData['dob'], 'first_name' => $user->first_name, 'last_name' => $user->last_name);
 
         $user = Sentinel::registerAndActivate($input);
-
         // Find the role using the role name
         $usersRole = Sentinel::findRoleByName('Users');
 
         // Assign the role to the users
         $usersRole->users()->attach($user);
         
-       
+           $claz = $requestData['class'];
+           $division = $requestData['division'];
         
-
+              $class = new ClassDetails;
+              $class = DB::table('class_details') 
+                      ->select('id')
+                      ->where(['class'=> $claz,'division'=> $division])
+                      ->first();
+      
         $student = new Student;
-        $student->batch_id = $requestData['batch_id'];
+        $student->batch_id = $class->id;
         $student->user_id = $user['id'];
         $student->gender = $requestData['gender'];
         $student->dob = date('Y-m-d', strtotime($requestData['dob']));
@@ -129,8 +134,8 @@ class StudentController extends Controller {
         
         
         $fee = new FeeDetails;
-        $fee->firstname= $requestData['first_name'];
-         $fee->lastname= $requestData['last_name'];
+        $fee->user_id= $user->id;
+        if($requestData['hostel']=='yes')
         $fee->paid = $requestData['hostelfee'];
         $fee->save();
             
@@ -186,7 +191,7 @@ class StudentController extends Controller {
                 ->first();
 
          //Fetch Batch Details
-        $batch = new ClassDetails;
+       $batch = new ClassDetails;
         $batch = $batch->fetch();
 
         //Fetch User Details
@@ -300,13 +305,12 @@ class StudentController extends Controller {
             $student->enc_userid = Encrypt::encrypt($student->user_id);
         }
         //Fetch Batch Details
-
         $batch = new ClassDetails;
         $batch = $batch->fetch();
 
         // returns a view and passes the view the list of articles and the original query.
 //        return route('Student.index');
-        return View('student.list_student', compact('allStudents', 'class', 'id'));
+        return View('student.list_student', compact('allStudents', 'class','batch', 'id'));
     }
 
 }
