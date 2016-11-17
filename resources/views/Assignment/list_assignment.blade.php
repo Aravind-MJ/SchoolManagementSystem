@@ -4,9 +4,6 @@
 
 @section('content')
 
-@if (session()->has('flash_message'))
-<p>{{ session()->get('flash_message') }}</p>
-@endif
 
 @section('body')
 
@@ -21,7 +18,8 @@
                     <th>Sl.No</th>
                     <th>Submission Date</th>
                     <th>Question</th>
-                    <th>Batch</th>
+                    <th>Class</th>
+					<th>Division</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -31,9 +29,10 @@
                 @foreach( $allAssignment as $assignment )
                 <tr>
                     <td>{{ $i }}</td>
-                    <td>{{ $assignment->sdate }}</td>
+                    <td>{{ $assignment->submit }}</td>
                     <td>{!! $assignment->question !!}</td>
-                    <td>{{ $assignment->batch }}</td>
+                    <td>{{ $assignment->class }}</td>
+					 <td>{{ $assignment->division }}</td>
                     <td class=center>
                        
                         <a href='Assignment/{{ $assignment->id }}/edit' class='btn btn-primary'>Edit</a>
