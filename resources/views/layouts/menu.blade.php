@@ -145,8 +145,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    {{--<li><a href="{{URL::route('BatchDetails.create')}}"><i class="fa fa-circle-o"></i> Add ClassDetails</a></li>--}}
-                    {{--<li><a href="{{URL::route('BatchDetails.index')}}"><i class="fa fa-circle-o"></i> List ClassDetails</a></li>--}}
+                    <li><a href="{{URL::route('ClassDetails.create')}}"><i class="fa fa-circle-o"></i> Add ClassDetails</a></li>
+                    <li><a href="{{URL::route('ClassDetails.index')}}"><i class="fa fa-circle-o"></i> List ClassDetails</a></li>
                 </ul>
             </li>
             @endif

@@ -222,7 +222,7 @@ class StudentController extends Controller {
         $student->guardian = $requestData['guardian'];
          $student->hostel = $requestData['hostel'];
         $student->hostelfee = $requestData['hostelfee'];
-          $student->housename = $requestData['housename'];
+        $student->housename = $requestData['housename'];
         $student->place = $requestData['place'];
         $student->district = $requestData['district'];
         $student->state = $requestData['state'];

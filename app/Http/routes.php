@@ -42,7 +42,7 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
     Route::resource('Notice', 'NoticeController');
 
     # Batch crud Routes.
-//    Route::resource('BatchDetails', 'BatchDetailsController');
+    Route::resource('ClassDetails', 'ClassDetailsController');
     Route::resource('Hostel', 'HostelController');
     Route::resource('Fee', 'FeehostelController');
     Route::get('hostelfee', ['as' => 'search.hostelfee', 'uses' => 'FeehostelController@hostelfeesearch']);
