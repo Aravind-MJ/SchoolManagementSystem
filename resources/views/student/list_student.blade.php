@@ -28,7 +28,7 @@
                 <tr>
                     <th>Sl.No</th>
                     <th>Full name</th>
-                    <th>Batch</th>
+                    <th>Class</th>
                     <th>DOB</th>                   
                     <th>Photo</th>
                     <th>View more</th>

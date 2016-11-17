@@ -60,10 +60,13 @@
                     {!! Form::model($student, ['method'=>'PATCH','route' => ['Student.update', $student->id],'enctype' => 'multipart/form-data']) !!}
 
                     <div class="form-group">
-                        {!! Form::Label('batch', 'Batch') !!}
-                        {!! Form::select('batch_id', $batch, null, ['class' => 'form-control']) !!}
+                        {!! Form::Label('batch', 'Class') !!}
+                        {!! Form::select('batch_id', $batch->class, null, ['class' => 'form-control']) !!}
                     </div>
-
+                 <div class="form-group">
+                        {!! Form::Label('batch', 'Division') !!}
+                        {!! Form::select('batch_id', $batch->division, null, ['class' => 'form-control']) !!}
+                    </div>
                     <div class="form-group">
                         {!! Form::Label('gender', 'Gender') !!}<br>
                         {!! Form::radio('gender', 'male') !!}{!! Form::Label('gender', 'Male') !!}
