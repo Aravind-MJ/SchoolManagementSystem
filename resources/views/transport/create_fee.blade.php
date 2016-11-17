@@ -10,9 +10,9 @@
         <div class="form-group">
             {!! Form::Label('student_id', 'Student') !!}
             {!! Form::text('student',$users->first_name.' '.$users->last_name, ['class' => 'form-control','readonly']) !!}
-			{!! Form::hidden('student_id', $selected_user, ['class' => 'form-control']) !!}
-			{!! Form::hidden('param1', $selected_batch, ['class' => 'form-control']) !!}
-			
+            {!! Form::hidden('student_id', $selected_user, ['class' => 'form-control']) !!}
+            {!! Form::hidden('param1', $selected_batch, ['class' => 'form-control']) !!}
+            
         </div>  
 
         <div class="form-group">
@@ -20,7 +20,7 @@
             {!! Form::select('bus_id', (['0' => 'Select bus'] + $buses), null, ['class' => 'form-control']) !!}
         </div>        
 
-        <div class="form-group">
+       <div class="form-group">
             {!! Form::Label('fee', 'Fee') !!}
             {!! Form::text('fee', null, ['class' => 'form-control']) !!}
         </div> 

@@ -43,7 +43,7 @@ class BusFeeController extends Controller
             ->select('id', 'bus_no')
             ->get();
         $data = array();
-        
+
         foreach ($buses as $buses) {
             $data[$buses->id] = $buses->bus_no;
         }
@@ -81,17 +81,16 @@ class BusFeeController extends Controller
 
     public function index()
     {
-        $busfee = DB::table('bus_fee')
+        /*$busfee = DB::table('bus_fee')
             ->join('users', 'users.id', '=', 'bus_fee.student_id')
             ->join('student_details', 'student_details.user_id', '=', 'users.id')
             ->join('buses', 'buses.id', '=', 'bus_fee.bus_id')
             ->join('batch_details', 'batch_details.id', '=', 'bus_fee.batch')
             ->select('bus_fee.*', 'batch_details.batch', 'users.first_name', 'users.last_name', 'buses.bus_no')
             ->orderBy('bus_fee.id')
-            ->get();
+            ->get();*/
 
-
-        return View('transport.listall_fee', compact('busfee'));
+        return View('transport.add_fee', compact('busfee'));
     }
 
 
