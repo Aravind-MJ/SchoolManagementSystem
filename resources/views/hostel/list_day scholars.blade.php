@@ -1,5 +1,3 @@
-
-
 @extends('layouts.layout')
 
 @section('title', 'Days Scholars By Class')
@@ -61,13 +59,15 @@
                 <tr>                   
                     <td>{{ $i }}</td>
                     <td>{{ $student->first_name}} {{$student->last_name }} </td>
-                    <td> {{ $student ->address}}                     
+
+                    <td> {{ $student ->housename}}                     
                                              </td>
+                    
+
                     <td>{{ $student->guardian }}</td>
                     <td>{{ $student->phone }}</td>
 					<td><a href='Hostel/{{ $student->user_id }}' class='btn btn-primary btn-block'>Change to hostellers</a></td>
-                   
-                </tr>
+                    </tr>
                 <?php $i++ ?>
                 @endforeach
             </tbody>

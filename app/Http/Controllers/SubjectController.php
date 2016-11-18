@@ -42,11 +42,11 @@ class SubjectController extends Controller
      *
      * @return Response
      */
-    public function store(Request $requestData)
+    public function store(Requests\SubjectRequest $requestData)
     {
         //store subject into table
         $subject =new subject;
-        $subject->id = $requestData['id'];
+       // $subject->id = $requestData['id'];
         $subject->subject_name = $requestData['subject'];
         $subject->save();
         return Redirect::back()
@@ -94,7 +94,7 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id,Request $requestData)
+    public function update($id,Request\SubjectRequest $requestData)
     {
         //update student_details data
         $subject = Subject::find($id);

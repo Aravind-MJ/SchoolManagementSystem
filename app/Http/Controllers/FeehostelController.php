@@ -41,9 +41,10 @@ class FeehostelController extends Controller
            
         }
         $users=$data;
-          $batch = new Batch;
+          $batch = new ClassDetails;
         $batch = $batch->fetch();
        return view('hostel.add_feedetails_for hostel', compact('student_id', 'Feedetails','batch', 'users','id'));
+
     }
 
     /**

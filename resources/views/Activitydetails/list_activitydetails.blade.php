@@ -3,6 +3,7 @@
 @section('title', 'List Activity')
 
 @section('body')
+
 <div class='col-md-offset-1 col-md-10'>
 <div class="box box-primary">
     <div class="box-body">

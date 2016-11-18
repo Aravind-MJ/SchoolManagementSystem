@@ -54,7 +54,7 @@
                 <tr>                   
                     <td>{{ $i }}</td>
                     <td>{{ $student->first_name}} {{$student->last_name }} </td>
-                    <td> {{ $student ->address}}                     
+                    <td> {{ $student ->housename}}                     
                                              </td>
                     <td>{{ $student->guardian }}</td>
                     <td>{{ $student->phone }}</td>

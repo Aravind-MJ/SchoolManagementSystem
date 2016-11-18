@@ -2,14 +2,11 @@
 
 @section('title', 'List Feetypes')
 
-<!--@section('content')
+@section('content')
 
-@if (session()->has('flash_message'))
-<p>{{ session()->get('flash_message') }}</p>
-@endif-->
 
 @section('body')
-@include('flash')
+
 <div class='col-md-offset-1 col-md-10'>
 <div class="box box-primary">
     <div class="box-body">

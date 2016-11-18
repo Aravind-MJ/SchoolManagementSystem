@@ -14,10 +14,14 @@
 <div class="box box-primary">
     <div class="box-body">
 
-        <div class="form-group">
-            {!! Form::Label('batch', 'Batch') !!}
-            {!! Form::select('batch_id', $batch, null, ['class' => 'form-control']) !!}
-        </div>  
+       <div class="form-group">
+            {!! Form::Label('class', 'class') !!}
+            {!! Form::select('class', $batch->class, null, ['class' => 'form-control']) !!}
+        </div>      
+ <div class="form-group">
+            {!! Form::Label('division', 'division') !!}
+            {!! Form::select('division', $batch->division, null, ['class' => 'form-control']) !!}
+        </div>   
         
         <!-- message Field -->
         <div class="form-group">

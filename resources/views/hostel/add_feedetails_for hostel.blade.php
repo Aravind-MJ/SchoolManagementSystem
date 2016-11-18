@@ -1,55 +1,99 @@
+
+
+
+
 @extends('layouts.layout')
 
-@section('title', 'Add Feedetails')
+@section('title', 'Paid Students')
 
-<!--@section('content')
-
-@if (session()->has('flash_message'))
-<p>{{ session()->get('flash_message') }}</p>
-@endif-->
+@section('content')
 
 @section('body')
-{!! Form::open(['route' => 'Fee.store', 'method'=>'post','enctype' => 'multipart/form-data']) !!}
-@include('flash')
-<!--{!! Form::open() !!}-->
-  <div class="col-md-6 col-md-offset-1">
-        <div class="box box-primary">
-          <div class="box-body">
-                 
-                  
-                     <div class="form-group">
-                        {!! Form::label('batch', 'Batch') !!}
-                        {!! Form::select('batch',$batch,null, ['class'=>'form-control', 'placeholder'=>'enter name']) !!}
-                        {!! errors_for('student_name', $errors) !!}
-                     </div>
-                    <div class="form-group">
-                        {!! Form::label('year', 'Year') !!}
-                     {!!Form::selectYear('year', 2010, 2020,null,['class' => 'form-control', 'placeholder'=>'Enter  year'])!!}
-                        {!! errors_for('first', $errors) !!}
-                    </div>
-                    <div class="form-group">
-                       {!! Form::label('month', 'Month') !!}
-                       {!!Form::select('month', array(
-                                         "1" => "January", "2" => "February", "3" => "March", "4" => "April",
-                                         "5" => "May", "6" => "June", "7" => "July", "8" => "August",
-                                         "9" => "September", "10" => "October", "11" => "November", "12" => "December",),
-                                         null,['class' => 'form-control', 'placeholder'=>'Enter Month'])!!}
-                        {!! errors_for('month', $errors) !!}
-                    </div>
-                     <div class="form-group">
-                        {!! Form::label('fee', 'Fee') !!}
-                        {!! Form::text('fee',null, ['class'=>'form-control', 'placeholder'=>'Enter Fee']) !!}
-                        {!! errors_for('fee', $errors) !!}
-                    </div>
-                   
-                    <div class="form-group">
-                        {!! Form::submit( 'Submit', ['class'=>'btn btn-lg btn-primary btn-block']) !!} 
-                    </div>
-       
-        
-               {!! Form::close() !!}
- </div>     </div>
-  </div>
-@stop
 
+
+<div class='col-md-offset-1 col-md-9'>
+<div class="box box-primary">
+    <div class="box-body">
+       <?php  $division = isset($division)? $division : null;?>
+         <div class="form-group">
+       {!! Form::open(array('route' => 'search.hostelfee', 'class'=>'form navbar-form navbar-right searchform', 'method'=>'get')) !!}
+          </div>  
+       <div class="col-md-6">
+            <h4>Class</h4>
+        {!! Form::select('batch', $batch->class, null, ['class' => 'form-control']) !!}
+           </div> 
+          <div class="col-md-6">
+            <h4>Division</h4>
+        {!! Form::select('division',$batch->division, null, ['class' => 'form-control']) !!}
+          </div>
+        <br>
+          <div  class="col-md-6">
+        {!! Form::submit('Search', array('class'=>'btn btn-default')) !!}
+        {!! Form::close() !!}
+         </div>  
+        </div>
+</div>
+    <div class="box box-primary">
+         <div class="box-body">
+       @if (count($allStudents) === 0)
+        <h4><strong> No Students Found! </strong></h4>
+        @elseif (count($allStudents) >= 1)
+        <table id="example2" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                     <th>Sl.No</th>
+                    <th>Full name</th>
+                    <th>Address</th>
+                    <th>Guardian</th>
+                    <th>Contact no</th>  
+
+                </tr>
+            </thead>
+            <tbody>
+                <?php $i=1 ?>
+                @foreach( $allStudents as $student )
+               
+                <tr>                   
+                    <td>{{ $i }}</td>
+                    <td>{{ $student->first_name}} {{$student->last_name }} </td>
+                    <td> {{ $student ->housename}}                     
+                                             </td>
+                    <td>{{ $student->guardian }}</td>
+                    <td>{{ $student->phone }}</td>
+					
+                   
+                </tr>
+                <?php $i++ ?>
+                @endforeach
+            </tbody>
+        </table>
+        @endif
+    </div>
+    </div>
+</div>
+
+</div>
+</div>
+@section('confirmDelete')
+<script>
+    $(".delete").on("submit", function () {
+        return confirm("Do you want to delete this item?");
+    });
+</script>
+@stop
+@section('dataTable')
+<script type="text/javascript">
+    $(function () {
+        $("#example1").dataTable();
+        $('#example2').dataTable({
+            "bPaginate": true,
+            "bLengthChange": false,
+            "bFilter": false,
+            "bSort": false,
+            "bInfo": true,
+            "bAutoWidth": false
+        });
+    });
+</script>
+@stop
 @endsection

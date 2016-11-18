@@ -2,14 +2,11 @@
 
 @section('title', 'List Examtype')
 
-<!--@section('content')
+@section('content')
 
-@if (session()->has('flash_message'))
-<p>{{ session()->get('flash_message') }}</p>
-@endif-->
 
 @section('body')
-@include('flash')
+
 <!--<style>
     th{
         padding-left:10px;

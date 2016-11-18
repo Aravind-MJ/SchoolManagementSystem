@@ -6,7 +6,7 @@
 
 @section('body')
 
-@include('flash')
+
 
 {!! Form::open(['action' => 'AssignmentController@store','method'=>'POST'])  !!}
 <!--{!! Form::open() !!}-->
@@ -22,7 +22,7 @@
 		
 		 <div class="form-group">
             {!! Form::label('Submission Date', 'Submission') !!}
-            {!! Form::text('submit', null, ['class'=>'form-control', 'placeholder'=>'Submission', 'id'=>'datepicker']) !!}
+            {!! Form::text('sdate', null, ['class'=>'form-control', 'placeholder'=>'Submission', 'id'=>'datepicker']) !!}
           <!--  {!! errors_for('dob', $errors) !!}-->
         </div>
 	
@@ -33,5 +33,8 @@
 </div>
 @section('ckeditor')
 <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js" />
+ 
+
+  </script>
 @stop
 @endsection

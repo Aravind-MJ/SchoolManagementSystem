@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class PublishNoticeRequest extends Request {
+class AssignmentRequest extends Request {
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,27 +25,25 @@ class PublishNoticeRequest extends Request {
     {
         case 'GET':
         case 'DELETE':
+         case 'PATCH':
+        
         {
-            return [];
+            return [
+			 'class' => 'required|alpha_num',
+			'division'=>'required|alpha',
+			'question'=>'required'
+			
+			
+			];
         }
         case 'POST':
         {
             return [
-            'class' => 'required',
-            'message' => 'required|min:5'
-        ];
+            'class' => 'required|alpha_num',
+			'division'=>'required|alpha',
+			'question'=>'required'
+            ];
         }
-        case 'PUT':
-        case 'PATCH':
-        {
-            return [
-            'class' => 'required',
-            'message' => 'required:min:5'
-        ];
-        }
-        default:break;
     }
-        
-    }
-
+}
 }

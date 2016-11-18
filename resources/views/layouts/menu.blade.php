@@ -60,8 +60,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    {{--<li><a href="{{ route("Student.create") }}"><i class="fa fa-circle-o"></i> Add Student</a></li>--}}
-                    {{--<li><a href="{{ route("Student.index") }}"><i class="fa fa-circle-o"></i> List Students</a></li>--}}
+                    <li><a href="{{ route("Student.create") }}"><i class="fa fa-circle-o"></i> Add Student</a></li>
+                    <li><a href="{{ route("Student.index") }}"><i class="fa fa-circle-o"></i> List Students</a></li>
                 </ul>
             </li>
             @endif
@@ -145,8 +145,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    {{--<li><a href="{{URL::route('BatchDetails.create')}}"><i class="fa fa-circle-o"></i> Add ClassDetails</a></li>--}}
-                    {{--<li><a href="{{URL::route('BatchDetails.index')}}"><i class="fa fa-circle-o"></i> List ClassDetails</a></li>--}}
+                    <li><a href="{{URL::route('ClassDetails.create')}}"><i class="fa fa-circle-o"></i> Add ClassDetails</a></li>
+                    <li><a href="{{URL::route('ClassDetails.index')}}"><i class="fa fa-circle-o"></i> List ClassDetails</a></li>
                 </ul>
             </li>
             @endif
@@ -303,11 +303,18 @@
                         </span>
                         </a>
                         <ul class="treeview-menu">
-                        <li><a href="{{URL::route('Fee.create')}}"><i class="fa fa-circle-o"></i>Feedetails of Hostel Students</a></li>
-                       
-                        
+                        <li><a href="{{URL::route('Fee.index')}}"><i class="fa fa-circle-o"></i>Paid Students</a></li>
+                     
                     </ul>
+                         
                     </li>
+                     <span>Hostel Fee</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{URL::route('Hostel.edit')}}"><i class="fa fa-circle-o"></i>Hostel Fee</a></li></ul></ul>
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('transportation') }}">

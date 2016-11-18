@@ -11,8 +11,9 @@
     <div class="box-body">
 
         <div class="form-group">
-            {!! Form::Label('subject', 'Subject') !!}
+            {!! Form::Label('subject', 'subject') !!}
 			{!! Form::text('subject', null, ['class' => 'form-control', 'placeholder'=>'Subject Name']) !!}
+            {!! errors_for('subject_name', $errors) !!}
         </div>
         
         <br>

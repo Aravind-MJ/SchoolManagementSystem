@@ -5,7 +5,7 @@
 @section('body')
 
 {!! Form::open(['route' => 'ExamDetails.store', 'method'=>'post','enctype' => 'multipart/form-data']) !!}
-@include('flash')
+
 <div class="box box-primary">
     <div class="box-body">
 

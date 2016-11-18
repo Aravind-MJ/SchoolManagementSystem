@@ -3,11 +3,6 @@
 @section('title', 'Edit Student Details')
 
 @section('content')
-
-@if (session()->has('flash_message'))
-<p>{{ session()->get('flash_message') }}</p>
-@endif
-
 @section('body')
 
 <div class="row">
@@ -65,10 +60,13 @@
                     {!! Form::model($student, ['method'=>'PATCH','route' => ['Student.update', $student->id],'enctype' => 'multipart/form-data']) !!}
 
                     <div class="form-group">
-                        {!! Form::Label('batch', 'Batch') !!}
-                        {!! Form::select('batch_id', $batch, null, ['class' => 'form-control']) !!}
+                        {!! Form::Label('batch', 'Class') !!}
+                        {!! Form::select('batch_id', $batch->class, null, ['class' => 'form-control']) !!}
                     </div>
-
+                 <div class="form-group">
+                        {!! Form::Label('batch', 'Division') !!}
+                        {!! Form::select('batch_id', $batch->division, null, ['class' => 'form-control']) !!}
+                    </div>
                     <div class="form-group">
                         {!! Form::Label('gender', 'Gender') !!}<br>
                         {!! Form::radio('gender', 'male') !!}{!! Form::Label('gender', 'Male') !!}
@@ -86,36 +84,58 @@
                         {!! Form::text('guardian', null, ['class'=>'form-control', 'placeholder'=>'Enter guardian name ']) !!}
                         {!! errors_for('guardian', $errors) !!}
                     </div>
+                 <div class="form-group">
+            {!! Form::Label('Religion', 'Religion') !!}<br>
+            {!! Form::radio('religion', 'Hindu') !!}{!! Form::Label('Religion', 'Hindu') !!}
+            {!! Form::radio('religion', 'Christian') !!}{!! Form::Label('Religion', 'Christian') !!}
+            {!! Form::radio('religion', 'Muslim') !!}{!! Form::Label('Religion', 'Muslim') !!}
+            {!! Form::radio('religion', 'Jain') !!}{!! Form::Label('Religion', 'Jain') !!}
+            {!! Form::radio('religion', 'Buddhist') !!}{!! Form::Label('Religion', 'Buddhist') !!}
+            {!! Form::radio('religion', 'Secular') !!}{!! Form::Label('Religion', 'Secular') !!}
+        </div>
 
-                    <div class="form-group">
-                        {!! Form::label('address', 'Address') !!}
-                        {!! Form::textarea('address', null,  ['class'=>'form-control', 'placeholder'=>'Address']) !!}
-                        {!! errors_for('address', $errors) !!}
-                    </div>
+        <div class="form-group">
+            {!! Form::Label('category', 'Category') !!}<br>
+            {!! Form::radio('category', 'General') !!}{!! Form::Label('Category', 'Genaral') !!}
+            {!! Form::radio('category', 'SC') !!}{!! Form::Label('Category', 'SC') !!}
+            {!! Form::radio('category', 'ST') !!}{!! Form::Label('Category', 'ST') !!}
+            {!! Form::radio('category', 'OBC') !!}{!! Form::Label('Category', 'OBC') !!}
+        </div>
+                   <div class="form-group">
+            {!! Form::label('address', 'Address') !!}
+            {!! Form::text('housename', null,  ['class'=>'form-control', 'placeholder'=>'House name']) !!}
+            {!! errors_for('housename', $errors) !!}
+            <br>
+            {!! Form::text('place', null,  ['class'=>'form-control', 'placeholder'=>'place/street']) !!}
+            {!! errors_for('place/street', $errors) !!}
+             <br>
+            {!! Form::text('district', null,  ['class'=>'form-control', 'placeholder'=>'District']) !!}
+            {!! errors_for('district', $errors) !!}
+             <br>
+            {!! Form::text('State', null,  ['class'=>'form-control', 'placeholder'=>'State']) !!}
+            {!! errors_for('State', $errors) !!}
+        </div>
 
-                    <div class="form-group">
-                        {!! Form::label('phone', 'Phone') !!}
-                        {!! Form::text('phone', null, ['class'=>'form-control', 'placeholder'=>'Enter Phone']) !!}
-                        {!! errors_for('phone', $errors) !!}
-                    </div>
-
+        <div class="form-group">
+            {!! Form::label('phone', 'Phone') !!}
+            {!! Form::text('phone', null, ['class'=>'form-control', 'placeholder'=>'Enter Phone']) !!}
+            {!! errors_for('phone', $errors) !!}
+        </div>
                     <div class="form-group">
                         {!! Form::label('school', 'School') !!}
                         {!! Form::text('school', null, ['class'=>'form-control', 'placeholder'=>'Enter School Name']) !!}
                         {!! errors_for('school', $errors) !!}
                     </div>
-
-                    <div class="form-group">
-                        {!! Form::label('cee_rank', 'CEE Rank') !!}
-                        {!! Form::text('cee_rank', null, ['class'=>'form-control', 'placeholder'=>'Enter CEE Rank']) !!}
-                        {!! errors_for('cee_rank', $errors) !!}
-                    </div>
-
-                    <div class="form-group">
-                        {!! Form::label('percentage', 'Percentage') !!}
-                        {!! Form::text('percentage', null, ['class'=>'form-control', 'placeholder'=>'Enter Percentage']) !!}
-                        {!! errors_for('percentage', $errors) !!}
-                    </div>
+                    <div class="form-group col-md-6"><b>HOSTEL FACILITIES NEEDED?</b>
+            <input type="radio" id="hostel" value="yes" name="hostel" onclick="sasi()" /> Yes
+            <input type="radio" id="hostel" value="no" name="hostel" onclick="sasi()" /> NO
+     </div>
+           
+            <div class="form-group col-md-6" id="sasi1">
+            {!! Form::Label('hostelfee', 'Hostel fee paid?') !!}<br>
+            {!! Form::radio('hostelfee', 'yes') !!}{!! Form::Label('hostelfee', 'yes') !!}
+            {!! Form::radio('hostelfee', 'no') !!}{!! Form::Label('hostelfee', 'no') !!}
+        </div>
 
                     <img src="{{ asset('images/students/'. $student->photo) }}"  alt="photo" width="50" height="50"/>
                     <div class="form-group">
@@ -138,3 +158,10 @@
 @stop
 
 @endsection
+<script type="text/javascript">
+    function sasi() {
+        var chkYes = document.getElementById("hostel");
+        var dvPassport = document.getElementById("sasi1");
+        dvPassport.style.display = chkYes.checked ? "block" : "none";
+    }
+</script>
