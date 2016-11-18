@@ -27,7 +27,7 @@ class CreateBusFeeRequest extends Request
 			'param1' 	   =>  'required',
             'student_id'   =>  'required',
             'bus_id'       =>  'required',
-            'fee'          =>  'required',
+            'fee'          =>  'required|numeric|min:100',
         ];
     }
 }
