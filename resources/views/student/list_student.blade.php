@@ -28,8 +28,16 @@
                 <tr>
                     <th>Sl.No</th>
                     <th>Full name</th>
-                    <th>Batch</th>
-                    <th>DOB</th>                   
+                    <th>Class</th>
+                    <th>DOB</th>     
+                     <th>Religion</th> 
+                     <th>Category</th>
+                     <th>hostel</th>
+                     <th>hostelfee</th>
+                     <th>Address</th>
+                     <th>Place</th>
+                     <th>District</th>
+                     <th>State</th>
                     <th>Photo</th>
                     <th>View more</th>
                     <th>Attendance</th>
@@ -42,10 +50,22 @@
                 <?php $i=1 ?>
                 @foreach( $allStudents as $student )
                 <tr>
-                    <td>{{ $i }}</td>
-                    <td>{{ $student->first_name }} {{ $student->last_name}}</td>
-                    <td>{{ $student->class }}</td>
-                    <td>{{ $student->dob }}</td>
+                   <td>{{ $i }}</td>
+                   <td>{{ $student->first_name }} {{ $student->last_name}}</td>
+                   <td>{{ $student->class }}</td>
+                   <td>{{ $student->guardian }}</td>
+                   <td>{{ $student->religion }}</td>  
+                   <td>{{ $student->category }}</td>  
+                   <td>{{ $student->hostel}}</td>  
+                   <td>{{ $student->hostelfee}}</td> 
+                   <td>{{ $student->housename}}</td>
+                   <td>{{ $student->place}}</td>
+                   <td>{{ $student->district}}</td>
+                   <td>{{ $student->state}}</td>
+                      
+                     
+                     
+                   
                     <td><img src="{{ asset('images/students/'. $student->photo) }}"  alt="photo" width="50" height="50"/></td>
                     <td class=center>                      
                         <a href='Student/{{ $student->enc_id }}'>View more</a>

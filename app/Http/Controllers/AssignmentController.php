@@ -7,28 +7,30 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
-use App\Batch;
-use App\Assignment;
 
+use App\Assignment;
+use App\ClassDetails;
 class AssignmentController extends Controller {
 
-    protected $assignment, $batch;
+    protected $assignment,  $claz;
 
-    public function __construct(Assignment $assignment, Batch $batch) {
+    public function __construct(Assignment $assignment,  ClassDetails $claz ) {
         $this->assignment = $assignment;
-        $this->batch = $batch;
+       
+		$this->claz = $claz;
     }
 
     public function index() {
 
         //Select all records from assignment table    
         $allAssignment = $this->assignment
-                ->join('batch_details', 'batch_details.id', '=', 'assignment.batch_id')
-                ->select('assignment.*', 'batch_details.batch')
-                ->orderBy('assignment.sdate', 'DESC')
+                ->join('class_details', 'class_details.id', '=', 'assignment.batch_id')
+                ->select('assignment.*', 'class_details.class', 'class_details.division')
+                ->orderBy('assignment.submit', 'DESC')
                 ->get();
+				//dd($allAssignment);
 
-        return View('assignment.list_assignment', compact('allAssignment'));
+        return View('Assignment.list_assignment', compact('allAssignment'));
 
     }
 
@@ -40,14 +42,8 @@ class AssignmentController extends Controller {
     public function create() {
 
         //Fetch Batch Details
-        $batch =$this->batch
-                ->select('id', 'batch')
-                ->get();
-        $data = array();
-        foreach ($batch as $batch) {
-            $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+         $batch = new ClassDetails;
+		$batch = $batch->fetch();
         //Redirecting to add_notice.blade.php 
 
 
@@ -61,13 +57,20 @@ class AssignmentController extends Controller {
      * @return Response
      */
 
-    public function store(Request $requestData) {
+    public function store(Requests\AssignmentRequest $requestData) {
 
         //store assignment in assignment table
         $assignment = $this->assignment;
-        $assignment->batch_id = $requestData['batch_id'];
+       $class = $requestData['class'];
+		$division = $requestData['division'];
+		$clazdiv = $this->claz
+		->select('id')
+		->where(['class' =>$class, 'division' => $division])
+		->first();
         $assignment->question = $requestData['question'];
-        $assignment->sdate = $requestData['sdate'];
+        $assignment->submit = $requestData['submit']; 
+		$assignment->batch_id = $clazdiv->id;
+		
         $assignment->save();
         return Redirect::back()
                         ->withFlashMessage('assignment Added successfully!')
@@ -82,14 +85,15 @@ class AssignmentController extends Controller {
      * @return Response
      */
     public function show() {
+		/*
           $allAssignment = $this->assignment
-                ->join('batch_details', 'batch_details.id', '=', 'assignment.batch_id')
-                ->select('assignment.*', 'batch_details.batch')
+                ->join('class_details', 'class_details.id', '=', 'assignment.batch_id')
+                ->select('assignment.*', 'class_details.class', 'class_details.division')
                 ->orderBy('assignment.sdate', 'DESC')
                 ->get();
 
         return View('assignment.user_assignment', compact('allAssignment'));
-
+*/
     }
 
     /**
@@ -102,20 +106,14 @@ class AssignmentController extends Controller {
     public function edit($id) {
 
         $assignment = $this->assignment
-                ->join('batch_details', 'batch_details.id', '=', 'assignment.batch_id')
-                ->select('assignment.*', 'batch_details.batch')
+                ->join('class_details', 'class_details.id', '=', 'assignment.batch_id')
+                ->select('assignment.*', 'class_details.class', 'class_details.division')
                 ->where('assignment.id', $id)
                 ->first();
 
         //Fetch Batch Details
-        $batch = $this->batch
-                ->select('id', 'batch')
-                ->get();
-        $data = array();
-        foreach ($batch as $batch) {
-            $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+       $batch = new ClassDetails;
+		$batch = $batch->fetch();
 
         return View('assignment.edit_assignment', compact('assignment', 'batch', 'id'));
 
@@ -128,17 +126,18 @@ class AssignmentController extends Controller {
      * @param  int $id
      * @return Response
      */
-    public function update($id, Request $requestData) {
+    public function update($id, Requests\AssignmentRequest $requestData) {
         //update values in assignment
 
         $assignment = \App\assignment::find($id);
         $assignment->batch_id = $requestData['batch_id'];
         $assignment->question = $requestData['question'];
-        $assignment->sdate = $requestData['sdate'];
+        $assignment->submit = $requestData['submit'];
         $assignment->save();
         return redirect()->route('Assignment.index')
                         ->withFlashMessage('assignment Updated successfully!')
                         ->withType('success');
+						
     }
 
     /**

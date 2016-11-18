@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
 
     # Faculty crud Route.
     Route::resource('Faculty', 'FacultyController');
+   
 
     # Examtype crud Routes.
     Route::resource('ExamType', 'ExamTypeController');
@@ -41,9 +42,10 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
     Route::resource('Notice', 'NoticeController');
 
     # Batch crud Routes.
-//    Route::resource('BatchDetails', 'BatchDetailsController');
+    Route::resource('ClassDetails', 'ClassDetailsController');
     Route::resource('Hostel', 'HostelController');
     Route::resource('Fee', 'FeehostelController');
+    Route::get('hostelfee', ['as' => 'search.hostelfee', 'uses' => 'FeehostelController@hostelfeesearch']);
     Route::get('dayscholars', ['as' => 'search.dayscholars', 'uses' => 'HostelController@search']);
     Route::get('hostel', ['as' => 'search.hostel', 'uses' => 'HostelController@hostelsearch']);
 
@@ -85,10 +87,10 @@ Route::group(['middleware' => ['auth', 'redirectStandardUser']], function () {
     Route::post('fetchMark', ['uses' => 'MarkDetailsController@fetchMark']);
 
     # Student Registration crud Route.
-//    Route::resource('Student', 'StudentController');
+       Route::resource('Student', 'StudentController');
 
     # Search Student Route.
-//    Route::get('Search', ['as' => 'search.queries', 'uses' => 'StudentController@search']);
+   Route::get('Search', ['as' => 'search.queries', 'uses' => 'StudentController@search']);
 
     # Library crud Route.
     Route::resource('Library', 'LibraryController');

@@ -17,14 +17,19 @@
                 <tbody>                   
                     <tr><th>First name</th><td>{{ $student->first_name }}</td></tr>
                     <tr><th>Last name</th><td>{{ $student->last_name}}</td></tr>
-                    <tr><th>Batch</th><td>{{$student->batch}}</td></tr>
+                    <tr><th>Class</th><td>{{$student->class}}</td></tr>
                     <tr><th>Gender</th><td>{{ $student->gender }}</td></tr>
                     <tr><th>Religion</th><td>{{$student->religion}}</td></tr>
-                    <tr><th>category</th></td>{{$student->category}}</td></tr>
+                    <tr><th>category</th><td>{{$student->category}}</td></tr>
+                    <tr><th>hostel</th><td>{{ $student->hostel}}</td></tr>
+                    <tr><th>hostelfee</th> <td>{{ $student->hostelfee}}</td></tr>
                     <tr><th>DOB</th><td>{{ $student->dob }}</td></tr>
                     <tr><th>Email</th><td>{{ $student->email }}</td></tr>
                     <tr><th>Guardian</th><td>{{ $student->guardian }}</td></tr>
-                    <tr><th>Address</th><td>{{ $student->address }}</td></tr>
+                    <tr><th>Address</th><td>{{ $student->housename }}</td></tr>
+                    <tr><th>Place</th><td>{{ $student->place}}</td></tr>
+                    <tr><th>District</th><td>{{ $student->district}}</td></tr>
+                    <tr><th>State</th> <td>{{ $student->state}}</td></tr>
                     <tr><th>Phone</th><td>{{ $student->phone }}</td></tr>
                     <tr><th>School</th><td>{{ $student->school }}</td></tr>
                     

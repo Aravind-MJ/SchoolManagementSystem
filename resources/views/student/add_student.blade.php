@@ -85,25 +85,25 @@
         </div>
         
          
-        <div class="form-group">
+       <div  class="col-md-6">
             {!! Form::label('address', 'Address') !!}
            
             {!! Form::text('housename', null, ['class' => 'form-control', 'placeholder'=>'Enter House name']) !!}
             {!! errors_for('housename', $errors) !!}
         </div>
-        <div class="form-group">
+      <div  class="col-md-6">
             {!! Form::label('place', 'place') !!}
            
             {!! Form::text('place', null, ['class' => 'form-control', 'placeholder'=>'Enter place Name']) !!}
             {!! errors_for('place', $errors) !!}
         </div>
-        <div class="form-group">
+   <div  class="col-md-6">
             {!! Form::label('district', 'district') !!}
            
             {!! Form::text('district', null, ['class' => 'form-control', 'placeholder'=>'Enter district name']) !!}
             {!! errors_for('district', $errors) !!}
         </div>
-<div class="form-group">
+<div  class="col-md-6">
             {!! Form::label('state', 'state') !!}
            
             {!! Form::text('state', null, ['class' => 'form-control', 'placeholder'=>'Enter state name']) !!}
@@ -125,15 +125,14 @@
             {!! errors_for('House name', $errors) !!}
         </div>
         -->
-        </div>
+      
         <div class="form-group col-md-6">
             {!! Form::label('phone', 'Phone') !!}
             {!! Form::text('phone', null, ['class'=>'form-control', 'placeholder'=>'Enter Phone']) !!}
             {!! errors_for('phone', $errors) !!}
         </div>
-        </div>
-         <div class= "col-md-12">
-        <div class="form-group col-md-6">
+      
+         <div class="form-group col-md-6">
             {!! Form::label('school', 'School') !!}
             {!! Form::text('school', null, ['class'=>'form-control', 'placeholder'=>'Enter School Name']) !!}
             {!! errors_for('school', $errors) !!}
@@ -146,7 +145,7 @@
             {!! Form::email('email', null, ['class' => 'form-control','placeholder'=>'Email']) !!}
             {!! errors_for('email', $errors) !!}
         </div>
-        </div>
+
         <div class="form-group col-md-6">
             {!! Form::label('photo', 'Photo') !!}
             {!! Form::file('photo', null, ['class'=>'form-control']) !!}
@@ -156,6 +155,7 @@
         <div class="form-group">
             {!! Form::submit( 'Submit', ['class'=>'btn btn-primary']) !!} 
         </div></div>
+      </div>
         </center>
         {!! Form::close() !!}
     
