@@ -61,11 +61,11 @@
 
                     <div class="form-group">
                         {!! Form::Label('batch', 'Class') !!}
-                        {!! Form::select('batch_id', $batch->class, null, ['class' => 'form-control']) !!}
+                        {!! Form::select('class', $batch->class, null, ['class' => 'form-control']) !!}
                     </div>
                  <div class="form-group">
                         {!! Form::Label('batch', 'Division') !!}
-                        {!! Form::select('batch_id', $batch->division, null, ['class' => 'form-control']) !!}
+                        {!! Form::select('division', $batch->division, null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::Label('gender', 'Gender') !!}<br>
@@ -106,14 +106,17 @@
             {!! Form::text('housename', null,  ['class'=>'form-control', 'placeholder'=>'House name']) !!}
             {!! errors_for('housename', $errors) !!}
             <br>
+            {!! Form::label('place', 'Place') !!}
             {!! Form::text('place', null,  ['class'=>'form-control', 'placeholder'=>'place/street']) !!}
             {!! errors_for('place/street', $errors) !!}
              <br>
+             {!! Form::label('district', 'District') !!}
             {!! Form::text('district', null,  ['class'=>'form-control', 'placeholder'=>'District']) !!}
             {!! errors_for('district', $errors) !!}
              <br>
-            {!! Form::text('State', null,  ['class'=>'form-control', 'placeholder'=>'State']) !!}
-            {!! errors_for('State', $errors) !!}
+             {!! Form::label('state', 'State') !!}
+            {!! Form::text('state', null,  ['class'=>'form-control', 'placeholder'=>'State']) !!}
+            {!! errors_for('state', $errors) !!}
         </div>
 
         <div class="form-group">

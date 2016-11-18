@@ -9,13 +9,9 @@
 <!--<div class='col-md-offset-1 col-md-9'>-->
 <div class="box box-primary">
     <div class="box-body">
-
+       
         {!! Form::open(array('route' => 'search.queries', 'class'=>'form navbar-form navbar-right searchform', 'method'=>'get')) !!}
-        @if(isset($batch))
-        @if(!empty($batch))
-        {!! Form::select('param1', $batch, null, array('placeholder' => 'Please select batch','class' => 'form-control')) !!}
-        @endif
-        @endif
+
         {!! Form::text('param2', null, array('class'=>'form-control', 'placeholder'=>'Search for student...')) !!}
         {!! Form::submit('Search', array('class'=>'btn btn-default')) !!}
         {!! Form::close() !!}
