@@ -1,7 +1,4 @@
 
-
-
-
 @extends('layouts.layout')
 
 @section('title', 'Paid Students')
@@ -21,7 +18,7 @@
        <div class="col-md-6">
             <h4>Class</h4>
         {!! Form::select('batch', $batch->class, null, ['class' => 'form-control']) !!}
-           </div> 
+       </div> 
           <div class="col-md-6">
             <h4>Division</h4>
         {!! Form::select('division',$batch->division, null, ['class' => 'form-control']) !!}
@@ -41,11 +38,12 @@
         <table id="example2" class="table table-bordered table-hover">
             <thead>
                 <tr>
-                     <th>Sl.No</th>
+                    <th>Sl.No</th>
                     <th>Full name</th>
                     <th>Address</th>
                     <th>Guardian</th>
                     <th>Contact no</th>  
+                    <th> Paid Date</th>
 
                 </tr>
             </thead>
@@ -60,8 +58,8 @@
                                              </td>
                     <td>{{ $student->guardian }}</td>
                     <td>{{ $student->phone }}</td>
-					
-                   
+                     <td>{{ $student->created_at}}</td>
+		
                 </tr>
                 <?php $i++ ?>
                 @endforeach
