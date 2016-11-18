@@ -12,7 +12,6 @@
             {!! Form::Label('param1', 'Batch') !!}
             {!! Form::select('param1',(['' => 'Select Batch'] + $batch),$batch_id,['class' => 'form-control']) !!}
         </div> 
-
         <div class="form-group">
             {!! Form::Label('student_id', 'Student') !!}
             {!! Form::select('student_id',(['' => 'Select Student'] + $users),  null, ['class' => 'form-control']) !!}
@@ -34,11 +33,11 @@
         <div class="form-group">
             {!! Form::submit( 'Submit', ['class'=>'btn btn-primary']) !!} 
         </div>
-
         {!! Form::close() !!}
     </div>
 
 </div>
+
 @endsection
 @section('pagescript')
 <script type="text/javascript">
