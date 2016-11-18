@@ -22,6 +22,7 @@ class SentinelUserRoleSeeder extends Seeder
 		$pta = Sentinel::findByCredentials(['login' => 'pta@pta.com']);
 		$alumni = Sentinel::findByCredentials(['login' => 'alumni@alumni.com']);
         $administrator = Sentinel::findByCredentials(['login' => 'administrator@administrator.com']);
+		
         
         $managementRole = Sentinel::findRoleByName('Management');
         $adminRole = Sentinel::findRoleByName('Admins');
@@ -31,6 +32,7 @@ class SentinelUserRoleSeeder extends Seeder
 		$ptaRole = Sentinel::findRoleByName('PTA');
 		$alumniRole = Sentinel::findRoleByName('Alumni');
         $administratorRole = Sentinel::findRoleByName('Administrator');
+		
 
         // Assign the roles to the users
         $managementRole->users()->attach($management);
@@ -41,6 +43,7 @@ class SentinelUserRoleSeeder extends Seeder
 		$ptaRole->users()->attach($pta);
 		$alumniRole->users()->attach($alumni);
         $administratorRole->users()->attach($administrator);
+	   
 
         $this->command->info('Users assigned to roles seeded!');
     }

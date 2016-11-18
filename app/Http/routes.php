@@ -5,7 +5,7 @@ Route::get('logout', ['as' => 'logout', 'uses' => 'SessionsController@destroy'])
 Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
 
 # Redirecting all registered users so they cannot access these pages.
-Route::group(['middleware' => ['redirectAdmin', 'redirectStandardUser', 'redirectSuperAdmin', 'redirectFaculty']], function () {
+Route::group(['middleware' => ['redirectAdmin', 'redirectStandardUser', 'redirectSuperAdmin', 'redirectFaculty','redirectAdministrator']], function () {
 
     # Login page routes.
     Route::get('/', ['as' => 'login', 'uses' => 'SessionsController@create']);
