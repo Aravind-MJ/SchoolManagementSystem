@@ -18,10 +18,14 @@
             </div>
             <div class="box-body">
                 {!! Form::open() !!}
-                <div class="form-group col-lg-7 col-md-7">
-                <label for="batch">Select Batch</label>
-                {!! Form::select('batch',$batch,'0',array('class'=>'form-control select-batch')) !!}
-                </div>
+               <div class="form-group">
+            {!! Form::Label('class', 'class') !!}
+            {!! Form::select('class', $batch->class, null, ['class' => 'form-control']) !!}
+        </div>      
+ <div class="form-group">
+            {!! Form::Label('division', 'division') !!}
+            {!! Form::select('division', $batch->division, null, ['class' => 'form-control']) !!}
+        </div>    
                 <div class="form-group col-lg-7 col-md-7">
                 <label for="batch">Select Exam</label>
                 {!! Form::select('exam-id',$exam,'0',array('class'=>'form-control exam-id')) !!}

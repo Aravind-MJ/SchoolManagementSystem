@@ -12,7 +12,8 @@
                 <tr>
                     <th style="width: 30%">Sl.No</th>
                     <th style="width: 30%">Student</th>
-                    <th style="width: 30%">Batch</th>
+                    <th style="width: 30%">class</th>
+                     <th style="width: 30%">division</th>
                     <th style="width: 30%">Activity Type</th>
                     <th style="width: 30%">Remark</th>
                     <!--<th>Photo</th>-->
@@ -26,7 +27,8 @@
                 <tr>
                     <td>{{ $i }}</td> 
                     <td>{{ $ActivityDetails->first_name}}</td>
-                    <td>{{ $ActivityDetails->batch}}</td>
+                    <td>{{ $ActivityDetails->class}}</td>
+                    <td>{{ $ActivityDetails->division}}</td>
                     <td>{{ $ActivityDetails->activity_type}}</td> 
                     <td>{{ $ActivityDetails->remark }}</td> 
 

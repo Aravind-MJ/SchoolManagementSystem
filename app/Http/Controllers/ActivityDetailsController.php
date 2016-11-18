@@ -11,6 +11,7 @@ use App\ActivityDetails;
 use App\User;
 use Illuminate\Support\Facades\Request;
 use App\Encrypt;
+use App\ClassDetails;
 
 class ActivityDetailsController extends Controller {
 
@@ -18,10 +19,12 @@ class ActivityDetailsController extends Controller {
         $allActivityDetails = new ActivityDetails;
         $allActivityDetails = $allActivityDetails
                             ->join('activity_types','activity_types.id', '=', 'activity_details.activity_id')
-                            ->join('batch_details', 'batch_details.id', '=', 'activity_details.batch_id')
+                            ->join('class_details', 'class_details.id', '=', 'activity_details.batch_id')
                             ->join('users','users.id', '=','activity_details.student_id')
-                            ->select('activity_details.*','users.first_name','users.last_name','batch_details.batch','activity_types.activity_type')
+                            ->select('activity_details.*','users.first_name','users.last_name','class_details.class','class_details.division','activity_types.activity_type')
+
                             ->get();
+                           // dd($allActivityDetails);
                             
         return view('Activitydetails.list_activitydetails', compact('allActivityDetails'));
     }
@@ -48,15 +51,10 @@ class ActivityDetailsController extends Controller {
         $activity_types = $data;
        
         $batch_id = Request::input('param1');
-        $batch = new Batch;
-        $batch = $batch
-                ->select('id','batch')
-                ->get();
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+        //$batch = new Batch;
+        $batch = new ClassDetails;
+        $batch = $batch->fetch();
+        
             
 
         if($batch_id==null){
@@ -83,6 +81,14 @@ class ActivityDetailsController extends Controller {
       try{
         //store bus in create bus table
           $ActivityDetails = new ActivityDetails;
+
+    $class = $requestData['class'];
+    $division = $requestData['division'];
+    $clazdiv = $this->claz
+    ->select('id')
+    ->where(['class' =>$class, 'division' => $division])
+    ->first();
+
           $ActivityDetails->activity_id = $requestData['activity_types'];
           $ActivityDetails->batch_id = $requestData['param1'];
           $ActivityDetails->student_id = $requestData['student_id'];

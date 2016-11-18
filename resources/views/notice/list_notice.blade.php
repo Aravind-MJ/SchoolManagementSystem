@@ -34,10 +34,11 @@
                         <a href='Notice/{{ $notice->id }}/edit' class='btn btn-primary'>Edit</a>
                     </td>
                     
+                    
                     <td class=center>
                         {!! Form::open(['action' => ['NoticeController@destroy', $notice->id], 'method' => 'POST', 'class' => 'delete']) !!}
                         {!! csrf_field() !!}
-                        <input type="hidden" name="method" value="delete">
+                        <input type="hidden" name="_method" value="delete">
                         <input type="hidden" name="id" value="{{$notice->id}}">
                         <button type="submit" class="btn btn-danger">Delete</button>
                         {!! Form::close() !!}
