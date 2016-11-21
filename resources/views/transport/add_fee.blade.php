@@ -9,9 +9,10 @@
 <div class="box box-primary">
     <div class="box-body">
         <div class="form-group">
-            {!! Form::Label('param1', 'Batch') !!}
-            {!! Form::select('param1',(['' => 'Select Batch'] + $batch),$batch_id,['class' => 'form-control']) !!}
-        </div> 
+            {!! Form::Label('param1', 'Class') !!}
+            {!! Form::select('param1',(['' => 'Select Class'] + $batch->class),$batch_id,['class' => 'form-control']) !!}
+        </div>
+        
         <div class="form-group">
             {!! Form::Label('student_id', 'Student') !!}
             {!! Form::select('student_id',(['' => 'Select Student'] + $users),  null, ['class' => 'form-control']) !!}
