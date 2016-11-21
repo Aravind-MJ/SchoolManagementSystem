@@ -44,26 +44,27 @@ class HostelController extends Controller {
         return View('hostel.list_hostel', compact('allStudents', 'batch', 'id'));
     }
 
-    public function create() {
-        $allStudents = DB::table('student_details')
+     public function create() {
+       $alStudents = DB::table('student_details')
                 ->join('users', 'users.id', '=', 'student_details.user_id')
                 
                 ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
                 
                 ->select('users.*', 'student_details.*','class_details.*')
-                ->where('student_details.hostel', 'no')
+                ->where('student_details.hostel', 'No')
                 ->orderBy('student_details.created_at', 'DESC')
                 ->get();
-        foreach ($allStudents as $student) {
+        foreach ($alStudents as $student) {
             $student->enc_id = Encrypt::encrypt($student->id);
             $student->enc_userid = Encrypt::encrypt($student->user_id);
         
         }
         //Fetch Batch Details
-        $batch = new ClassDetails;
+         $batch = new ClassDetails;
         $batch = $batch->fetch();
-        return View('hostel.list_day scholars', compact('allStudents', 'batch', 'id'));
+        return View('hostel.list_day scholars', compact('alStudents', 'batch', 'id'));
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -184,44 +185,41 @@ class HostelController extends Controller {
         // Gets the query string and batch from our form submission 
 
         $batch = Request::input('batch');
-      $division = $batch = Request::input('division');
-
+       $division = Request::input('division');
 
         // Returns an array of articles that have the query string located somewhere within 
 
         $query = DB::table('student_details')
                 ->join('users', 'users.id', '=', 'student_details.user_id')
-                
                 ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
-                
                 ->select('users.*', 'student_details.*','class_details.*')
-                ->where('student_details.hostel', 'no')
+                ->where('student_details.hostel','no')
                 ->orderBy('student_details.created_at', 'DESC');
-          
+       
         //Fetch Batch Details
    
-       if (isset($batch)) {
+
+        if (isset($batch)) {
             $query->where('class_details.class', $batch);
         }
         if (isset($division)) {
             $query->where('class_details.division', $division);
         }
               
-        $allStudents = $query->get();
-        foreach ($allStudents as $student) {
+        $alStudents = $query->get();
+        foreach ($alStudents as $student) {
             $student->enc_id = Encrypt::encrypt($student->id);
             $student->enc_userid = Encrypt::encrypt($student->user_id);
                 
         }
         //Fetch Batch Details
-        $batch = new ClassDetails;
-        $batch = $batch->fetch();
-        
+       $batch = new ClassDetails;
+       $batch = $batch->fetch();
         // returns a view and passes the view the list of articles and the original query.
 //        return route('Student.index');
         return View('hostel.list_day scholars', 
-            ['allStudents' => $allStudents, 
-            'batch' => $batch, 'division' => $division]
+            ['alStudents' => $alStudents, 
+            'batch' => $batch,'division' => $division]
         );
     }
     
