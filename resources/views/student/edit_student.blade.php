@@ -84,25 +84,8 @@
                         {!! Form::text('guardian', null, ['class'=>'form-control', 'placeholder'=>'Enter guardian name ']) !!}
                         {!! errors_for('guardian', $errors) !!}
                     </div>
-                 <div class="form-group">
-            {!! Form::Label('Religion', 'Religion') !!}<br>
-            {!! Form::radio('religion', 'Hindu') !!}{!! Form::Label('Religion', 'Hindu') !!}
-            {!! Form::radio('religion', 'Christian') !!}{!! Form::Label('Religion', 'Christian') !!}
-            {!! Form::radio('religion', 'Muslim') !!}{!! Form::Label('Religion', 'Muslim') !!}
-            {!! Form::radio('religion', 'Jain') !!}{!! Form::Label('Religion', 'Jain') !!}
-            {!! Form::radio('religion', 'Buddhist') !!}{!! Form::Label('Religion', 'Buddhist') !!}
-            {!! Form::radio('religion', 'Secular') !!}{!! Form::Label('Religion', 'Secular') !!}
-        </div>
-
-        <div class="form-group">
-            {!! Form::Label('category', 'Category') !!}<br>
-            {!! Form::radio('category', 'General') !!}{!! Form::Label('Category', 'Genaral') !!}
-            {!! Form::radio('category', 'SC') !!}{!! Form::Label('Category', 'SC') !!}
-            {!! Form::radio('category', 'ST') !!}{!! Form::Label('Category', 'ST') !!}
-            {!! Form::radio('category', 'OBC') !!}{!! Form::Label('Category', 'OBC') !!}
-        </div>
                    <div class="form-group">
-            {!! Form::label('address', 'Address') !!}
+            {!! Form::label('housename', 'House Name') !!}
             {!! Form::text('housename', null,  ['class'=>'form-control', 'placeholder'=>'House name']) !!}
             {!! errors_for('housename', $errors) !!}
             <br>
@@ -113,10 +96,6 @@
              {!! Form::label('district', 'District') !!}
             {!! Form::text('district', null,  ['class'=>'form-control', 'placeholder'=>'District']) !!}
             {!! errors_for('district', $errors) !!}
-             <br>
-             {!! Form::label('state', 'State') !!}
-            {!! Form::text('state', null,  ['class'=>'form-control', 'placeholder'=>'State']) !!}
-            {!! errors_for('state', $errors) !!}
         </div>
 
         <div class="form-group">
@@ -129,16 +108,6 @@
                         {!! Form::text('school', null, ['class'=>'form-control', 'placeholder'=>'Enter School Name']) !!}
                         {!! errors_for('school', $errors) !!}
                     </div>
-                    <div class="form-group col-md-6"><b>HOSTEL FACILITIES NEEDED?</b>
-            <input type="radio" id="hostel" value="yes" name="hostel" onclick="sasi()" /> Yes
-            <input type="radio" id="hostel" value="no" name="hostel" onclick="sasi()" /> NO
-     </div>
-           
-            <div class="form-group col-md-6" id="sasi1">
-            {!! Form::Label('hostelfee', 'Hostel fee paid?') !!}<br>
-            {!! Form::radio('hostelfee', 'yes') !!}{!! Form::Label('hostelfee', 'yes') !!}
-            {!! Form::radio('hostelfee', 'no') !!}{!! Form::Label('hostelfee', 'no') !!}
-        </div>
 
                     <img src="{{ asset('images/students/'. $student->photo) }}"  alt="photo" width="50" height="50"/>
                     <div class="form-group">

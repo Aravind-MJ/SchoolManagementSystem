@@ -243,12 +243,12 @@ class StudentController extends Controller {
         
         $student->batch_id = $class->id;
         $student->gender = $requestData['gender'];
-        $student->religion = $requestData['religion'];
-        $student->category = $requestData['category'];
+//        $student->religion = $requestData['religion'];
+//        $student->category = $requestData['category'];
         $student->dob = date('Y-m-d', strtotime($requestData['dob']));
         $student->guardian = $requestData['guardian'];
-        $student->hostel = $requestData['hostel'];
-        $student->hostelfee = $requestData['hostelfee'];
+//        $student->hostel = $requestData['hostel'];
+//        $student->hostelfee = $requestData['hostelfee'];
         $student->housename = $requestData['housename'];
         $student->place = $requestData['place'];
         $student->district = $requestData['district'];

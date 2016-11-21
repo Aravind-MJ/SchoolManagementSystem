@@ -8,7 +8,8 @@
 
 <!--<div class='col-md-offset-1 col-md-9'>-->
 <div class="box box-primary">
-    <div class="box-body">
+  <div class="box-body" style="overflow-y: scroll">
+
        
         {!! Form::open(array('route' => 'search.queries', 'class'=>'form navbar-form navbar-right searchform', 'method'=>'get')) !!}
 
@@ -26,14 +27,9 @@
                     <th>Full name</th>
                     <th>Class</th>
                     <th>DOB</th>     
-                     <th>Religion</th> 
-                     <th>Category</th>
-                     <th>hostel</th>
-                     <th>hostelfee</th>
-                     <th>Address</th>
+                     <th>House Name</th>
                      <th>Place</th>
                      <th>District</th>
-                     <th>State</th>
                     <th>Photo</th>
                     <th>View more</th>
                     <th>Attendance</th>
@@ -50,14 +46,9 @@
                    <td>{{ $student->first_name }} {{ $student->last_name}}</td>
                    <td>{{ $student->class }}</td>
                    <td>{{ $student->guardian }}</td>
-                   <td>{{ $student->religion }}</td>  
-                   <td>{{ $student->category }}</td>  
-                   <td>{{ $student->hostel}}</td>  
-                   <td>{{ $student->hostelfee}}</td> 
                    <td>{{ $student->housename}}</td>
                    <td>{{ $student->place}}</td>
                    <td>{{ $student->district}}</td>
-                   <td>{{ $student->state}}</td>
                       
                      
                      
