@@ -8,11 +8,14 @@
 <!--{!! Form::open() !!}-->
 <div class="box box-primary">
     <div class="box-body">
-        <div class="form-group">
-            {!! Form::Label('param1', 'Class') !!}
-            {!! Form::select('param1',(['' => 'Select Class'] + $batch->class),$batch_id,['class' => 'form-control']) !!}
+       <div class="form-group col-md-6">
+            {!! Form::Label('class', 'Class') !!}
+            {!! Form::select('class',(['' => 'Select Class'] + $batch->class),$batch_id,['class' => 'form-control']) !!}
         </div>
-        
+      <div class="form-group col-md-6">
+            {!! Form::Label('division', 'Division') !!}
+            {!! Form::select('division',(['' => 'Select division'] + $batch->division),$batch_id,['class' => 'form-control']) !!}
+        </div>
         <div class="form-group">
             {!! Form::Label('student_id', 'Student') !!}
             {!! Form::select('student_id',(['' => 'Select Student'] + $users),  null, ['class' => 'form-control']) !!}
@@ -42,9 +45,12 @@
 @endsection
 @section('pagescript')
 <script type="text/javascript">
-    $('#param1').change(function(){  
-        var batch_id = $('#param1').val();
-        window.location.href='{{url("BusFee/create")}}/?param1='+batch_id;
+    $('#division').change(function(){  
+        var class = $('#class').val();
+        var division=$('#division').val();
+        if(class!= null ){
+            window.location.href='{{url("BusFee/create")}}/?class='+class+'&division='+division;
+        }
     });
 </script>
 @endsection

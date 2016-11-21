@@ -12,10 +12,24 @@ use DB;
 use App\Http\Requests\CreateBusFeeRequest;
 class BusFeeController extends Controller {
    public function create() {
-        $batch_id = Request::input('param1');     
+        $clasz = Request::input('class'); 
+        $division =Request::input('division');
+        if($clasz!=null){
+           $class = new ClassDetails;
+                $class = DB::table('class_details') 
+                      ->select('id')
+                      ->where(['class'=> $clasz,'division'=> $division])
+                      ->first();
+        $batch_id = $class->id;  
+        }
+             
         $batch = new ClassDetails;
         $batch = $batch->fetch();
-
+        if(isset($batch_id)){
+            if($batch_id==null){
+            $users = array();
+        }else{
+            
         $users = DB::table('users')
                   ->join('student_details','student_details.user_id', '=','users.id')
                   ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$batch_id])         
@@ -25,23 +39,25 @@ class BusFeeController extends Controller {
           $data=array();
           foreach($users as $each){
               $data[$each->id]=$each->first_name.' '.$each->last_name;
-          }
-        $users=$data;   
-     if($batch_id==null){
-      
-        }else{
-            $users = DB::table('users')
-                  ->join('student_details','student_details.user_id', '=','users.id')
-                  ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$batch_id])         
-                  ->select('users.id','first_name','last_name')
-                  ->get();
-
-            $data=array();
-            foreach($users as $each){
-                $data[$each->id]=$each->first_name.' '.$each->last_name;
-            }
-        $users=$data;
         }
+        $users=$data;   
+        }
+   }
+//     if($batch_id==null){
+//      
+//        }else{
+//            $users = DB::table('users')
+//                  ->join('student_details','student_details.user_id', '=','users.id')
+//                  ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$batch_id])         
+//                  ->select('users.id','first_name','last_name')
+//                  ->get();
+//
+//            $data=array();
+//            foreach($users as $each){
+//                $data[$each->id]=$each->first_name.' '.$each->last_name;
+//            }
+//        $users=$data;
+//        }
         
         $buses = DB::table('buses')
                   ->select('id','bus_no')
