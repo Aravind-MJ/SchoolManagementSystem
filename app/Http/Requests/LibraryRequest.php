@@ -30,29 +30,29 @@ class LibraryRequest extends Request
                 }
             case 'POST': {
                     return [
-                        'bookno' => 'required',
+                        'bookno' => 'required|numeric|min:0|max:1000000',
                         'title' => 'required',                       
-                        'author' => 'required',
+                        'author' => 'required|alpha',
                         'edition' => 'required',
                         'subject' => 'required',
                         'publisher' => 'required',
-                        'quantity' => 'required',
-                        'bookcost' => 'required',
-                        'language' => 'required'
+                        'quantity' => 'required|numeric|min:0|max:1000000',
+                        'bookcost' => 'required|numeric|min:0|max:1000000',
+                        'language' => 'required|alpha'
                     ];
                 }
             case 'PUT':
             case 'PATCH': {
                     return [
-                        'bookno' => 'required',
+                        'bookno' => 'required|numeric|min:0|max:1000000',
                         'title' => 'required',                       
                         'author' => 'required',
                         'edition' => 'required',
                         'subject' => 'required',
                         'publisher' => 'required',
-                        'quantity' => 'required',
-                        'bookcost' => 'required',
-                        'language' => 'required'
+                        'quantity' => 'required|numeric|min:0|max:1000000',
+                        'bookcost' => 'required|numeric|min:0|max:1000000',
+                        'language' => 'required|alpha'
                     ];
                 }
             default:break;
