@@ -10,7 +10,7 @@
               {{--<div class="small-box bg-aqua">--}}
                 {{--<div class="inner">--}}
                   {{--<h3>{{$count['student']}}</h3>--}
-                  <p>users</p>
+                  <p>user</p>
                 </div>
                 <div class="icon">
                   <i class="fa fa-users"></i>
