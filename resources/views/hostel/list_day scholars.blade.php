@@ -8,7 +8,8 @@
 
 <div class='col-md-offset-1 col-md-9'>
 <div class="box box-primary">
-    <div class="box-body">
+   <div class="box-body" style="overflow-y: scroll">
+
         <?php  $division = isset($division)? $division : null;?>
  <div class="form-group">
         {!! Form::open(array('route' => 'search.dayscholars', 'class'=>'form navbar-form navbar-right searchform', 'method'=>'get')) !!}
@@ -36,7 +37,8 @@
     </div>
 </div>
     <div class="box box-primary">
-         <div class="box-body">
+         <div class="box-body" style="overflow-y: scroll">
+
        @if (count($allStudents) === 0)
         <h4><strong> No Students Found! </strong></h4>
         @elseif (count($allStudents) >= 1)
