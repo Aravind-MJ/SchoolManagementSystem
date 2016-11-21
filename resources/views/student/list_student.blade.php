@@ -45,6 +45,7 @@
                    <td>{{ $i }}</td>
                    <td>{{ $student->first_name }} {{ $student->last_name}}</td>
                    <td>{{ $student->class }}</td>
+                   <td>{{ date('d-m-Y', strtotime($student->dob)) }}</td>
                    <td>{{ $student->guardian }}</td>
                    <td>{{ $student->housename}}</td>
                    <td>{{ $student->place}}</td>
