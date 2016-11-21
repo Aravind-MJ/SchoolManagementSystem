@@ -7,21 +7,14 @@ use App\Buses;
 use App\Busfee;
 use App\Http\Student;
 use App\User;
-use App\Batch;
+use App\ClassDetails;
 use DB;
 use App\Http\Requests\CreateBusFeeRequest;
 class BusFeeController extends Controller {
    public function create() {
- $batch_id = Request::input('param1');     
-$batch = DB::table('batch_details')
-                ->select('id', 'batch')
-                ->orderBy('batch_details.created_at', 'ASC')
-                ->get();
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+        $batch_id = Request::input('param1');     
+        $batch = new ClassDetails;
+        $batch = $batch->fetch();
 
         $users = DB::table('users')
                   ->join('student_details','student_details.user_id', '=','users.id')
@@ -88,8 +81,8 @@ $batch = DB::table('batch_details')
                 ->join('users','users.id','=','bus_fee.student_id')
                 ->join('student_details','student_details.user_id', '=','users.id')
                 ->join('buses','buses.id','=','bus_fee.bus_id')
-                ->join('batch_details','batch_details.id','=','bus_fee.batch')
-                ->select('bus_fee.*','batch_details.batch','users.first_name','users.last_name','buses.bus_no')
+                ->join('class_details','class_details.id','=','bus_fee.batch')
+                ->select('bus_fee.*','class_details.class','users.first_name','users.last_name','buses.bus_no')
           ->orderBy('bus_fee.id')
                 ->get();
         return View('transport.list_fee', compact('busfee'));
@@ -98,16 +91,8 @@ $batch = DB::table('batch_details')
         $busfees = new Busfee;
         $busfees = $busfees->find($id);
         $batch_id = Request::input('param1');
-        $batch = DB::table('batch_details')
-                ->select('id', 'batch')
-                ->orderBy('batch_details.created_at', 'ASC')
-                ->get();
-//        $batch = Batch::lists('batch', 'id')->prepend('Select Batch', '');
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
+          $batch = new ClassDetails;
+        $batch = $batch->fetch();
           
       if($batch_id==null){
         $batch_id = $busfees->batch;
