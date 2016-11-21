@@ -29,7 +29,7 @@
             {!! Form::select('class', $batch->class, null, ['class' => 'form-control']) !!}
         </div>
              <div class="form-group col-md-6">
-            {!! Form::Label('class', 'Class') !!}
+            {!! Form::Label('class', 'Division') !!}
             {!! Form::select('division', $batch->division, null, ['class' => 'form-control']) !!}
         </div>
         
@@ -86,25 +86,25 @@
         
          
        <div  class="col-md-6">
-            {!! Form::label('address', 'Address') !!}
+            {!! Form::label('address', 'House Name') !!}
            
             {!! Form::text('housename', null, ['class' => 'form-control', 'placeholder'=>'Enter House name']) !!}
             {!! errors_for('housename', $errors) !!}
         </div>
       <div  class="col-md-6">
-            {!! Form::label('place', 'place') !!}
+            {!! Form::label('place', 'Place') !!}
            
             {!! Form::text('place', null, ['class' => 'form-control', 'placeholder'=>'Enter place Name']) !!}
             {!! errors_for('place', $errors) !!}
         </div>
    <div  class="col-md-6">
-            {!! Form::label('district', 'district') !!}
+            {!! Form::label('district', 'District') !!}
            
             {!! Form::text('district', null, ['class' => 'form-control', 'placeholder'=>'Enter district name']) !!}
             {!! errors_for('district', $errors) !!}
         </div>
 <div  class="col-md-6">
-            {!! Form::label('state', 'state') !!}
+            {!! Form::label('state', 'State') !!}
            
             {!! Form::text('state', null, ['class' => 'form-control', 'placeholder'=>'Enter state name']) !!}
             {!! errors_for('state', $errors) !!}

@@ -91,7 +91,7 @@ class StudentController extends Controller {
                       ->select('id')
                       ->where(['class'=> $claz,'division'=> $division])
                       ->first();
-              if($class==null){
+                if($class==null){
                   $class=new ClassDetails;
                   $class->class=$claz;
                   $class->division=$division;
@@ -164,19 +164,19 @@ class StudentController extends Controller {
      * @return Response
      */
     public function show($id) {
-//        $enc_id = $id;
-//        $id = Encrypt::decrypt($id);
-//        //Get results by targeting id
-//        $student = DB::table('student_details')
-//                ->join('users', 'users.id', '=', 'student_details.user_id')
-//                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
-//                ->select('users.*', 'student_details.*', 'class_details.class')
-//                ->where('student_details.id', $id)
-//                ->first();
-//        $student->enc_id = Encrypt::encrypt($student->id);
-//        $student->enc_userid = Encrypt::encrypt($student->user_id);
-////        return view('protected.admin.student_details')->with('student', $student);
-//        return View('student.student_details', compact('student'));
+        $enc_id = $id;
+        $id = Encrypt::decrypt($id);
+        //Get results by targeting id
+        $student = DB::table('student_details')
+                ->join('users', 'users.id', '=', 'student_details.user_id')
+                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
+                ->select('users.*', 'student_details.*', 'class_details.class')
+                ->where('student_details.id', $id)
+                ->first();
+        $student->enc_id = Encrypt::encrypt($student->id);
+        $student->enc_userid = Encrypt::encrypt($student->user_id);
+//        return view('protected.admin.student_details')->with('student', $student);
+        return View('student.student_details', compact('student'));
     }
 
     /**
@@ -243,12 +243,12 @@ class StudentController extends Controller {
         
         $student->batch_id = $class->id;
         $student->gender = $requestData['gender'];
-//        $student->religion = $requestData['religion'];
-//        $student->category = $requestData['category'];
+        $student->religion = $requestData['religion'];
+        $student->category = $requestData['category'];
         $student->dob = date('Y-m-d', strtotime($requestData['dob']));
         $student->guardian = $requestData['guardian'];
-//        $student->hostel = $requestData['hostel'];
-//        $student->hostelfee = $requestData['hostelfee'];
+        $student->hostel = $requestData['hostel'];
+        $student->hostelfee = $requestData['hostelfee'];
         $student->housename = $requestData['housename'];
         $student->place = $requestData['place'];
         $student->district = $requestData['district'];

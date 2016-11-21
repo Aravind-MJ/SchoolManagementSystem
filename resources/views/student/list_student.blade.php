@@ -28,8 +28,6 @@
                     <th>Class</th>
                     <th>DOB</th>     
                      <th>House Name</th>
-                     <th>Place</th>
-                     <th>District</th>
                     <th>Photo</th>
                     <th>View more</th>
                     <th>Attendance</th>
@@ -46,11 +44,8 @@
                    <td>{{ $student->first_name }} {{ $student->last_name}}</td>
                    <td>{{ $student->class }}</td>
                    <td>{{ date('d-m-Y', strtotime($student->dob)) }}</td>
-                   <td>{{ $student->guardian }}</td>
-                   <td>{{ $student->housename}}</td>
-                   <td>{{ $student->place}}</td>
-                   <td>{{ $student->district}}</td>
-                      
+                   <td>{{ $student->housename }}</td>
+                  
                      
                      
                    
@@ -85,9 +80,10 @@
 
 </div>
 </div>
+@stop
 @section('confirmDelete')
 <script>
-    $(".delete").on("submit", function () {
+    $(".delete").on("submit", function(){
         return confirm("Do you want to delete this item?");
     });
 </script>
@@ -99,12 +95,11 @@
         $('#example2').dataTable({
             "bPaginate": true,
             "bLengthChange": false,
-            "bFilter": false,
-            "bSort": false,
+            "bFilter": true,
+            "bSort": true,
             "bInfo": true,
             "bAutoWidth": false
         });
     });
 </script>
-@stop
 @endsection
