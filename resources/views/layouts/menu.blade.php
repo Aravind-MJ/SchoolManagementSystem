@@ -305,16 +305,18 @@
                         <ul class="treeview-menu">
                         <li><a href="{{URL::route('Fee.index')}}"><i class="fa fa-circle-o"></i>Paid Students</a></li>
                      
-                    </ul>
-                         
+                    </ul>     
                     </li>
+                    <li class="treeview {{ set_active('SendAnSms') }}">
+                        <a href="{{url('/hostel')}}">
+                        <i class="fa fa-hotel"></i>
                      <span>Hostel Fee</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::route('Hostel.edit')}}"><i class="fa fa-circle-o"></i>Hostel Fee</a></li></ul></ul>
+                    <li><a href="{{URL::route('Hostel.edit')}}"><i class="fa fa-circle-o"></i>Hostel Fee</a></li></ul>
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('transportation') }}">
@@ -330,7 +332,9 @@
                         <li><a href="{{route('transportation.create')}}" class="fa fa-circle-o"></i>Create Bus</a></li>
                         <li><a href="{{route('transportation.index')}}" class="fa fa-circle-o"></i>List Bus</a></li>                        
                         <li><a href="{{route('BusFee.create')}}" class="fa fa-circle-o"></i>Add Bus Fee</a></li>                        
-                        <li><a href="{{route('BusFee.index')}}" class="fa fa-circle-o"></i>List Bus Fee</a></li>                        
+                        <li><a href="{{route('BusFee.index')}}" class="fa fa-circle-o"></i>List Bus Fee</a></li> 
+                        <li><a href="{{route('FeeStatus.create')}}" class="fa fa-circle-o"></i>Add Fee Status</a></li>                        
+                        <li><a href="{{route('FeeStatus.index')}}" class="fa fa-circle-o"></i>List Fee Status</a></li>                        
                         </ul>
                     </li>
                 @endif

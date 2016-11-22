@@ -11,54 +11,46 @@ use App\ClassDetails;
 use DB;
 use App\Http\Requests\CreateBusFeeRequest;
 class BusFeeController extends Controller {
+
    public function create() {
+      
+           $batch = new ClassDetails;
+        $batch = $batch->fetch();
+        //$batch_id = null;
         $clasz = Request::input('class'); 
         $division =Request::input('division');
-        if($clasz!=null){
+        if($division!=null){
            $class = new ClassDetails;
                 $class = DB::table('class_details') 
                       ->select('id')
                       ->where(['class'=> $clasz,'division'=> $division])
                       ->first();
-        $batch_id = $class->id;  
-        }
-             
-        $batch = new ClassDetails;
-        $batch = $batch->fetch();
-        if(isset($batch_id)){
-            if($batch_id==null){
+                if($class != null){
+                  $batch_id = $class->id; 
+                }else{
+                 return redirect()->back()
+                              ->withFlashMessage(''.$clasz.' '.$division.' Not Found !!')
+                              ->withType('danger');   
+                }
+
+        }  
+        
+
+        if(!isset($batch_id)){
             $users = array();
         }else{
-            
-        $users = DB::table('users')
+          $users = new User;
+            $users = $users
                   ->join('student_details','student_details.user_id', '=','users.id')
-                  ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$batch_id])         
+                  ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$batch_id])       
                   ->select('users.id','first_name','last_name')
-                  ->orderBy('users.created_at', 'ASC')
                   ->get();
-          $data=array();
-          foreach($users as $each){
-              $data[$each->id]=$each->first_name.' '.$each->last_name;
+            $data=array();
+            foreach($users as $each){
+                $data[$each->id]=$each->first_name.' '.$each->last_name;
+            }
+        $users=$data;
         }
-        $users=$data;   
-        }
-   }
-//     if($batch_id==null){
-//      
-//        }else{
-//            $users = DB::table('users')
-//                  ->join('student_details','student_details.user_id', '=','users.id')
-//                  ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$batch_id])         
-//                  ->select('users.id','first_name','last_name')
-//                  ->get();
-//
-//            $data=array();
-//            foreach($users as $each){
-//                $data[$each->id]=$each->first_name.' '.$each->last_name;
-//            }
-//        $users=$data;
-//        }
-        
         $buses = DB::table('buses')
                   ->select('id','bus_no')
                   ->get();
@@ -67,7 +59,8 @@ class BusFeeController extends Controller {
             $data[$buses->id]=$buses->bus_no;
         }
         $buses = $data;
-        return view('transport.add_fee', compact('batch','batch_id','users','buses'));
+    
+        return view('transport.add_fee', compact('batch','batch_id','users','buses','clasz','division'));
  
    } 
    public function store(CreateBusFeeRequest $requestData) {
@@ -75,7 +68,18 @@ class BusFeeController extends Controller {
         try{
         //store bus in create bus table
         $busfee = new Busfee;
-        $busfee->batch = $requestData['param1'];
+        $class = $requestData['class'];
+        $division = $requestData['division'];
+        $claz = new ClassDetails;
+        $clazdiv = $claz
+          ->select('id')
+          ->where(['class' =>$class, 'division' => $division])
+          ->first();
+        if($clazdiv == TRUE){
+          $batch_id = $clazdiv->id;
+        }
+
+        $busfee->batch = $batch_id;
         $busfee->student_id = $requestData['student_id'];
         $busfee->bus_id = $requestData['bus_id'];
         $busfee->fee = $requestData['fee'];
@@ -98,20 +102,21 @@ class BusFeeController extends Controller {
                 ->join('student_details','student_details.user_id', '=','users.id')
                 ->join('buses','buses.id','=','bus_fee.bus_id')
                 ->join('class_details','class_details.id','=','bus_fee.batch')
-                ->select('bus_fee.*','class_details.class','users.first_name','users.last_name','buses.bus_no')
-          ->orderBy('bus_fee.id')
+                ->select('bus_fee.*','class_details.class','class_details.division','users.first_name','users.last_name','buses.bus_no')
+                ->orderBy('bus_fee.id')
                 ->get();
         return View('transport.list_fee', compact('busfee'));
     }
     public function edit($id) {
         $busfees = new Busfee;
         $busfees = $busfees->find($id);
-        $batch_id = Request::input('param1');
-          $batch = new ClassDetails;
+        $batch = new ClassDetails;
         $batch = $batch->fetch();
-          
-      if($batch_id==null){
         $batch_id = $busfees->batch;
+        $class = new ClassDetails;
+        $class = $class->find($batch_id);
+        $clasz = $class->class;
+        $division = $class->division;
         $users = DB::table('users')
                   ->join('student_details','student_details.user_id', '=','users.id')
                   ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$busfees->batch])         
@@ -123,18 +128,6 @@ class BusFeeController extends Controller {
           }
         $users=$data;
         $data=array();
-      }else{
-        $users = DB::table('users')
-                  ->join('student_details','student_details.user_id', '=','users.id')
-                  ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$batch_id])         
-                  ->select('users.id','first_name','last_name')
-                  ->get();
-          $data=array();
-          foreach($users as $each){
-              $data[$each->id]=$each->first_name.' '.$each->last_name;
-          }
-        $users=$data;
-      }
         
         $buses = DB::table('buses')
                   ->select('id','bus_no')
@@ -144,18 +137,27 @@ class BusFeeController extends Controller {
             $data[$allbuses->id]=$allbuses->bus_no;
         }
         $buses = $data;
-    return view('transport.edit_fee', compact('batch','batch_id','users','buses','busfees'));
+    return view('transport.edit_fee', compact('batch','clasz','division','users','buses','busfees'));
     }
     public function update($id, CreateBusFeeRequest $requestData) {
         //update values in notice
       try{
-        $buses = new Busfee;
-        $buses = $buses->find($id);
-        $buses->batch = $requestData['param1'];
-        $buses->student_id = $requestData['student_id'];
-        $buses->bus_id = $requestData['bus_id'];
-        $buses->fee = $requestData['fee'];
-        $buses->save();
+            $class = $requestData['class'];
+            $division = $requestData['division'];
+            $claz = new ClassDetails;
+            $clazdiv = $claz
+                    ->select('id')
+                    ->where(['class' => $class, 'division' => $division])
+                    ->first();
+             if ($clazdiv == TRUE) {
+                $batch_id = $clazdiv->id;
+            }
+        $busfee = BusFee::find($id);
+        $busfee->batch = $batch_id;
+        $busfee->student_id = $requestData['student_id'];
+        $busfee->bus_id = $requestData['bus_id'];
+        $busfee->fee = $requestData['fee'];
+        $busfee->save();
       }catch(Exception $e){
        return redirect()->route('BusFee.index')
                         ->withFlashMessage('Bus Fee Edition Failed!')

@@ -19,7 +19,7 @@
             <thead>
                 <tr>
                     <th>SL.No</th>
-                    <th>Batch</th>
+                    <th>Class</th>
                     <th>Student</th>
                     <th>Bus</th>
                     <th>Fee</th>
@@ -32,7 +32,7 @@
                 @foreach( $busfee as $each_busfee )
                 <tr>
                     <td>{{ $i }}</td>
-                    <td>{{ $each_busfee->batch }}</td>
+                    <td>{{ $each_busfee->class }} {{ $each_busfee->division }}</td>
                     <td>{{ $each_busfee->first_name }} {{ $each_busfee->last_name }}</td>
                     <td>{{ $each_busfee->bus_no }}</td>
                     <td>{{ $each_busfee->fee }}</td>

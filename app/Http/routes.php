@@ -176,6 +176,7 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
 
 Route::resource('transportation', 'BusesController');
 Route::resource('BusFee', 'BusFeeController');
+Route::resource('FeeStatus', 'FeeStatusController');
 
 Route::get('construction', function(){
     return view('construction');

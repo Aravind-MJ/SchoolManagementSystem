@@ -24,7 +24,8 @@ class CreateBusFeeRequest extends Request
     public function rules()
     {
         return [
-			'param1' 	   =>  'required',
+            'class'        =>  'required',
+			'division' 	   =>  'required',            
             'student_id'   =>  'required',
             'bus_id'       =>  'required',
             'fee'          =>  'required|numeric|min:100',
