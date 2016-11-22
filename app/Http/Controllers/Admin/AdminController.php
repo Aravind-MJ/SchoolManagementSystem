@@ -24,9 +24,6 @@ class AdminController extends Controller
         $count = array();
         $title = 'Admin | Home';
         $roles = ['management','admins','faculty','student','parent','pta','alumni','administrator'];
-
-        $roles = ['management','Administrator','admins','faculty','student','parent','pta','alumni'];
-        $roles = [9=>'student', 7=>'admins', 8=>'faculty'];
         $data = $this->users
           ->select(DB::raw('count(*) as count,role_id'))
             ->groupBy('role_id')

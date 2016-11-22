@@ -3,7 +3,6 @@
 @section('title', 'Attendance of Batch')
 
 @section('body')
-    @include('flash')
     <div class="box box-warning">
         <div class="box-header">
             <div class="box-title">Select Date Range</div>

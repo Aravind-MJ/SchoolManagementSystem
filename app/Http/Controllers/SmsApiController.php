@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ClassDetails;
 use App\Encrypt;
 use App\Exceptions\SmsApiException;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
@@ -10,7 +11,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\SmsApiRequest;
 use App\Http\Controllers\Controller;
-use App\Batch;
 use App\Faculty;
 use App\StudentDetails;
 use App\SmsHistory;
@@ -27,7 +27,7 @@ class SmsApiController extends Controller
     protected $msg_type = 1;
     protected $receiver, $message;
 
-    public function __construct(Faculty $faculty, Batch $batch, StudentDetails $students)
+    public function __construct(Faculty $faculty, ClassDetails $batch, StudentDetails $students)
     {
         $this->batches = $batch;
         $this->students = $students;
@@ -83,20 +83,12 @@ class SmsApiController extends Controller
 
     public function batches()
     {
-        $data = array();
-        $time_shift = ['Morning','Afternoon','evening'];
         $type = 'batches';
         try {
-            $batch = $this->batches
-                ->get();
+            $batch = $this->batches->singleDropdown();
             if (count($batch) <= 0) {
                 return redirect()->back()->withFlashMessage('No Batch Found!!')->withType('danger');
             }
-            foreach ($batch as $each_batch) {
-                $enc_id = Encrypt::encrypt($each_batch->id);
-                $data[$enc_id] = $each_batch->batch . ' - ' . $time_shift[$each_batch->time_shift-1];
-            }
-            $batch = $data;
         } catch (Exception $e) {
             return redirect()->back()->withFlashMessage('Error Selecting batch!!')->withType('danger');
         }

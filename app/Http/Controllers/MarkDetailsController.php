@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ClassDetails;
 use App\Examdetails;
 use App\MarkDetails;
 use App\StudentDetails;
@@ -11,8 +12,6 @@ use Illuminate\Http\Request;
 use DB;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Batch;
 use App\Encrypt;
 use Mockery\CountValidator\Exception;
 
@@ -25,7 +24,7 @@ class MarkDetailsController extends Controller
 
     protected $users, $batch, $student_details, $exam_details, $mark_details;
 
-    public function __construct(User $users, Batch $batch, StudentDetails $student_details, Examdetails $exam_details, MarkDetails $mark_details)
+    public function __construct(User $users, ClassDetails $batch, StudentDetails $student_details, Examdetails $exam_details, MarkDetails $mark_details)
     {
         $this->batch = $batch;
         $this->student_details = $student_details;
@@ -43,14 +42,21 @@ class MarkDetailsController extends Controller
     public function fetchStudents(FetchStudentsRequest $request)
     {
         if ($request->ajax()) {
-            $batch_id = $request['id'];
-            $exam_id = $request['exam_id'];
-            if ($request['id'] == '0') {
-                return '<h4>Select a Batch to View students</h4>';
+            $class = $request['clasz'];
+            $division = $request['division'];
+
+            $batch = new ClassDetails;
+            $batch_id = $batch->where([
+                'class' => $class,
+                'division' => $division
+            ])->first();
+            if($batch_id == null){
+                return '<h4>Batch not found</h4>';
             }
-            $id = Encrypt::decrypt($request['id']);
-            if (!is_numeric($id)) {
-                return 'Invalid Token!';
+            $batch_id = $batch_id->id;
+            $exam_id = $request['exam_id'];
+            if ($request['clasz'] == '' || $request['division'] == '') {
+                return '<h4>Select a Batch to View students</h4>';
             }
 
             $exam_id = Encrypt::decrypt($exam_id);
@@ -63,7 +69,7 @@ class MarkDetailsController extends Controller
                     ->join('users', 'users.id', '=', 'student_details.user_id')
                     ->select('users.id', 'users.first_name', 'users.last_name')
                     ->where(array(
-                        'student_details.batch_id'=> $id,
+                        'student_details.batch_id'=> $batch_id,
                         'users.deleted_at' => null
                     ))
                     ->get();
@@ -76,7 +82,7 @@ class MarkDetailsController extends Controller
                     $check = $this->mark_details
                         ->where(array(
                             'exam_id' => $exam_id,
-                            'user_id' => $id
+                            'user_id' => $each_student->id
                         ))
                         ->get();
                     if (count($check) > 0) {
@@ -106,19 +112,8 @@ class MarkDetailsController extends Controller
     public function create()
     {
         $data = array();
-        $year = 2016;
-        $time_shifts = array('morning', 'afternoon', 'evening');
         try {
-            $batch = $this->batch
-                ->select('id', 'batch', 'time_shift')
-                ->where('year', $year)
-                ->get();
-
-            $data['batch']['0'] = 'Select Batch';
-            foreach ($batch as $each_batch) {
-                $data['batch'][Encrypt::encrypt($each_batch['id'])] = $each_batch['batch'] . ' - ' . $time_shifts[$each_batch['time_shift'] - 1];
-            }
-            $batch = $data['batch'];
+            $batch = $this->batch->fetch();
 
         } catch (Exception $e) {
             return back()->withFlashMessage('Error Selecting batch')->withType('danger');
@@ -248,19 +243,8 @@ class MarkDetailsController extends Controller
     public function index()
     {
         $data = array();
-        $year = 2016;
-        $time_shifts = array('morning', 'afternoon', 'evening');
         try {
-            $batch = $this->batch
-                ->select('id', 'batch', 'time_shift')
-                ->where('year', $year)
-                ->get();
-
-            $data['batch']['0'] = 'Select Batch';
-            foreach ($batch as $each_batch) {
-                $data['batch'][Encrypt::encrypt($each_batch['id'])] = $each_batch['batch'] . ' - ' . $time_shifts[$each_batch['time_shift'] - 1];
-            }
-            $batch = $data['batch'];
+            $batch = $this->batch->fetch();
 
         } catch (Exception $e) {
             return back()->withFlashMessage('Error Selecting batch')->withType('error');
@@ -297,14 +281,21 @@ class MarkDetailsController extends Controller
     public function fetchMark(FetchStudentsRequest $request)
     {
         if ($request->ajax()) {
-            $batch_id = $request['id'];
+            $class = $request['clasz'];
+            $division = $request['division'];
+
+            $batch = new ClassDetails;
+            $batch = $batch->where([
+                'class' => $class,
+                'division' => $division
+            ])->first();
+            if($batch == null){
+                return '<h4>Batch not found!</h4>';
+            }
+            $batch_id = $batch->id;
             $exam_id = $request['exam_id'];
             if ($request['id'] == '0') {
                 return '<h4>Select a Batch to View students</h4>';
-            }
-            $id = Encrypt::decrypt($request['id']);
-            if (!is_numeric($id)) {
-                return 'Invalid Token!';
             }
 
             $exam_id = Encrypt::decrypt($exam_id);
@@ -317,7 +308,7 @@ class MarkDetailsController extends Controller
                     ->join('users', 'users.id', '=', 'student_details.user_id')
                     ->select('users.id', 'users.first_name', 'users.last_name')
                     ->where(array(
-                        'student_details.batch_id'=> $id,
+                        'student_details.batch_id'=> $batch_id,
                         'users.deleted_at' => null
                     ))
                     ->get();
@@ -342,6 +333,7 @@ class MarkDetailsController extends Controller
                 }
 
                 $students = $data;
+                $batch_id = Encrypt::encrypt($batch_id);
 
             } catch (Exception $e) {
                 return 'Error Selecting Students!';

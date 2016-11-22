@@ -49,7 +49,7 @@ class SessionsController extends Controller
     protected function redirectWhenLoggedIn()
     {
         // Logged in successfully - redirect based on type of user
-        return redirect('/');
+        return redirect('/login');
     }
 
     /**
