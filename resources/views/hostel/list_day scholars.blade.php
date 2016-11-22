@@ -49,18 +49,18 @@
                 </tr>
             </thead>
             <tbody>
-                <?php $i=1 ?>
-                @foreach( $alStudents as $student )
-               
+                 <?php $i=1 ?>
+                 @foreach( $alStudents as $student )
                 <tr>                   
                     <td>{{ $i }}</td>
-                    <td>{{ $student->first_name}} {{$student->last_name }} </td>
-                    <td> {{ $student ->housename}}                     
-                                             </td>
+                    <td>{{ $student->first_name}} {{$student->last_name }}</td>
+                    <td>{{ $student->housename}}</td>                                                  
                     <td>{{ $student->guardian }}</td>
                     <td>{{ $student->phone }}</td>
-					<td><a href='Hostel/{{ $student->user_id }}/edit' class='btn btn-primary btn-block'>change to Hostel</a></td>
-                   
+					
+                    <td class=center>
+                        <a class="btn btn-primary btn-block" href="{{url('Hostel/'.$student->user_id)}}">Change to hostel</a>
+                    </td>
                 </tr>
                 <?php $i++ ?>
                 @endforeach
