@@ -463,7 +463,7 @@ class AttendanceController extends Controller
         $data = array();
 
         if (!is_numeric($id)) {
-            if (Sentinel::getUser()->inRole('users')) {
+            if (Sentinel::getUser()->inRole('student')) {
                 return redirect()->back();
             }
             return redirect()->back()->withFlashMessage('Invalid Token!')->withType('danger');

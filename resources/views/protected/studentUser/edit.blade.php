@@ -5,8 +5,6 @@
 @section('content')
 	<h1>Edit Profile</h1>
 
-	@include('flash')
-
 	{!! Form::model($user, ['method' => 'PATCH', 'route' => ['profiles.update', $user->id]]) !!}
 
 		<!-- email Field -->

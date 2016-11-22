@@ -52,7 +52,7 @@
 				@endforeach
                     </div>
 @endsection
-@section('page_scripts')
+@section('pagescript')
 <script>
     function toggle(id){
         var stat = $('.toggle_button_'+id).text();

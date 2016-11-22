@@ -1,0 +1,78 @@
+body {
+   
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.dropzone {
+    border: 2px solid #45A940;
+    padding: 20px;
+    background:  #CEFCCC;
+    color: #000;
+    text-align: center;
+	float: left;
+	width:100%;
+}
+
+.dropzone h3 {
+    color: #000;
+    text-align: center;
+    line-height: 3em;
+    margin-top: 20px;
+}
+
+.dz-clickable {
+    cursor: pointer;
+}
+
+.dz-drag-hover {
+    border: 2px solid #EB7260;
+}
+
+.dz-preview, .dz-processing, .dz-image-preview, .dz-success, .dz-complete {
+    background-color: #fff;
+	padding:10px;	
+	width:25%;
+	float:left;
+	min-height:25px;
+	margin:10px;
+	
+}
+
+.dz-success-mark{
+	
+	background-color:#14C40B;
+}
+
+.dz-error-mark{
+	
+	background-color:#F6110A  
+	
+	
+}
+
+.dz-image {
+    text-align: none;
+	width:100%;
+    /*border: 1px solid #EB7260;*/
+}
+
+
+.dz-details {
+    padding: 10px;
+}
+
+.dz-image-preview img{
+	
+	width:100%;
+	
+	
+}
+
+#capt{
+	width: 80%;
+	margin-left: 30px;
+	margin-top: 17px;
+	}

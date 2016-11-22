@@ -17,7 +17,6 @@
 				<img src="{{url('images/'.$row->image)}}" class="img-responsive" alt=""/>
 					
 						<h5>{{$row->name}}</h5>
-							<p> 05 December </p>
 							<p class="blog-agile2">{{$row->description}}</p>
 							<a class="btn btn-primary" href="{{url('Gallery/'.$row->id)}}">Read More <i class="fa fa-angle-right"></i></a>
 						

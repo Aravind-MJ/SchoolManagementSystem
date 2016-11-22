@@ -12,7 +12,6 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Meta tag Keywords -->
 <!-- css files -->
 <link href="{{url('frontend/css/style.css')}}" rel="stylesheet" type="text/css" media="all">
-<link href="{{url('frontend/css/styleabt.css')}}" rel="stylesheet" type="text/css" media="all">
 <link href="{{url('frontend/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" media="all">
 <link href="{{url('frontend/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" media="all">
 <!-- //css files -->

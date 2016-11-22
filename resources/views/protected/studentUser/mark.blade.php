@@ -3,7 +3,6 @@
 @section('title', 'Student | Mark')
 
 @section('body')
-    @include('flash')
     <div class="box box-primary">
         <div class="box-header">
             <div class="box-title">Marks</div>

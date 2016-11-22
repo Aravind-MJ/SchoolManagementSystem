@@ -13,10 +13,6 @@
                         {!! Form::open(['route' => ['password.change',$enc_id]]) !!}
                         <fieldset>
 
-                            @if (session()->has('flash_message'))
-                                @include('session_flash')
-                            @endif
-
                             <!-- Password field -->
                             <div class="form-group">
                                 {!! Form::password('password', ['placeholder' => 'Password', 'class' => 'form-control', 'required' => 'required'])!!}

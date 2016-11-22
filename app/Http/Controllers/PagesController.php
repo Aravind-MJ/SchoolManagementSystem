@@ -29,15 +29,15 @@ class PagesController extends Controller {
                     //dd($student);
             $student->enc_userid = Encrypt::encrypt($student->user_id);
             unset($student->user_id);
-            return View('protected.standardUser.home', compact('student'));
+            return View('protected.studentUser.home', compact('student'));
         }
     }
 
     public function getNotice() {
         //Select all records from notice table
         $users = Sentinel::getUser();
-        if(!$users->inRole('users')){
-            return redirect('/');
+        if(!$users->inRole('student')){
+            return redirect('/login');
         }
         $id = $users->id;
         $student = DB::table('student_details')
@@ -50,16 +50,15 @@ class PagesController extends Controller {
                 ->orderBy('created_at','DESC')
                 ->limit(10)
                 ->get();
-        return View('protected.standardUser.notice', compact('allNotice'));
-//        return view('pages.about');
+        return View('protected.studentUser.notice', compact('allNotice'));
     }
 
     public function getAssignment() {
         //Select all records from assignment table
         
         $users = Sentinel::getUser();
-        if(!$users->inRole('users')){
-            return redirect('/');
+        if(!$users->inRole('student')){
+            return redirect('/login');
         }
         $id = $users->id;
         $student = DB::table('student_details')
@@ -74,7 +73,6 @@ class PagesController extends Controller {
                 ->get();
         
         return View('Assignment.list_assignment', compact('allAssignment'));
-//        return view('pages.about');
     }
 
     public function getContact() {

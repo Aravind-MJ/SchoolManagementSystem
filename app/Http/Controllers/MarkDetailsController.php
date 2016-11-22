@@ -433,7 +433,7 @@ class MarkDetailsController extends Controller
     public function getMark()
     {
         $user = Sentinel::getUser();
-        if ($user->inRole('users')) {
+        if ($user->inRole('student')) {
             try {
                 $id = $user->id;
                 $marks = $this->mark_details
@@ -471,7 +471,7 @@ class MarkDetailsController extends Controller
                 return redirect()->back()->withFlashMessage('Error Fetching marks!')->withType('danger');
             }
 
-            return view('protected.standardUser.mark',compact('marks'));
+            return view('protected.studentUser.mark',compact('marks'));
         } else {
             return redirect()->back()->withFlashMessage('Access restricted!')->withType('danger');
         }

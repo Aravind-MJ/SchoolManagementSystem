@@ -3,7 +3,6 @@
 @section('title', 'View Profile')
 
 @section('body')
-    @include('flash')
 	<h1>{{ $user->first_name }}'s Profile</h1>
 	<ul>
 		<li>Email Address: {{ $user->email }}</li>

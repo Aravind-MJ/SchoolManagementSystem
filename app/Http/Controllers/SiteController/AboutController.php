@@ -15,7 +15,7 @@ class AboutController extends Controller {
 
   public function create()
     {
-        return view('Frontend.contact');
+        return view('frontend.contact');
     }
 
   public function store(Request $request)
@@ -29,17 +29,20 @@ class AboutController extends Controller {
       $this->email   = $email;
       
 
-      Mail::send('emails.aboutmail', ['name' => $name, 'email' => $email, 'phone' => $phone, 'bodymessage' => $bodymessage],  function ($message)
+      if(Mail::send('emails.aboutmail', ['name' => $name, 'email' => $email, 'phone' => $phone, 'bodymessage' => $bodymessage],  function ($message)
       {
           $message->from($this->email, 'SMS - ' . $this->name);
-          $message->to('kavyasoman22@gmail.com');
+          $message->to('sidhi@imrokraft.com');
          
-      });
-     
-
-      return redirect('Contact')
-          ->withFlashMessage('Thanks for contacting us!')
-          ->withType('success');
+      })>0) {
+          return redirect('Contact')
+              ->withFlashMessage('Thanks for contacting us!')
+              ->withType('success');
+      }else{
+          return redirect('Contact')
+              ->withFlashMessage('Something went wrong!! Please try again!!')
+              ->withType('danger');
+      }
 
   }
 

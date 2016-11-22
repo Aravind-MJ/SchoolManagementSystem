@@ -5,7 +5,7 @@
 <?php
     $user = \Illuminate\Support\Facades\Auth::user();
 ?>
-@section('title', 'admin')
+@section('title', $title)
 
     @include('flash')
 

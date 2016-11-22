@@ -29,7 +29,7 @@
                 @foreach( $allAssignment as $assignment )
                 <tr>
                     <td>{{ $i }}</td>
-                    <td>{{ $assignment->submit }}</td>
+                    <td>{{ $assignment->sdate }}</td>
                     <td>{!! $assignment->question !!}</td>
                     <td>{{ $assignment->class }}</td>
 					 <td>{{ $assignment->division }}</td>

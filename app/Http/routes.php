@@ -112,6 +112,7 @@ Route::group(['middleware' => ['auth', 'studentUser']], function () {
 
     # s
     Route::get('home', 'PagesController@getHome');
+    Route::get('assignment','PagesController@getAssignment');
     Route::get('notice', ['as' => 'notice.getNotice', 'uses' => 'PagesController@getNotice']);
     Route::get('userProtected', 'StudentUser\StudentUserController@getUserProtected');
     Route::resource('profiles', 'StudentUser\UsersController', ['only' => ['show', 'edit', 'update']]);

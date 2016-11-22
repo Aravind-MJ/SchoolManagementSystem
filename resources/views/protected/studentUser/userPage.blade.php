@@ -4,8 +4,6 @@
 
 @section('body')
 
-    @include('flash')
-
     @if (Sentinel::check())
         <p>{{ "Welcome, " . Sentinel::getUser()->first_name }}</p>
     @endif

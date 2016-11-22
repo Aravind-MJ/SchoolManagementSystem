@@ -30,11 +30,11 @@ class HomeController extends Controller
      public function index()
      {
 
-        $title = 'Admin | Home';
+        $title = 'Administrator | Home';
         $data = DB::table('blog')->where('deleted_at', '=', NULL)->count();
         $eventCount = DB::table('event')->where('deleted_at', '=', NULL)->count();
        
-        return view('backend.home')->with('data',$data)->with('eventCount',$eventCount);
+        return view('backend.home',['title'=>$title])->with('data',$data)->with('eventCount',$eventCount);
        
     }
 

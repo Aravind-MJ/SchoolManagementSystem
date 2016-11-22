@@ -2,6 +2,7 @@
 @section('About','menu__item--current')
 @section('body')
 
+<link href="{{url('frontend/css/styleabt.css')}}" rel="stylesheet" type="text/css" media="all">
 			<div class="callbacks_container">
 				<div class="slider-img">
 							<img src="frontend/images/SLIDE.jpg" class="img-responsive" alt="education" width="100%" height="200px">

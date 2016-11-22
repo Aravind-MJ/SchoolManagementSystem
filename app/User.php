@@ -2,12 +2,14 @@
 
 namespace App;
 
+use Cartalyst\Sentinel\Native\Facades\Sentinel;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Encrypt;
 
 class User extends \Cartalyst\Sentinel\Users\EloquentUser implements AuthenticatableContract, CanResetPasswordContract {
     
@@ -43,4 +45,10 @@ class User extends \Cartalyst\Sentinel\Users\EloquentUser implements Authenticat
     // {
     //     $this->attributes['password'] = \Hash::make($value);
     // }
+
+    static function encid(){
+        $user = Sentinel::getUser();
+        $encid = Encrypt::encrypt($user->id);
+        return $encid;
+    }
 }

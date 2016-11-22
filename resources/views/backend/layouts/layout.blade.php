@@ -29,6 +29,8 @@
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="{{ URL::asset('dist/css/skins/_all-skins.min.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
+        <!-- Even Gallery Image Upload -->
+        <link rel="stylesheet" href="{{url('backend/dist/css/imageupload.css')}}">
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">
@@ -47,90 +49,77 @@
     <body class="hold-transition skin-green sidebar-mini">
         <!-- Site wrapper -->
         <div class="wrapper">
-            <header class="main-header">
+             <header class="main-header">
                 <!-- Logo -->
-                <a href="../../index2.html" class="logo">
-                    <!-- mini logo for sidebar mini 50x50 pixels -->
-                    <span class="logo-mini"><b>Admin</b></span>
-                    <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>Admin</b></span>
+                <a href="{{url('/home')}}" class="logo">
+                  <!-- mini logo for sidebar mini 50x50 pixels -->
+                  <span class="logo-mini"><b>AD</b></span>
+                  <!-- logo for regular state and mobile devices -->
+                  <span class="logo-lg"><b>ADMIN</b></span>
                 </a>
                 <!-- Header Navbar: style can be found in header.less -->
                 <nav class="navbar navbar-static-top">
-                    <!-- Sidebar toggle button-->
-                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
+                  <!-- Sidebar toggle button-->
+                  <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </a>
 
-                    <div class="navbar-custom-menu">
-                        <ul class="nav navbar-nav">
+                  <div class="navbar-custom-menu pull-left">
+                          <ul class="nav navbar-nav">
                             <!-- User Account: style can be found in dropdown.less -->
                             <li class="dropdown user user-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="hidden-xs">Welcome 
-                                       <!-- @if(Sentinel::check())
-                                        {{ Sentinel::getUser()->first_name }} {{Sentinel::getUser()->last_name}}
-                                        @else
-                                        Guest
-                                        @endif-->
-                                        !
-                                    </span>
-
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <!-- User image -->
-                                    <li class="user-header">
-                                        <p>
-
-                                        </p>
-                                    </li>
-                                    <!-- Menu Footer-->
-                                    <li class="user-footer">
-                                        <!--div class="pull-left">
-                                            <a href="{{url('profile')}}" class="btn btn-default profile_new btn-flat">Profile</a>
-                                        </div-->
-                                        <div class="pull-right">
-                                            <a href="{{ url('/logout') }}" class="btn btn-default sign_new btn-flat">Sign out</a>
-                                        </div>
-                                    </li>
-                                </ul>
+                              <a href="{{url('/')}}" target="_blank">
+                               <i class="fa fa-forward"></i><span class="hidden-xs">To Site</span>
+                              </a>
                             </li>
-                        </ul>
-                    </div>
+                          </ul>
+                        </div>
+
+                  <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                      <!-- User Account: style can be found in dropdown.less -->
+                      <li class="dropdown user user-menu">
+                        <a href="{{url('logout')}}">
+                         <i class="fa fa-sign-out"></i><span class="hidden-xs">Logout</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </nav>
-<style> 
-.image {
-    position:relative;
-    display:inline-block;
-}
-.image img{
-    width:100%;
-    vertical-align: top;
-    height: 200px;
-}
-.overlay {
-    display:none;
-}
-.image:hover .overlay {
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,.5);
-    position:absolute;
-    top:0;
-    left:0;
-    display:inline-block;
-    -webkit-box-sizing:border-box;
-    -moz-box-sizing:border-box;
-    box-sizing:border-box;
-}
-textarea.form-control{
-    height: 400px !important;
-}
-</style>
-            </header>
+              <style>
+
+            .image {
+                position:relative;
+                display:inline-block;
+            }
+            .image img{
+                width:100%;
+                vertical-align: top;
+                height: 200px;
+            }
+            .overlay {
+                display:none;
+            }
+            .image:hover .overlay {
+                width:100%;
+                height:100%;
+                background:rgba(0,0,0,.5);
+                position:absolute;
+                top:0;
+                left:0;
+                display:inline-block;
+                -webkit-box-sizing:border-box;
+                -moz-box-sizing:border-box;
+                box-sizing:border-box;
+            }
+            textarea.form-control{
+                height: 400px !important;
+            }
+              </style>
+              </header>
             <!--@if(Sentinel::check())
             <?php
             $user = Sentinel::getUser();
@@ -210,6 +199,8 @@ textarea.form-control{
         <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
         <script src="{{url('backend/dist/js/imageupload.js')}}"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+        <!-- Bootstrap Filestyle -->
+        <script src="{{url('backend/dist/js/bootstrap-filestyle.min.js')}}"></script>
         <script>
             $(function () {
                 $('#datepicker').datepicker({
