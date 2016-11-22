@@ -27,7 +27,7 @@
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="{{ URL::asset('dist/css/skins/_all-skins.min.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
+{{--        <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">--}}
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">

@@ -33,12 +33,13 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('no_of_periods', 'No of periods') !!}
-                    {!! Form::select('no_of_periods',[null=>'Select no of periods',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7'],null,['class' => 'form-control', 'placeholder'=>''])!!}
+                    {!! Form::select('no_of_periods',[null=>'Select no of periods',1=>'1',2=>'2',3=>'3',4=>'4',5=>'5',6=>'6',7=>'7',8=>'8',9=>'9',10=>'10',11=>'11',12=>'12',13=>'13',14=>'14',15=>'15'],null,['class' => 'form-control', 'placeholder'=>''])!!}
                     {!! errors_for('no_of_periods', $errors) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('sticky', 'Sticky?') !!}
                     {!! Form::checkbox('sticky','YES',false)!!}
+                    {!! FORM::hidden('section',$section) !!}
                     {!! errors_for('sticky', $errors) !!}
                 </div>
                 <div class="form-group">
@@ -50,7 +51,7 @@
         {!! Form::close() !!}
         <div class="box box-success">
             <div class="box-header">
-                <div class="box-title">Recently changed options</div>
+                <div class="box-title">Recently Added/Changed options</div>
             </div>
             <div class="box-body">
             <table id="example1" class="table table-bordered table-hover">
@@ -67,13 +68,14 @@
                 <tbody>
                     @foreach($latest as $option)
                     <tr>
-                        <td>{{$option->batch}}</td>
+                        <td>{{$option->batch}}<br>({{$option->in_charge}})</td>
                         <td>{{$option->subject_name}}<br>({{$option->first_name}} {{$option->last_name}})</td>
                         <td>{{$option->no_of_periods}}</td>
                         <td>{{$option->sticky}}</td>
                         <td><button type="submit" class="btn btn-warning" onclick="editOption('{{json_encode($option)}}')">Edit</button></td>
                         <td>
                             {!! Form::open(['route' => ['Timetable.destroy', $option->id], 'method' => 'DELETE']) !!}
+                            {!! FORM::hidden('section',$section) !!}
                             <button type="submit" class="btn btn-danger">   Remove </button>
                             {!! Form::close() !!}
                         </td>
@@ -104,13 +106,14 @@
             <tbody>
             @foreach($options as $option)
                 <tr>
-                    <td>{{$option->batch}}</td>
+                    <td>{{$option->batch}}<br>({{$option->in_charge}})</td>
                     <td>{{$option->subject_name}}<br>({{$option->first_name}} {{$option->last_name}})</td>
                     <td>{{$option->no_of_periods}}</td>
                     <td>{{$option->sticky}}</td>
                     <td><button type="submit" class="btn btn-warning" onclick="editOption('{{json_encode($option)}}')">Edit</button></td>
                     <td>
                         {!! Form::open(['route' => ['Timetable.destroy', $option->id], 'method' => 'DELETE']) !!}
+                        {!! FORM::hidden('section',$section) !!}
                             <button type="submit" class="btn btn-danger">   Remove </button>
                         {!! Form::close() !!}
                     </td>
