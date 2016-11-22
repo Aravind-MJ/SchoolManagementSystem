@@ -18,7 +18,7 @@ class AboutController extends Controller {
         return view('Frontend.contact');
     }
 
-  public function store(Requests $request)
+  public function store(Request $request)
   {
       $name   = $request->input('name');
       $email  = $request->input('email');

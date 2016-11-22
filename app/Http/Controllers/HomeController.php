@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Blog;
+use App\SiteModels\Blog;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\SiteModels\Event;
@@ -39,29 +39,62 @@ class HomeController extends Controller
     }
 
     public function root(){
-       
-        return view('frontend.index');
+        $banner = new Banner;
+        $banner = $banner->get();
+         $data= new Event;
+         $data = $data->orderBy('created_at','DESC')
+             ->limit(3)
+             ->get();
+        return view('frontend.index')->with('banner',$banner)->with('data',$data);
     }
 
-    public function gallery(){
-        return view('frontend.gallery');
+     public function galleries(){
+         $data= new Event;
+         $data = $data->orderBy('created_at','DESC')
+             ->get();
+        return view('frontend.galleries')->with('data',$data);
     }
+
     
+    // public function gallery(){
+    //      $data= new Event;
+    //      $data = $data->orderBy('created_at','DESC')
+             
+    //          ->get();
+
+    //     return view('frontend.gallery')->with('data',$data);
+    // }
+
+    public function gallery($id){
+        $event = new Event;
+        $event = $event->find($id);
+        $images= new Images;
+        $data = $images->where([
+            'event_id'=>$id,
+            'deleted_at'=>null
+        ])
+            ->get();
+
+        return view('frontend.gallery')->with('data',$data)->with('event',$event);
+    }
+
+    public function events(){
+        $events= new Event;
+        $data = $events
+            ->orderBy('created_at','DESC')
+            ->get();
+        return view('frontend.events')->with('data',$data);
+    }
+
+
     public function blogs(){
-       return view('frontend.blogs');
-    }
-
-     public function about(){
-       return view('frontend.about');
-    }
-
-    public function contact(){
-       
-        return view('frontend.contact');
-    }
-
-    public function login(){
-       
-        return view('frontend.index');
+        $blogs= new Blog;
+        $data = $blogs
+            ->orderBy('created_at','DESC')
+            ->get();
+        foreach($data as $blog){
+            $blog->blog_cont = strip_tags($blog->blog_cont);
+        }
+        return view('frontend.blogs')->with('data',$data);
     }
 }

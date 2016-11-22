@@ -1,11 +1,22 @@
 <?php
 
+Route::get('blog', 'SiteController\BlogController@new_blog');
+Route::get('blog/new', 'SiteController\BlogController@new_blog');
+Route::get('blog/list','SiteController\BlogController@index');
+Route::get('blog/{id}', 'SiteController\BlogController@show');
+Route::post('blog/store','SiteController\BlogController@store');
+Route::get('blog/destroy/{id}','SiteController\BlogController@destroy');
+Route::get('blog/edit/{id}','SiteController\BlogController@edit');
+Route::post('blog/edit/{id}','SiteController\BlogController@update');
+Route::get('Gallery','HomeController@galleries');
+
+
 # Routes that anyone can access.
 Route::get('logout', ['as' => 'logout', 'uses' => 'SessionsController@destroy']);
 Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
 
 # Redirecting all registered users so they cannot access these pages.
-Route::group(['middleware' => ['redirectAdmin', 'redirectStandardUser', 'redirectSuperAdmin', 'redirectFaculty']], function () {
+Route::group(['middleware' => ['redirectAdmin','redirect', 'redirectStandardUser', 'redirectSuperAdmin', 'redirectFaculty']], function () {
 
     # Login page routes.
     Route::get('/', ['as' => 'login', 'uses' => 'SessionsController@create']);
@@ -190,3 +201,32 @@ Route::filter('permissions', function ($route, $request) {
 
     return redirect('/')->withFlashMessage('Permission denied.')->withType('danger');
 });
+
+Route::get('/','HomeController@root');
+Route::get('About',function () {
+    return view('frontend.about');
+});
+Route::get('Contact','SiteController\AboutController@create');
+Route::post('Contact','SiteController\AboutController@store');
+Route::get('Blogs','HomeController@blogs');
+Route::get('Blog/{id}','BlogController@show');
+
+Route::get('Gallery/{id}',['uses'=>'HomeController@gallery']);
+Route::get('Management', 'HomeController@root');
+Route::get('Academics', 'HomeController@root');
+
+
+# Banner Routes
+    Route::get('banner','SiteController\BannerController@edit');
+    Route::post('banner','SiteController\BannerController@update');
+    Route::get('banner/{id}','SiteController\BannerController@destroy');
+    Route::get('event/new','SiteController\EventGalleryController@create');
+    Route::post('event/new','SiteController\EventGalleryController@store');
+    Route::get('event','SiteController\EventGalleryController@index');
+    Route::get('event/destroy/{id}','SiteController\EventGalleryController@destroy');
+    Route::get('event/gallery/{eventid}',['as'=>'image.create','uses'=>'SiteController\ImageController@create']);
+    Route::post('event/gallery',['as'=>'image.store','uses'=>'SiteController\ImageController@store']);
+    Route::post('toggle/{id}','SiteController\ImageController@toggle');
+    Route::post('caption/{id}','SiteController\ImageController@caption');
+    Route::get('event/edit/{id}','SiteController\EventGalleryController@edit');
+    Route::post('event/edit/{id}','SiteController\EventGalleryController@update');

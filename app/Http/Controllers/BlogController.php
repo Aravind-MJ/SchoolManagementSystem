@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\SiteController;
+namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\BlogRequest;
 use App\Http\Controllers\Controller;
 use App\SiteModels\Blog;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\ Input;
 use Carbon\Carbon;
 use Illuminate\Contracts\Filesystem\Factory as Storage;
 use Illuminate\Filesystem\Filesystem;
+
 
 class BlogController extends Controller
 {

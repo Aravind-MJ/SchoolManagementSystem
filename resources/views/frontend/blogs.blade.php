@@ -1,8 +1,28 @@
 @extends('frontend.layouts.layout')
-@section('Blog','menu__item--current')
+@section('Blogs','menu__item--current')
 @section('body')
-<!-- blogs start-->
 
+			<div class="callbacks_container">
+				<div class="slider-img">
+							<img src="frontend/images/SLIDE.jpg" class="img-responsive" alt="education" width="100%" height="200px">
+						</div>
+				</div>
+				<!--ul class="rslides" id="slider">
+					<li>
+						<div class="slider-img">
+							<img src="images/bg2.jpg" class="img-responsive" alt="education" >
+						</div>
+						<div class="slider-info">
+							<h3>Education</h3>
+							<p>Education is the most powerful weapon which you can use to change the world.</p>
+						</div>
+					</li>
+				</ul-->
+		
+			
+		<!-- //Slider -->
+</div>
+<!-- blogs start-->
 <section class="blog-w3ls">	
 	<div class="container">
 		<!-- Page Heading/Breadcrumbs -->
@@ -15,57 +35,24 @@
 		<div class="row">
 		<!-- Blog Entries Column -->
         <div class="col-md-8">
-			<!-- First Blog Post -->
-            <h3><a href="blog-post.html">Cooperate meeting on Monday</a></h3>
-            <p class="lead">by <a href="index.html">John Roy, Principal</a></p>
-            <p class="blog-agile1"><i class="fa fa-clock-o"></i> Posted on May 28, 2016 at 10:00 PM</p>
+		@foreach($data as $blog)	<!-- First Blog Post -->
+		<div class="col-md-12">
+            <h3><a href="blog-post.html">{{$blog->blog_title}}</a></h3>
+           
             <hr>
-            <a href="blog-post.html">
+            <a href="{{url('Blog/'.$blog->id)}}">
 				<div class="hover01 column">
 					<div>
-						<figure><img class="img-responsive img-hover" src="{{url('frontend/images/blog-img2.jpg')}}" alt=""></figure>
+						<figure><img class="img-responsive img-hover" src="{{url('images/'.$blog->blog_img)}}" alt=""></figure>
 					</div>
 				</div>
             </a>
             <hr>
-            <p class="blog-agile2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
-            <a class="btn btn-primary" href="blog-post.html">Read More <i class="fa fa-angle-right"></i></a>
+            <p class="blog-agile2">{{$blog->blog_cont}}...</p>
+            <a class="btn btn-primary" href="{{url('Blog/'.$blog->id)}}">Read More <i class="fa fa-angle-right"></i></a>
 			<hr>
-			
-			<!-- Second Blog Post -->
-            <h3><a href="blog-post.html">Annual Sports</a></h3>
-            <p class="lead">by <a href="index.php">Victor Hi, Trustee</a></p>
-            <p class="blog-agile1"><i class="fa fa-clock-o"></i> Posted on May 29, 2016 at 10:45 PM</p>
-            <hr>
-            <a href="blog-post.html">
-                <div class="hover01 column">
-					<div>
-						<figure><img class="img-responsive img-hover" src="{{url('frontend/images/blog-img3.jpg')}}" alt=""></figure>
-					</div>
-				</div>
-            </a>
-            <hr>
-            <p class="blog-agile2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, quasi, fugiat, asperiores harum voluptatum tenetur a possimus nesciunt quod accusamus saepe tempora ipsam distinctio minima dolorum perferendis labore impedit voluptates!</p>
-            <a class="btn btn-primary" href="blog-post.html">Read More <i class="fa fa-angle-right"></i></a>
-			<hr>
-			<!-- Third Blog Post -->
-            
-			<h3><a href="blog-post.html">Councelling for Senior Kids</a></h3>
-            <p class="lead">by <a href="index.php">Jssey Roy, Chairman</a></p>
-            <p class="blog-agile1"><i class="fa fa-clock-o"></i> Posted on August 30, 2016 at 10:45 PM</p>
-            <hr>
-            <a href="blog-post.html">
-				<div class="hover01 column">
-					<div>
-						<figure><img class="img-responsive img-hover" src="{{url('frontend/images/blog-img1.jpg')}}" alt=""></figure>
-					</div>
-				</div>
-            </a>
-            <hr>
-            <p class="blog-agile2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, voluptates, voluptas dolore ipsam cumque quam veniam accusantium laudantium adipisci architecto itaque dicta aperiam maiores provident id incidunt autem. Magni, ratione.</p>
-            <a class="btn btn-primary" href="blog-post.html">Read More <i class="fa fa-angle-right"></i></a>
-			<hr>
-
+			</div>
+@endforeach	
             <!-- Pager -->
             <ul class="pager">
                 <li class="previous">

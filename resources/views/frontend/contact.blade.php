@@ -38,6 +38,13 @@
                 return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);},    "Letters only please"); 
 </script>
 
+			<div class="callbacks_container">
+				<div class="slider-img">
+							<img src="frontend/images/SLIDE.jpg" class="img-responsive" alt="education" width="100%" height="200px">
+						</div>
+						
+				
+
 <div class="contact">
 	<div class="container">
 		<div class="contact-agile">

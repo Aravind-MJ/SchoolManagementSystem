@@ -4,8 +4,9 @@ namespace App\Http\Controllers\SiteController;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Requests\SiteRequest\EventRequest;
+use App\Http\Requests\EventRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\SiteController\ImageController;
 use App\SiteModels\Event;
 use Carbon\Carbon;
 use Illuminate\Contracts\Filesystem\Factory as Storage;
@@ -66,7 +67,7 @@ class EventGalleryController extends Controller
             $event->save();
 			$event_id = $event->id;
 		
-		    return redirect('event/gallery/'.$event_id);
+		   return redirect('event/gallery/'.$event_id);
 			//return view( 'backend.event_gallery.upload_images',['eventid'=>$event_id]);
             }
 			return "uploading failed";

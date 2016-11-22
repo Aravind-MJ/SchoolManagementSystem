@@ -39,12 +39,7 @@ class HomeController extends Controller
     }
 
     public function root(){
-        $banner = new Banner;
-        $banner = $banner->get();
-        $data= new Event;
-        $data = $data->orderBy('created_at','DESC')
-            ->limit(4)
-            ->get();
+        
         return view('frontend.home')->with('data',$data)->with('banner',$banner);
     }
 

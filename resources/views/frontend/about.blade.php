@@ -1,6 +1,12 @@
 @extends('frontend.layouts.layout')
-@section('aboutUs','menu__item--current')
+@section('About','menu__item--current')
 @section('body')
+
+			<div class="callbacks_container">
+				<div class="slider-img">
+							<img src="frontend/images/SLIDE.jpg" class="img-responsive" alt="education" width="100%" height="200px">
+						</div>
+				
 
 <!--about strat here-->
 <div class="about">

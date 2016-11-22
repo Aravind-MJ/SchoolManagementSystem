@@ -2,6 +2,12 @@
 @section('Gallery','menu__item--current')
 @section('body')
 
+			<div class="callbacks_container">
+				<div class="slider-img">
+							<img src="{{url('frontend/images/SLIDE.jpg')}}" class="img-responsive" alt="education" width="100%" height="200px">
+						</div>
+		
+
 <!--activities-->
 <div class="gallery" id="activities">
 	<div class="container">
@@ -9,20 +15,28 @@
 	  	<div class="gallery-top">
 	  		<h2 class="page-header text-center">Our Gallery</h3>
 	  	</div>
+	  	<div class="col-md-12 col-sm-12 col-xs-12 galp">
+        	<h2 class="galp_h">{{$event->name}}</h2>
+		</div>
+		<p class="container">{{$event->description}}</p>
+		
 		<div class="gallery-bott">
+		@foreach($data as $row)
+
 			<div class="col-md-4 col1 gallery-grid">
-				<a href="{{url('frontend/images/g1.jpg')}}" class="b-link-stripe b-animate-go  thickbox">
+				<a href="{{url('images/'.$row->name)}}" class="b-link-stripe b-animate-go  thickbox">
 
 						<figure class="effect-bubba">
-							<img class="img-responsive" src="{{url('frontend/images/g1.jpg')}}" alt="">
+							<img class="img-responsive" src="{{url('images/'.$row->name)}}" alt="">
 							<figcaption>
-								<h4 class="gal">Library</h4>
-								<p class="gal1">“Live as if you were to die tomorrow. Learn as if you were to live forever.” </p>	
+								<h4 class="gal"></h4>
+								<p class="gal1">{{$row->caption}} </p>	
 							</figcaption>			
 						</figure>
 					</a>
 					</div>
-					<div class="col-md-4 col1 gallery-grid">
+		@endforeach
+					<!-- <div class="col-md-4 col1 gallery-grid">
 						<a href="{{url('frontend/images/g2.jpg')}}" class="b-link-stripe b-animate-go  thickbox">
 						<figure class="effect-bubba">
 							<img class="img-responsive" src="{{url('frontend/images/g2.jpg')}}" alt="">
@@ -109,7 +123,7 @@
 							</figcaption>			
 						</figure>
 						</a>
-					</div>
+					</div> -->
 			     <div class="clearfix"> </div>
 			</div>
 		</div>

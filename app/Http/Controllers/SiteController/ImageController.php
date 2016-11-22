@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SiteController;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use App\SiteModels\Images;
 use App\SiteModels\Event;
 use Carbon\Carbon;
-use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Filesystem\Factory as Storage;
 use Illuminate\Filesystem\Filesystem;
 
@@ -32,10 +32,10 @@ class ImageController extends Controller {
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|string
      */
-	  public function store(Storage $storage, Request $request )
+      public function store(Storage $storage, Request $request )
     {
-		
-		$images= new Images;
+        
+        $images= new Images;
        
         if ( $request->isXmlHttpRequest() )
         {
@@ -43,22 +43,22 @@ class ImageController extends Controller {
             $image = $request->file( 'image' );
             $timestamp = $this->getFormattedTimestamp();
             $savedImageName = $this->getSavedImageName( $timestamp, $image );
-			$evtname = Event::find($id);
-			$savedImageName = 'event/'.$evtname->name.'/'.$savedImageName;
+            $evtname = Event::find($id);
+            $savedImageName = 'event/'.$evtname->name.'/'.$savedImageName;
             $imageUploaded = $this->uploadImage( $image, $savedImageName, $storage );
 
             if ( $imageUploaded )
             {
-				$images->event_id = $id;
+                $images->event_id = $id;
                 $images->name = $savedImageName;
-				$images->save();
-				return 'Uploaded Succesfully';
+                $images->save();
+                return 'Uploaded Succesfully';
             }
             return "uploading failed";
         }
 
-    }	
-		
+    }   
+        
      /**
      * @param $image
      * @param $imageFullName
@@ -79,8 +79,8 @@ class ImageController extends Controller {
     {
         return str_replace( [' ', ':','-'], '', Carbon::now()->toDateTimeString() );
     }
-	
-	 /**
+    
+     /**
      * @param $timestamp
      * @param $image
      * @return string

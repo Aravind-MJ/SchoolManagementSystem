@@ -2,21 +2,23 @@
 
 namespace App\Http\Controllers\SiteController;
 
-
 use Illuminate\Http\Request;
 use App\SiteModels\Banner;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Contracts\Filesystem\Factory as Storage;
 use Illuminate\Filesystem\Filesystem;
 
 class BannerController extends Controller
+
 {
 
     public function edit()
     {
         $banner = new Banner;
         $banner = $banner->get();
-        return view('banner')->with('banner',$banner);
+        return view('backend.banner.banner')->with('banner',$banner);
     }
 
     public function update(Request $request,Storage $storage)
