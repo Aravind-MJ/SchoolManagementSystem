@@ -31,7 +31,7 @@
                     <td>{{ $ActivityDetails->division}}</td>
                     <td>{{ $ActivityDetails->activity_type}}</td> 
                     <td>{{ $ActivityDetails->remark }}</td> 
-
+                    
                     <td class=center>
                         <a class="btn btn-primary btn-block" href="{{url('ActivityDetails/'.$ActivityDetails->id).'/edit'}}">Edit</a>
                     </td>

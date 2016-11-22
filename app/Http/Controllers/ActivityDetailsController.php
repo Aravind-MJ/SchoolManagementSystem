@@ -194,7 +194,7 @@ class ActivityDetailsController extends Controller {
         }
         $users = $data;
 
-        return view('ActivityDetails.edit_activitydetails', compact('allActivityDetails', 'activity_id', 'activity_types', 'clasz', 'division', 'id', 'users', 'batch'));
+        return view('Activitydetails.edit_activitydetails', compact('allActivityDetails', 'activity_id', 'activity_types', 'clasz', 'division', 'id', 'users', 'batch'));
     }
 
 }

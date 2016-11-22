@@ -13,16 +13,6 @@
     <div class="box-body">
 
         
-<<<<<<< Updated upstream
-      <div class="form-group">
-            {!! Form::Label('class', 'class') !!}
-            {!! Form::select('class', $batch->class, null, ['class' => 'form-control', 'id' =>'class' ]) !!}
-        </div>      
- <div class="form-group">
-            {!! Form::Label('division', 'division') !!}
-            {!! Form::select('division', $batch->division, null, ['class' => 'form-control', 'id' =>'division']) !!}
-        </div>    
-=======
         <div class="form-group">
             {!! Form::Label('class', 'Class') !!}
             {!! Form::select('class',(['null' => 'Select Class'] + $batch->class),null,['class' => 'form-control']) !!}
@@ -31,7 +21,7 @@
             {!! Form::Label('division', 'Division') !!}
             {!! Form::select('division',(['null' => 'Select division'] + $batch->division),null,['class' => 'form-control']) !!}
         </div>
->>>>>>> Stashed changes
+
         <div class="form-group">
             {!! Form::Label('student_id', 'Student') !!}
             {!! Form::select('student_id',['null'=>'Select Student'] + $users, null, ['class' => 'form-control']) !!}
@@ -61,12 +51,6 @@
 
 @endsection
 @section('pagescript')
-<<<<<<< Updated upstream
-<script type="text/javascript">
-    $('#class').change(function(){
-        var batch_id = $('#class').val();
-        window.location.href='{{url("ActivityDetails/create")}}/?param1='+batch_id;
-=======
 <script>
     $('#division').change(function(){  
         var claz = $('#class').val();
@@ -74,7 +58,6 @@
         if(claz!= null ){
             window.location.href='{{url("ActivityDetails/create")}}/?class='+claz+'&division='+division;
         }
->>>>>>> Stashed changes
     });
 </script>
 @endsection
