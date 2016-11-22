@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('backend.layouts.layout')
 
 @section('title', $title)
 

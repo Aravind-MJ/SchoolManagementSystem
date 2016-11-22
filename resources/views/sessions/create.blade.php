@@ -20,12 +20,12 @@
 
 <div class="header">
          <div class="col-md-8 div_back" style="height:100px;"></div>
-			<div class="col-md-4 div_back">
-			<div class="back_admin" > <button class="but1"><span>Back to Home </span></button>	</div>
+			<div class="col-md-2 div_back">
+			<div class="back_admin" ><a href="{{url('/')}}"> <button class="but1"><span>Back to Home </span></button> </a>	</div>
 			</div>
+			<div class="col-md-2 div_back" style="height:100px;"></div>
 		<div class="header-main">
 		
-			
 		       <h1>SMS LOGIN FORM</h1>
 			<div class="header-bottom">
 				<div class="header-right w3agile">
@@ -78,8 +78,8 @@
                     <p><strong>Admin User:</strong> admin@admin.com<br>
                     <strong>Admin Password:</strong> sentineladmin</p>
 
-                    <p><strong>Student User:</strong> user@user.com<br>
-                    <strong>Student User Password:</strong> sentineluser</p>
+                    <p><strong>Student User:</strong> student@student.com<br>
+                    <strong>Student User Password:</strong> sentinelstudent</p>
                     
                     <p><strong>Faculty User:</strong> faculty@faculty.com<br>
                     <strong>Faculty Password:</strong> sentinelfaculty</p>
