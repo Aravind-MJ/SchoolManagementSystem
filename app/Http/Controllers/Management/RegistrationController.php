@@ -39,7 +39,7 @@ class RegistrationController extends Controller
             $user->enc_id = Encrypt::encrypt($user->id);
             $user->id = 'null';
         }
-        return view('protected.superadmin.list_admins')->withUsers($users);
+        return view('protected.management.list_admins')->withUsers($users);
     }
 
     /**

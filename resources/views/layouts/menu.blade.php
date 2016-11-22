@@ -18,11 +18,11 @@
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             <li class="{{ set_active('faculty') }}{{ set_active('admin') }}{{ set_active('sadmin') }}">
-                <a href="/">
+                <a href="{{ url('/login') }}">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
-            @if($user->inRole('superadmin'))
+            @if($user->inRole('management'))
             <li class="treeview {{ set_active('create/admin') }}{{ set_active('list/admins') }}">
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>Admin</span>
@@ -36,7 +36,7 @@
                 </ul>
             </li>
             @endif
-           @if($user->inRole('superadmin')||$user->inRole('admins'))
+           @if($user->inRole('management')||$user->inRole('admins'))
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-user"></i>
@@ -68,7 +68,7 @@
             @if($user->inRole('users'))
             <li><a href="{{URL::route('notice.getNotice')}}"><i class="fa fa-bell"></i> List Notice</a></li>
             @endif
-            @if($user->inRole('superadmin')||$user->inRole('admins'))
+            @if($user->inRole('management')||$user->inRole('admins'))
         <li class="treeview">
                 <a href="#">
                     <i class="fa fa-bookmark-o"></i>
@@ -213,7 +213,7 @@
                     </ul>
                 </li>
                 @endif
-				@if($user->inRole('superadmin')||$user->inRole('admins'))
+				@if($user->inRole('managemnet')||$user->inRole('admins'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
                         <a href="{{url('/Timetable')}}">
                         <i class="fa fa-table"></i>
@@ -254,7 +254,7 @@
                 </ul>
                     </li>
             
-				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+				@if($user->inRole('management')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
 
 				    <ul class="treeview-menu">
                         <li><a href="{{url('assignment/add-assignment')}}"><i class="fa fa-circle-o"></i> Add Assignment</a></li>
@@ -262,7 +262,7 @@
                     </ul>	
                     </li>
                 @endif
-		@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+		@if($user->inRole('management')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
 
                     <li class="treeview {{ set_active('SendAnSms') }}">
                         <a href="{{url('/library')}}">
@@ -279,7 +279,7 @@
                     </ul>
                     </li>
                 @endif
-				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+				@if($user->inRole('management')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('SendAnSms') }}">
                         <a href="{{url('/hostel')}}">
                         <i class="fa fa-hotel"></i>
@@ -303,20 +303,11 @@
                         </span>
                         </a>
                         <ul class="treeview-menu">
-                        <li><a href="{{URL::route('Fee.index')}}"><i class="fa fa-circle-o"></i>Paid Students</a></li>
-                     
-                    </ul>
-                         
+                        <li><a href="{{URL::route('Fee.index')}}"><i class="fa fa-circle-o"></i>Paid Students</a></li> 
+                        </ul>     
                     </li>
-                     <span>Hostel Fee</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{URL::route('Hostel.edit')}}"><i class="fa fa-circle-o">Hostel Fee</i></a></li></ul>
                 @endif
-				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+				@if($user->inRole('management')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('transportation') }}">
                         <a href="{{url('/transportation')}}">
 						<i class="fa fa-bus"></i>
@@ -334,7 +325,7 @@
                         </ul>
                     </li>
                 @endif
-				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+				@if($user->inRole('management')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('StoreManagement') }}">
                     <a href="#">
                         <i class="fa fa-shopping-cart "></i>
@@ -353,7 +344,7 @@
                 @endif
 
 
-				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+				@if($user->inRole('management')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('Activity Types') }}">
                         <a href="#">
 						<i class="fa fa-trophy"></i>
@@ -369,7 +360,7 @@
                     </li>
                 @endif
 
-                @if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
+                @if($user->inRole('management')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('Activity Types') }}">
                         <a href="#">
                         <i class="fa fa-gamepad"></i>

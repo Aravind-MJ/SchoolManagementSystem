@@ -853,18 +853,28 @@ span.sin-color {
 }
 
 .but1{
-  display: inline-block;
-  background-color:#ff3366;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 14px;
-  padding: 3px 10px 4px 10px;
-  float:left;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 15px 5px 5px 5px;
-  border-radius: 10px;
+   background: #ff3366;
+    color: #FFF;
+    font-size: 16px;
+    padding: 0.3em 1.2em;
+    width: 100%;
+    font-weight: 100;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
-
+.div_back button:hover {
+    background: #b5183f;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+}
