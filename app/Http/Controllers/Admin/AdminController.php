@@ -23,11 +23,12 @@ class AdminController extends Controller
 		
         $count = array();
         $title = 'Admin | Home';
-        $roles = ['management','admins','faculty','student','parent','pta','alumni'];
+        $roles = ['management','admins','faculty','student','parent','pta','alumni','administrator'];
         $data = $this->users
             ->select(DB::raw('count(*) as count,role_id'))
             ->groupBy('role_id')
             ->get()->toArray();
+            
         foreach ($data as $key => $each) {
             $count[$roles[$key]] = $each['count'];
         }

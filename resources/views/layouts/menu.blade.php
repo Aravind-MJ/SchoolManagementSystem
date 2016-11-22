@@ -314,7 +314,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::route('Hostel.edit')}}"><i class="fa fa-circle-o"></i>Hostel Fee</a></li></ul></ul>
+                    <li><a href="{{URL::route('Hostel.edit')}}"><i class="fa fa-circle-o">Hostel Fee</i></a></li></ul>
                 @endif
 				@if($user->inRole('superadmin')||$user->inRole('admins')||$user->inRole('users')||$user->inRole('faculty'))
                     <li class="treeview {{ set_active('transportation') }}">
