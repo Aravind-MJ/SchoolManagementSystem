@@ -1,13 +1,23 @@
 <?php
+Route::get('/','HomeController@root');
+Route::get('/administrator','HomeController@index');
+Route::get('blog', 'SiteController\BlogController@new_blog');
+Route::get('blog/new', 'SiteController\BlogController@new_blog');
+Route::get('blog/list','SiteController\BlogController@index');
+Route::get('blog/{id}', 'SiteController\BlogController@show');
+Route::post('blog/store','SiteController\BlogController@store');
+Route::get('blog/destroy/{id}','SiteController\BlogController@destroy');
+Route::get('blog/edit/{id}','SiteController\BlogController@edit');
+Route::post('blog/edit/{id}','SiteController\BlogController@update');
+Route::get('Gallery','HomeController@galleries');
+
 
 # Routes that anyone can access.
 Route::get('logout', ['as' => 'logout', 'uses' => 'SessionsController@destroy']);
 Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
 
 # Redirecting all registered users so they cannot access these pages.
-Route::group(['middleware' => ['redirectAdmin', 'redirectStandardUser', 'redirectSuperAdmin', 'redirectFaculty','redirectAdministrator']], function () {
-
-    # Login page routes.
+Route::group(['middleware' => ['redirectAdmin', 'redirectStudentUser', 'redirectManagement', 'redirectFaculty','redirectAdministrator']], function () {    # Login page routes.
     Route::get('/', ['as' => 'login', 'uses' => 'SessionsController@create']);
     Route::get('/login', ['as' => 'login', 'middleware' => 'guest', 'uses' => 'SessionsController@create']);
 });
@@ -22,8 +32,8 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('reset_password/{token}', 'Auth\PasswordController@postReset');
 });
 
-# Routes that Standard Users and Faculty cannot access.
-Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser']], function () {
+# Routes that Student Users and Faculty cannot access.
+Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStudentUser']], function () {
 
     # Faculty crud Route.
     Route::resource('Faculty', 'FacultyController');
@@ -49,9 +59,9 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
     Route::get('dayscholars', ['as' => 'search.dayscholars', 'uses' => 'HostelController@search']);
     Route::get('hostel', ['as' => 'search.hostel', 'uses' => 'HostelController@hostelsearch']);
 
-    # Activity crud Routes.
-    Route::resource('Activity', 'ActivityTypeController');
-
+     # Activity crud Routes.
+     Route::resource('Activity', 'ActivityTypeController');
+ 
     # Activity Details crud Routes.
     Route::resource('ActivityDetails', 'ActivityDetailsController');
 
@@ -62,10 +72,10 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
     Route::resource('StoreManagement', 'StoreManagementController');
 
     # Route to edit student profile.
-    Route::post('edit/admin/student/{id}', ['as' => 'studentProfilen.update', 'uses' => 'SuperAdmin\RegistrationController@update']);
+    Route::post('edit/admin/student/{id}', ['as' => 'studentProfilen.update', 'uses' => 'Management\RegistrationController@update']);
 
     # Route to edit faculty profile.
-    Route::post('edit/admin/faculty/{id}', ['as' => 'facultyProfile.update', 'uses' => 'SuperAdmin\RegistrationController@update']);
+    Route::post('edit/admin/faculty/{id}', ['as' => 'facultyProfile.update', 'uses' => 'Management\RegistrationController@update']);
 
     #Search Student Route
 //    Route::post('Search', ['as' => 'search.queries', 'uses' => 'StudentController@search']);
@@ -79,7 +89,7 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStandardUser'
 });
 
 # Routes that Standard User Cannot access.
-Route::group(['middleware' => ['auth', 'redirectStandardUser']], function () {
+Route::group(['middleware' => ['auth', 'redirectStudentUser']], function () {
 
     # Routes to Mark Section.
     Route::resource('mark', 'MarkDetailsController');
@@ -98,13 +108,13 @@ Route::group(['middleware' => ['auth', 'redirectStandardUser']], function () {
 });
 
 # Standard User Routes.
-Route::group(['middleware' => ['auth', 'standardUser']], function () {
+Route::group(['middleware' => ['auth', 'studentUser']], function () {
 
-    # Home
+    # s
     Route::get('home', 'PagesController@getHome');
     Route::get('notice', ['as' => 'notice.getNotice', 'uses' => 'PagesController@getNotice']);
-    Route::get('userProtected', 'StandardUser\StandardUserController@getUserProtected');
-    Route::resource('profiles', 'StandardUser\UsersController', ['only' => ['show', 'edit', 'update']]);
+    Route::get('userProtected', 'StudentUser\StudentUserController@getUserProtected');
+    Route::resource('profiles', 'StudentUser\UsersController', ['only' => ['show', 'edit', 'update']]);
 
     # Mark details Route
     Route::get('Marks', ['uses' => 'MarkDetailsController@getMark']);
@@ -116,19 +126,19 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin', ['as' => 'admin_dashboard', 'uses' => 'Admin\AdminController@getHome']);
 });
 
-# Super Admin Routes.
-Route::group(['middleware' => ['auth', 'superadmin']], function () {
+# Management Routes.
+Route::group(['middleware' => ['auth', 'management']], function () {
 
     # Home.
-    Route::get('sadmin', ['as' => 'admin_dashboard', 'uses' => 'SuperAdmin\SuperAdminController@getHome']);
+    Route::get('management', ['as' => 'dashboard', 'uses' => 'Management\ManagementController@getHome']);
 
     # Admin CRUD Routes.
-    Route::get('list/admins', 'SuperAdmin\RegistrationController@index');
-    Route::get('create/admin', 'SuperAdmin\RegistrationController@create');
-    Route::post('register', ['as' => 'registration.store', 'uses' => 'SuperAdmin\RegistrationController@store']);
-    Route::get('edit/admin/{id}', ['as' => 'registration.edit', 'uses' => 'SuperAdmin\RegistrationController@edit']);
-    Route::post('edit/admin/{id}', ['as' => 'registration.update', 'uses' => 'SuperAdmin\RegistrationController@update']);
-    Route::delete('admin/{id}', ['as' => 'registration.destroy', 'uses' => 'SuperAdmin\RegistrationController@destroy']);
+    Route::get('list/admins', 'Management\RegistrationController@index');
+    Route::get('create/admin', 'Management\RegistrationController@create');
+    Route::post('register', ['as' => 'registration.store', 'uses' => 'Management\RegistrationController@store']);
+    Route::get('edit/admin/{id}', ['as' => 'registration.edit', 'uses' => 'Management\RegistrationController@edit']);
+    Route::post('edit/admin/{id}', ['as' => 'registration.update', 'uses' => 'Management\RegistrationController@update']);
+    Route::delete('admin/{id}', ['as' => 'registration.destroy', 'uses' => 'Management\RegistrationController@destroy']);
 });
 
 # Routes that any Authorized user can use
@@ -165,6 +175,7 @@ Route::resource('Subject', 'SubjectController');
 
 Route::resource('Timetable', 'TimetableController');
 Route::post('Timetable/config', 'TimetableController@timetable_config');
+Route::get('GenerateTimetable',['as'=>'GenerateTimetable','uses'=>'TimetableGeneratorController@create']);
 
 # Routes that only current user can access
 Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
@@ -178,9 +189,6 @@ Route::resource('transportation', 'BusesController');
 Route::resource('BusFee', 'BusFeeController');
 Route::resource('FeeStatus', 'FeeStatusController');
 
-Route::get('construction', function(){
-    return view('construction');
-});
 
 Route::filter('permissions', function ($route, $request) {
     $action = $route->getActionName();
@@ -191,3 +199,32 @@ Route::filter('permissions', function ($route, $request) {
 
     return redirect('/')->withFlashMessage('Permission denied.')->withType('danger');
 });
+
+Route::get('/','HomeController@root');
+Route::get('About',function () {
+    return view('frontend.about');
+});
+Route::get('Contact','SiteController\AboutController@create');
+Route::post('Contact','SiteController\AboutController@store');
+Route::get('Blogs','HomeController@blogs');
+Route::get('Blog/{id}','BlogController@show');
+
+Route::get('Gallery/{id}',['uses'=>'HomeController@gallery']);
+Route::get('Management', 'HomeController@root');
+Route::get('Academics', 'HomeController@root');
+
+
+# Banner Routes
+    Route::get('banner','SiteController\BannerController@edit');
+    Route::post('banner','SiteController\BannerController@update');
+    Route::get('banner/{id}','SiteController\BannerController@destroy');
+    Route::get('event/new','SiteController\EventGalleryController@create');
+    Route::post('event/new','SiteController\EventGalleryController@store');
+    Route::get('event','SiteController\EventGalleryController@index');
+    Route::get('event/destroy/{id}','SiteController\EventGalleryController@destroy');
+    Route::get('event/gallery/{eventid}',['as'=>'image.create','uses'=>'SiteController\ImageController@create']);
+    Route::post('event/gallery',['as'=>'image.store','uses'=>'SiteController\ImageController@store']);
+    Route::post('toggle/{id}','SiteController\ImageController@toggle');
+    Route::post('caption/{id}','SiteController\ImageController@caption');
+    Route::get('event/edit/{id}','SiteController\EventGalleryController@edit');
+    Route::post('event/edit/{id}','SiteController\EventGalleryController@update');
