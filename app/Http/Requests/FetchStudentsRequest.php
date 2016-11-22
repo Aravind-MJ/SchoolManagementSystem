@@ -24,7 +24,8 @@ class FetchStudentsRequest extends Request
     public function rules()
     {
         return [
-            'id' => 'required|alpha_num',
+            'clasz' => 'required|alpha_num',
+            'division' => 'required|alpha_num',
             'exam_id' => 'required|alpha_num',
         ];
     }

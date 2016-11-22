@@ -25,7 +25,8 @@ class TimetableConfigRequest extends Request
     {
         return [
             'no_of_days_week' => 'required',
-            'no_of_hours_day' => 'required'
+            'no_of_hours_day' => 'required',
+            'section' => 'required'
         ];
     }
 }

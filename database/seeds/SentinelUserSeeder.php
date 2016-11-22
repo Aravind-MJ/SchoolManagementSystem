@@ -43,8 +43,8 @@ class SentinelUserSeeder extends Seeder
         ]);
 		
 		Sentinel::registerAndActivate([
-            'email'    => 'student@student.com',
-            'password' => 'sentinelstudent',
+            'email'    => 'user@user.com',
+            'password' => 'sentineluser',
             'first_name' => 'StudentFirstName',
             'last_name' => 'StudentLastName',
         ]);
@@ -68,13 +68,6 @@ class SentinelUserSeeder extends Seeder
             'password' => 'sentinelalumni',
             'first_name' => 'AlumniFirstName',
             'last_name' => 'AlumniLastName',
-        ]);
-		
-		Sentinel::registerAndActivate([
-            'email'    => 'siteadmin@siteadmin.com',
-            'password' => 'sentinelsiteadmin',
-            'first_name' => 'sentinaladminFirstName',
-            'last_name' => 'sentineladminLastName',
         ]);
 
         $this->command->info('Users seeded!');

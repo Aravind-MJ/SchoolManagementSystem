@@ -4,8 +4,6 @@
 
 @section('body')
 
-    @include('flash')
-
 <style>
     .app-section .btn-app strong{
         font-size: 17px;

@@ -4,8 +4,6 @@
 
 @section('body')
 
-@include('flash')
-
 <style>
     .app-section .btn-app strong{
         font-size: 17px;
@@ -18,11 +16,15 @@
             </div>
             <div class="box-body">
                 {!! Form::open() !!}
-                <div class="form-group col-lg-7 col-md-7">
-                <label for="batch">Select Batch</label>
-                {!! Form::select('batch',$batch,'0',array('class'=>'form-control select-batch')) !!}
+                <div class="form-group col-lg-5 col-md-5">
+                {!! Form::Label('class', 'class') !!}
+                {!! Form::select('class', $batch->class, null, ['class' => 'form-control']) !!}
                 </div>
-                <div class="form-group col-lg-7 col-md-7">
+                <div class="form-group col-lg-5 col-md-5">
+                {!! Form::Label('division', 'division') !!}
+                {!! Form::select('division', $batch->division, null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group col-lg-10 col-md-10">
                 <label for="batch">Select Exam</label>
                 {!! Form::select('exam-id',$exam,'0',array('class'=>'form-control exam-id')) !!}
                 </div>
@@ -45,23 +47,28 @@
     <script>
     $(document).ready(function(){
         function process(){
-            var id = $('.select-batch').val();
-            var examId = $('.exam-id').val();
-            $('.loading-screen').show();
-            $.post('{{url('fetchMark')}}',{
-                id:id,
-                exam_id:examId
-            },
-            function(response){
-                $('.app-section').html(response);
-                var val = $('.exam-id').val();
-                $('.exam_id').attr('value',val);
-                $('.loading-screen').hide();
-            });
+            var clasz = $('#class').val();
+            var division = $('#division').val();
+            if(clasz != '' && division != ''){
+                var examId = $('.exam-id').val();
+                $('.loading-screen').show();
+                $.post('{{url('fetchMark')}}',{
+                    clasz:clasz,
+                    division:division,
+                    exam_id:examId
+                },
+                function(response){
+                    $('.app-section').html(response);
+                    var val = $('.exam-id').val();
+                    $('.exam_id').attr('value',val);
+                    $('.loading-screen').hide();
+                });
+            }
         }
-        $('.select-batch').val('0');
-
-        $('.select-batch').change(function(){
+        $('#class').change(function(){
+            process();
+        });
+        $('#division').change(function(){
             process();
         });
 

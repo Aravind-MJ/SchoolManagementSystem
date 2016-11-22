@@ -3,8 +3,6 @@
 @section('title', 'Edit Attendance')
 
 @section('body')
-
-            @include('flash')
     <style>
             .box-body{
                 margin-top: 50px;

@@ -4,10 +4,6 @@
 
 @section('content')
 
-@if (session()->has('flash_message'))
-<p>{{ session()->get('flash_message') }}</p>
-@endif
-
 @section('body')
 
 

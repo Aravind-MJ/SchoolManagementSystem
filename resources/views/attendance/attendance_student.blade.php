@@ -3,7 +3,6 @@
 @section('title', 'Attendance of Student')
 
 @section('body')
-    @include('flash')
     <?php
         $weeks = array('Sun','Mon','Tue','Wed','Thu','Fri','Sat');
     ?>

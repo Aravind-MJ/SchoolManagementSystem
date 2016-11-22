@@ -10,10 +10,15 @@
     <div class="box-body">
 
         
-      <div class="form-group">
-            {!! Form::Label('param1', 'Batch') !!}
-            {!! Form::select('param1',  $batch, $allActivityDetails->batch_id, ['class' => 'form-control']) !!}
-        </div> 
+        <div class="form-group">
+            {!! Form::Label('class', 'Class') !!}
+            {!! Form::select('class',(['' => 'Select Class'] + $batch->class),$clasz ,['class' => 'form-control']) !!}
+        </div>
+
+             <div class="form-group">
+            {!! Form::Label('division', 'Division') !!}
+            {!! Form::select('division',(['' => 'Select Division'] + $batch->division),$division,['class' => 'form-control']) !!}
+        </div>
 
         <div class="form-group">
             {!! Form::Label('student_id', 'Student') !!}

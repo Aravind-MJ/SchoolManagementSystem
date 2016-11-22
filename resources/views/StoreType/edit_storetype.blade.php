@@ -15,24 +15,6 @@
           
         </div>
 
-        <div class="form-group">
-            {!! Form::label('item_brand', 'Brand') !!}
-            {!! Form::text('item_brand', null, ['class' => 'form-control']) !!}
-          
-        </div>
-
-        <div class="form-group">
-            {!! Form::label('item_cost', 'Cost') !!}
-            {!! Form::text('item_cost', null, ['class' => 'form-control']) !!}
-          
-        </div>
-
-        <div class="form-group">
-            {!! Form::label('item_stock', 'Stock') !!}
-            {!! Form::text('item_stock', null, ['class' => 'form-control']) !!}
-          
-        </div>
-
         <br>
         <div class="form-group">
             {!! Form::submit( 'Submit', ['class'=>'btn btn-primary']) !!} 

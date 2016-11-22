@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\ClassDetails;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\User;
 use App\Attendance;
-use App\Batch;
 use App\StudentDetails;
 use Illuminate\Database;
 use App\Encrypt;
@@ -16,7 +15,6 @@ use App\Http\Requests\SelectBatchRequest;
 use App\Http\Requests\AjaxAttendanceRequest;
 use App\Http\Requests\DeleteAttendanceRequest;
 use App\Http\Requests\RangeAttendanceRequest;
-use Illuminate\Support\Facades\Input;
 use Mockery\CountValidator\Exception;
 
 class AttendanceController extends Controller
@@ -24,9 +22,9 @@ class AttendanceController extends Controller
 
     protected $attendance, $batch, $users, $student_details;
 
-    public function __construct(User $user, Attendance $attendance, Batch $batch, StudentDetails $student_details)
+    public function __construct(User $user, Attendance $attendance, ClassDetails $batch, StudentDetails $student_details)
     {
-        $this->middleware('redirectStandardUser', ['except' => ['ofStudent']]);
+        $this->middleware('redirectStudentUser', ['except' => ['ofStudent']]);
         $this->middleware('redirectFaculty', ['only' => ['edit', 'update', 'destroy']]);
         $this->users = $user;
         $this->attendance = $attendance;
@@ -43,11 +41,9 @@ class AttendanceController extends Controller
     {
         if (Sentinel::check()) {
 
-            $year = 2016;
             $marked_batches = array();
             $user = Sentinel::getUser();
             $faculty = Sentinel::findRoleByName('Faculty');
-            $time_shift = array('morning', 'afternoon', 'evening');
 
             try {
 
@@ -64,12 +60,10 @@ class AttendanceController extends Controller
                 if ($user->inRole($faculty)) {
                     $id = $user->getUserId();
                     $batch = $this->batch
-                        ->select('id', 'batch', 'time_shift')
+                        ->select('id', 'class', 'division')
                         ->where(array(
-                            'year' => $year,
                             'in_charge' => $id
                         ))
-                        ->orderBy('time_shift')
                         ->get();
                     if (count($batch) <= 0) {
                         return redirect()->back()->withFlashMessage('You are not in charge of any Batches to mark attendance!!')->withType('danger');
@@ -77,8 +71,7 @@ class AttendanceController extends Controller
                 } else {
 
                     $batch = $this->batch
-                        ->select('id', 'batch', 'time_shift')
-                        ->where('year', $year)
+                        ->select('id', 'class', 'division')
                         ->get();
 
                     if (count($batch) <= 0) {
@@ -93,23 +86,10 @@ class AttendanceController extends Controller
             foreach ($batch as $each_batch) {
                 $each_batch['enc_id'] = Encrypt::encrypt($each_batch['id']);
                 $each_batch['status'] = (in_array($each_batch['id'], $marked_batches)) ? 'marked' : 'unmarked';
-                switch ($each_batch['time_shift']) {
-                    case 1:
-                        $each_batch['time_shift'] = 'morning';
-                        break;
-                    case 2:
-                        $each_batch['time_shift'] = 'afternoon';
-                        break;
-                    case 3:
-                        $each_batch['time_shift'] = 'evening';
-                        break;
-                    default:
-                        return redirect()->back()->withFlashMessage('Error Selecting batch With Time Shift!!')->withType('danger');
-                }
             }
 
             $batch = $batch->toArray();
-            return view('attendance.attendance_in_charge', ['time_shift' => $time_shift, 'batch' => $batch]);
+            return view('attendance.attendance_in_charge', ['batch' => $batch]);
         }
     }
 
@@ -196,15 +176,11 @@ class AttendanceController extends Controller
      */
     public function selectBatch()
     {
-        $year = 2016;
-        $time_shifts = array('morning', 'afternoon', 'evening');
 
         try {
 
             $batch = $this->batch
-                ->select('id', 'batch', 'time_shift')
-                ->where('year', $year)
-                ->orderBy('time_shift')
+                ->select('id', 'class', 'division')
                 ->get();
 
         } catch (Exception $e) {
@@ -213,12 +189,11 @@ class AttendanceController extends Controller
 
         foreach ($batch as $each_batch) {
             $each_batch['enc_id'] = Encrypt::encrypt($each_batch['id']);
-            $each_batch['time_shift'] = $time_shifts[$each_batch['time_shift'] - 1];
         }
 
         $batch = $batch->toArray();
 
-        return view('attendance.attendance_select_batch', ['time_shift' => $time_shifts, 'batch' => $batch]);
+        return view('attendance.attendance_select_batch', ['batch' => $batch]);
     }
 
     /**
@@ -251,8 +226,6 @@ class AttendanceController extends Controller
     private function selectStudentCore($id)
     {
         $flag = false;
-        $year = 2016;
-        $time_shifts = array('morning', 'afternoon', 'evening');
         $data = array();
         $data['batch'] = array();
         $data['students'] = array();
@@ -265,8 +238,7 @@ class AttendanceController extends Controller
 
         try {
             $batch = $this->batch
-                ->select('id', 'batch', 'time_shift')
-                ->where('year', $year)
+                ->select('id', 'class', 'division')
                 ->get();
 
             if (count($batch) <= 0) {
@@ -283,7 +255,7 @@ class AttendanceController extends Controller
                 $data['selected']['batch'] = Encrypt::encrypt($each_batch['id']);
                 $flag = false;
             }
-            $data['batch'][Encrypt::encrypt($each_batch['id'])] = $each_batch['batch'] . ' - ' . $time_shifts[$each_batch['time_shift'] - 1];
+            $data['batch'][Encrypt::encrypt($each_batch['id'])] = $each_batch['class'] . ' ' . $each_batch['division'];
         }
 
         try {
@@ -506,7 +478,7 @@ class AttendanceController extends Controller
             return redirect()->back()->withFlashMessage('Invalid Token!')->withType('danger');
         }
 
-        if (!$user->inRole('users')) {
+        if (!$user->inRole('student')) {
             return redirect()->back()->withFlashMessage('Invalid Reference Token!')->withType('danger');
         }
 
@@ -591,15 +563,12 @@ class AttendanceController extends Controller
      */
     public function edit()
     {
-        $year = 2016;
         $marked_batches = array();
-        $time_shift = array('morning', 'afternoon', 'evening');
 
         try {
 
             $batch = $this->batch
-                ->select('id', 'batch', 'time_shift')
-                ->where('year', $year)
+                ->select('id', 'class', 'division')
                 ->get();
 
         } catch (Exception $e) {
@@ -609,24 +578,11 @@ class AttendanceController extends Controller
         foreach ($batch as $each_batch) {
             $each_batch['enc_id'] = Encrypt::encrypt($each_batch['id']);
             $each_batch['status'] = (in_array($each_batch['id'], $marked_batches)) ? 'marked' : 'unmarked';
-            switch ($each_batch['time_shift']) {
-                case 1:
-                    $each_batch['time_shift'] = 'morning';
-                    break;
-                case 2:
-                    $each_batch['time_shift'] = 'afternoon';
-                    break;
-                case 3:
-                    $each_batch['time_shift'] = 'evening';
-                    break;
-                default:
-                    return redirect()->back()->withFlashMessage('Error Selecting batch With Time Shift!!')->withType('danger');
-            }
         }
 
         $batch = $batch->toArray();
 
-        return view('attendance.attendance_edit_select_batch', ['time_shift' => $time_shift, 'batch' => $batch]);
+        return view('attendance.attendance_edit_select_batch', ['batch' => $batch]);
     }
 
     /**
@@ -749,7 +705,7 @@ class AttendanceController extends Controller
             $date = Encrypt::decrypt($request['date']);
             $count = sizeof($request['present']);
             if (empty($request['present'])) {
-                $present = '';
+                $present = '[]';
             } else {
                 foreach ($request['present'] as $each) {
                     $attendance [] = (int)Encrypt::decrypt($each);
@@ -757,16 +713,12 @@ class AttendanceController extends Controller
                 $present = json_encode($attendance);
             }
             try {
-                $this->attendance
-                    /*->where(array(
-                        'batch_id' => $id,
-                        'created_at' => $date
-                    ))*/
+                $attendance = $this->attendance
                     ->whereRaw("batch_id = " . $id . " AND created_at like '" . $date . "%'")
-                    ->update(array(
-                        'present_count' => $count,
-                        'attendance' => $present
-                    ));
+                    ->first();
+                $attendance->present_count = $count;
+                $attendance->attendance = $present;
+                $attendance->save();
             } catch (Exception $e) {
                 return 'error';
             }

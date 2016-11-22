@@ -45,8 +45,8 @@ class Handler extends ExceptionHandler
             switch ($e->getStatusCode()) {
                 // not found
                 case 404:
-                    //return redirect()->back()->withFlashMessage('Route not found. Do not mess with delicate things...! :)')->withType('danger');
-                    return redirect('construction');
+                    return redirect()->back()->withFlashMessage('Route not found. Do not mess with delicate things...! :)')->withType('danger');
+                    //return redirect('construction');
                     break;
 
                 // internal error

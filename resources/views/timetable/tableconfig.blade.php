@@ -26,6 +26,7 @@
 		</div>
 		<div class="col-md-8">
       {!! Form::select('no_of_hours_day', array(1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9), $current_no_of_hours_day, ['class' => 'form-control']) !!}
+      {!! Form::hidden('section',$section) !!}
 	   </div>
         </div>
 		<br/><br/>

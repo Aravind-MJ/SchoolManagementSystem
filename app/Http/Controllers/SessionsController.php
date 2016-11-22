@@ -29,10 +29,11 @@ class SessionsController extends Controller
     {
 		
         $input = $request->only('email', 'password');
+        // dd(Sentinel::authenticate($input, $request->has('remember')));
         try {
 
             if (Sentinel::authenticate($input, $request->has('remember'))) {
-                $this->redirectWhenLoggedIn();
+                return $this->redirectWhenLoggedIn();
             }
 
             return redirect()->back()->withInput()->withFlashMessage('Invalid credentials provided')->withType('danger');
@@ -48,21 +49,7 @@ class SessionsController extends Controller
     protected function redirectWhenLoggedIn()
     {
         // Logged in successfully - redirect based on type of user
-        $user = Sentinel::getUser();
-        $admin = Sentinel::findRoleByName('Admins');
-        $users = Sentinel::findRoleByName('Users');
-        $superadmin = Sentinel::findRoleByName('SuperAdmin');
-        $faculty = Sentinel::findRoleByName('Faculty');
-
-        if ($user->inRole($admin)) {
-            return redirect('admin');
-        } elseif ($user->inRole($users)) {
-            return redirect()->intended('/');
-        } else if ($user->inRole($superadmin)) {
-            return redirect()->intended('sadmin');
-        } else if ($user->inRole($faculty)) {
-            return redirect()->intended('faculty');
-        }
+        return redirect('/login');
     }
 
     /**

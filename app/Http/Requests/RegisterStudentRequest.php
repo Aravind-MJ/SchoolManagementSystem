@@ -48,8 +48,8 @@ class RegisterStudentRequest extends Request {
                 
             'phone' => 'required|regex:/^[0-9]{10}+$/',
             'school'=> 'required|regex:/^[A-Za-z. - ,]+$/',
-            'email' => 'required|email|unique:users,email',
-            'photo' =>'required|mimes:jpeg,png,jpg|max:2000'
+            'email' => 'required|email|unique:users,email'
+            //'photo' =>'required|mimes:jpeg,png,jpg|max:2000'
         ];
         }
         case 'PUT':
@@ -67,8 +67,8 @@ class RegisterStudentRequest extends Request {
             'district' => 'required',
          
             'phone' => 'required|regex:/[0-9]{10}/',
-            'school' => 'required|regex:/^[A-Za-z. - ,]+$/',
-            'photo' =>'mimes:jpeg,png,jpg|max:2000'
+            'school' => 'required|regex:/^[A-Za-z. - ,]+$/'
+           // 'photo' =>'mimes:jpeg,png,jpg|max:2000'
         
         ];
 

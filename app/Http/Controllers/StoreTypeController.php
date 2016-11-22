@@ -7,6 +7,9 @@ use App\StoreType;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\StoreTypeRequest;
+use App\Encrypt;
+
 
 class StoreTypeController extends Controller
 {
@@ -38,7 +41,7 @@ class StoreTypeController extends Controller
      *
      * @return Response
      */
-    public function store(Request $requestData)
+    public function store(StoreTypeRequest $requestData)
     {
         $StoreType = new StoreType;
         $StoreType->store_type = $requestData['store_type'];

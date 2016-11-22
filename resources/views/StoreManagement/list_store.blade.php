@@ -6,6 +6,7 @@
 <div class='col-md-offset-1 col-md-10'>
 <div class="box box-primary">
     <div class="box-body">
+    <div class="box-body" style="overflow-y: scroll">
         <table id="example2" class="table table-bordered table-hover">
             <thead>
                 <tr>
@@ -53,6 +54,7 @@
     </div>
 
 </div>
+    </div>
     </div>
 @endsection
 @section('dataTable')

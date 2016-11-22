@@ -10,7 +10,7 @@
 <div class="box box-primary">
   <div class="box-body" style="overflow-y: scroll">
 
-       
+<!--       
         {!! Form::open(array('route' => 'search.queries', 'class'=>'form navbar-form navbar-right searchform', 'method'=>'get')) !!}
 
         {!! Form::text('param2', null, array('class'=>'form-control', 'placeholder'=>'Search for student...')) !!}
@@ -19,7 +19,7 @@
 
         @if (count($allStudents) === 0)
         <h4><strong> No Students Found! </strong></h4>
-        @elseif (count($allStudents) >= 1)
+        @elseif (count($allStudents) >= 1)-->
         <table id="example2" class="table table-bordered table-hover">
             <thead>
                 <tr>

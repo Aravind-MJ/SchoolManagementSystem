@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class FacultyController extends Controller
 {
-    protected $faculty, $students, $admins, $users;
+    protected $users;
 
     public function __construct(RoleUsers $user)
     {
@@ -21,14 +21,15 @@ class FacultyController extends Controller
     {
         $count = array();
         $title = 'Faculty | Home';
-        $roles = ['users', 'admins', 'superadmin', 'faculty'];
+        $roles = [9=>'student', 7=>'admins', 8=>'faculty'];
         $data = $this->users
-            ->select(DB::raw('count(*) as count'))
+            ->select(DB::raw('count(*) as count,role_id'))
+            ->whereIn('role_id',[7,8,9])
             ->groupBy('role_id')
             ->get()->toArray();
 
         foreach ($data as $key => $each) {
-            $count[$roles[$key]] = $each['count'];
+            $count[$roles[$each['role_id']]] = $each['count'];
         }
 
         return view('protected.dashboard', [

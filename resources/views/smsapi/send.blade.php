@@ -4,7 +4,6 @@
 
 @section('body')
 {!! Form::open(['url' => 'SmsApi', 'method'=>'post']) !!}
-@include('flash')
 <div class="box box-primary">
     <div class="box-body">
         {!! Form::hidden('type', $type) !!}
