@@ -94,7 +94,7 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id,Request\SubjectRequest $requestData)
+    public function update($id,Requests\SubjectRequest $requestData)
     {
         //update student_details data
         $subject = Subject::find($id);

@@ -31,7 +31,8 @@
         </div>
 </div>
     <div class="box box-primary">
-         <div class="box-body">
+       <div class="box-body" style="overflow-y: scroll">
+
        @if (count($allStudents) === 0)
         <h4><strong> No Students Found! </strong></h4>
         @elseif (count($allStudents) >= 1)

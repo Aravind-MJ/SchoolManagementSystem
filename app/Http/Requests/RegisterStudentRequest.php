@@ -39,13 +39,15 @@ class RegisterStudentRequest extends Request {
             'guardian' => 'required',
             'religion' => 'required',
 //            'category' => 'required',
-            'hostelfee' => 'required',
+//            'hostelfee' => 'required',
             'housename' => 'required',
             'place' => 'required',
             'district' => 'required',
             'state' => 'required',
-            'phone' => 'required|regex:/[0-9]{10}/',
-            'school' => 'required|regex:/^[A-Za-z. - ,]+$/',
+                
+                
+            'phone' => 'required|regex:/^[0-9]{10}+$/',
+            'school'=> 'required|regex:/^[A-Za-z. - ,]+$/',
             'email' => 'required|email|unique:users,email',
             'photo' =>'required|mimes:jpeg,png,jpg|max:2000'
         ];
@@ -54,17 +56,16 @@ class RegisterStudentRequest extends Request {
         case 'PATCH':
         {
             return [
-            'class' => 'required',
+//            'class' => 'required',
             'gender' => 'required',
             'dob' => 'required',
             'guardian' => 'required',
-            'religion' => 'required',
 //            'category' => 'required',
-            'hostelfee' => 'required',
+//            'hostelfee' => 'required',
             'housename' => 'required',
             'place' => 'required',
             'district' => 'required',
-            'state' => 'required',
+         
             'phone' => 'required|regex:/[0-9]{10}/',
             'school' => 'required|regex:/^[A-Za-z. - ,]+$/',
             'photo' =>'mimes:jpeg,png,jpg|max:2000'

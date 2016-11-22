@@ -2,16 +2,14 @@
 
 @section('title', 'Edit Examdetails')
 
-<!--@section('content')
+@section('content')
 
-@if (session()->has('flash_message'))
-<p>{{ session()->get('flash_message') }}</p>
-@endif-->
+
 
 @section('body')
 
 {!! Form::model($Examdetails, ['method' => 'PATCH', 'route' => ['ExamDetails.update',$Examdetails->id],'enctype' => 'multipart/form-data']) !!}
-@include('flash')
+
 <!--{!! Form::open() !!}-->
 <div class="box box-primary">
     <div class="box-body">

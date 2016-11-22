@@ -7,7 +7,7 @@
 
 @section('body')
 
-@include('flash')
+
 <div class="box box-primary">
     <div class="box-body">
 

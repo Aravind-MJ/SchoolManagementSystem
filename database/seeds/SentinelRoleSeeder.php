@@ -54,6 +54,7 @@ class SentinelRoleSeeder extends Seeder
 			'slug' => 'alumni',
 		]);
        
+	   
         $this->command->info('Roles seeded!');
     }
 }

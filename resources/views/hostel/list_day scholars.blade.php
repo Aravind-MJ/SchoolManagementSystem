@@ -1,6 +1,8 @@
+
+
 @extends('layouts.layout')
 
-@section('title', 'Days Scholars By Class')
+@section('title', 'Dayscholars By Class')
 
 @section('content')
 
@@ -9,13 +11,11 @@
 <div class='col-md-offset-1 col-md-9'>
 <div class="box box-primary">
     <div class="box-body">
-        <?php  $division = isset($division)? $division : null;?>
- <div class="form-group">
-        {!! Form::open(array('route' => 'search.dayscholars', 'class'=>'form navbar-form navbar-right searchform', 'method'=>'get')) !!}
-        @if(isset($batch))
-        @if(!empty($batch))
+       <?php  $division = isset($division)? $division : null;?>
+         <div class="form-group">
+       {!! Form::open(array('route' => 'search.dayscholars', 'class'=>'form navbar-form navbar-right searchform', 'method'=>'get')) !!}
           </div>  
-         <div class="col-md-6">
+       <div class="col-md-6">
             <h4>Class</h4>
         {!! Form::select('batch', $batch->class, null, ['class' => 'form-control']) !!}
            </div> 
@@ -25,49 +25,43 @@
           </div>
         <br>
           <div  class="col-md-6">
-<!-- {!! Form::text('param2', null, array('class'=>'form-control', 'placeholder'=>'Search for student...')) !!}-->
         {!! Form::submit('Search', array('class'=>'btn btn-default')) !!}
         {!! Form::close() !!}
-        @endif
-        @endif
          </div>  
         </div>
-         </div>
-    </div>
 </div>
     <div class="box box-primary">
-         <div class="box-body">
-       @if (count($allStudents) === 0)
+       <div class="box-body" style="overflow-y: scroll">
+
+       @if (count($alStudents) === 0)
         <h4><strong> No Students Found! </strong></h4>
-        @elseif (count($allStudents) >= 1)
+        @elseif (count($alStudents) >= 1)
         <table id="example2" class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Sl.No</th>
+                     <th>Sl.No</th>
                     <th>Full name</th>
                     <th>Address</th>
                     <th>Guardian</th>
-                   <th>Contact no</th>  
-				    <th>edit</th>
+                    <th>Contact no</th>  
+		    <th>edit</th>
                    
                 </tr>
             </thead>
             <tbody>
                 <?php $i=1 ?>
-                @foreach( $allStudents as $student )
+                @foreach( $alStudents as $student )
                
                 <tr>                   
                     <td>{{ $i }}</td>
                     <td>{{ $student->first_name}} {{$student->last_name }} </td>
-
                     <td> {{ $student ->housename}}                     
                                              </td>
-                    
-
                     <td>{{ $student->guardian }}</td>
                     <td>{{ $student->phone }}</td>
-					<td><a href='Hostel/{{ $student->user_id }}' class='btn btn-primary btn-block'>Change to hostellers</a></td>
-                    </tr>
+					<td><a href='Hostel/{{ $student->user_id }}/edit' class='btn btn-primary btn-block'>change to Hostel</a></td>
+                   
+                </tr>
                 <?php $i++ ?>
                 @endforeach
             </tbody>

@@ -327,11 +327,10 @@
                         </a>
 
                         <ul class="treeview-menu">
-                        <li><a href="{{route('transportation.create')}}"><i class="fa fa-circle-o"></i>Create Bus</a></li>
-                        <li><a href="{{route('transportation.index')}}"><i class="fa fa-circle-o"></i>List Bus</a></li>
-                        <li><a href="{{route('BusFee.create')}}"><i class="fa fa-circle-o"></i>Add Bus Fee</a></li>
-                        <li><a href="{{route('BusFee.index')}}"><i class="fa fa-circle-o"></i>List Bus Fee</a></li>
-                        <li><a href="{{route('BusFee.create')}}"><i class="fa fa-circle-o"></i>Add Bus Fee</a></li>
+                        <li><a href="{{route('transportation.create')}}" class="fa fa-circle-o"></i>Create Bus</a></li>
+                        <li><a href="{{route('transportation.index')}}" class="fa fa-circle-o"></i>List Bus</a></li>                        
+                        <li><a href="{{route('BusFee.create')}}" class="fa fa-circle-o"></i>Add Bus Fee</a></li>                        
+                        <li><a href="{{route('BusFee.index')}}" class="fa fa-circle-o"></i>List Bus Fee</a></li>                        
                         </ul>
                     </li>
                 @endif

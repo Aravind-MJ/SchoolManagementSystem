@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+//use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\User;
+use Illuminate\Support\Facades\Redirect;
 use App\ClassDetails;
+use App\Student;
+use App\User;
+use App\Feetypes;
+use App\Feedetails;
+use Input;
+use Validator;
+use Sentinel;
+Use Auth;
 use DB;
+use App\Encrypt;
+use Illuminate\Support\Facades\Request;
+use DateTime;
 
 class FeehostelController extends Controller
 {
@@ -19,7 +29,25 @@ class FeehostelController extends Controller
      */
     public function index()
     {
-        //
+        $allStudents = DB::table('student_details')
+                ->join('users', 'users.id', '=', 'student_details.user_id')
+                
+                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
+                
+                ->select('users.*', 'student_details.*','class_details.*')
+                ->where('student_details.hostelfee', 'Yes')
+                ->orderBy('student_details.created_at', 'DESC')
+                ->get();
+        foreach ($allStudents as $student) {
+            $student->enc_id = Encrypt::encrypt($student->id);
+            $student->enc_userid = Encrypt::encrypt($student->user_id);
+        
+        }
+        //Fetch Batch Details
+         $batch = new ClassDetails;
+        $batch = $batch->fetch();
+        return View('hostel.add_feedetails_for hostel', compact('allStudents', 'batch', 'id'));
+    
     }
 
     /**
@@ -29,7 +57,7 @@ class FeehostelController extends Controller
      */
     public function create()
     {
-        
+     
          $users = DB::table('users')
                   ->join('student_details','student_details.user_id', '=','users.id')              
                   ->select('users.id','first_name','last_name')
@@ -45,6 +73,10 @@ class FeehostelController extends Controller
         $batch = $batch->fetch();
        return view('hostel.add_feedetails_for hostel', compact('student_id', 'Feedetails','batch', 'users','id'));
 
+         
+    }
+    /**
+>>>>>>> Stashed changes
     }
 
     /**
@@ -53,36 +85,28 @@ class FeehostelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests\RegisterStudentRequest $requestData)
     {
         
-        
-        $user = new \App\User;
+       $user = new User;
         $user->first_name = $requestData['first_name'];
-        $user->last_name  =$requestData['last_name'];
-        
-        
+        $user->last_name = $requestData['last_name'];
+        $user->email = $requestData['email'];
+        $user->password = \Hash::make($requestData['dob']);
+
+        $input = array('email' => $user->email, 'password' => $requestData['dob'], 'first_name' => $user->first_name, 'last_name' => $user->last_name);
+
+        $user = Sentinel::registerAndActivate($input);
+
+        // Find the role using the role name
+        $usersRole = Sentinel::findRoleByName('Users');
+
         // Assign the role to the users
-        {
-            $Batchdetails = new \App\Classdetails;
-            $Batchdetails->class = $requestData['class'];
-            $Batchdetails->year = date("Y/m/d", strtotime($requestData['year']));
-            $Batchdetails->month = $requestData['month'];
-          
-            $Batchdetails->in_charge = $requestData['in_charge'];
-        
-        $Batchdetails->save();
-        }
- 
-      if ($Batchdetails->save()) {
-            return redirect()->route('BatchDetails.create')
-                             ->with('flash_message', 'New Batch added successfully.')
-                             ->withType('success');
-        } else {
-            return redirect()->route('BatchDetails.create')
-                             ->with('flash_message', 'New Batch could not be succeeded.')
-                             ->withType('Danger');
-        }
+        $usersRole->users()->attach($user);
+
+        $student = new Student;
+        $student->batch_id = $requestData['batch_id'];
+//       
     }
     public function show($id)
     {
@@ -122,4 +146,46 @@ class FeehostelController extends Controller
     {
         //
     }
+    
+     
+    public function hostelfeesearch() {
+
+        // Gets the query string and batch from our form submission 
+
+        $batch = Request::input('batch');
+       $division = Request::input('division');
+
+        // Returns an array of articles that have the query string located somewhere within 
+
+        $query = DB::table('student_details')
+                ->join('users', 'users.id', '=', 'student_details.user_id')
+                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
+                ->select('users.*', 'student_details.*','class_details.*')
+                ->where('student_details.hostelfee','yes')
+                ->orderBy('student_details.created_at', 'DESC');
+       
+        if (isset($batch)) {
+            $query->where('class_details.class', $batch);
+        }
+        if (isset($division)) {
+            $query->where('class_details.division', $division);
+        }
+              
+        $allStudents = $query->get();
+        foreach ($allStudents as $student) {
+            $student->enc_id = Encrypt::encrypt($student->id);
+            $student->enc_userid = Encrypt::encrypt($student->user_id);
+                
+        }
+        //Fetch Batch Details
+       $batch = new ClassDetails;
+       $batch = $batch->fetch();
+        // returns a view and passes the view the list of articles and the original query.
+//        return route('Student.index');
+        return View('hostel.add_feedetails_for hostel', 
+            ['allStudents' => $allStudents, 
+            'batch' => $batch,'division' => $division]
+        );
+    }
+
 }

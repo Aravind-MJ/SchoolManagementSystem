@@ -12,10 +12,13 @@
 
         
       <div class="form-group">
-            {!! Form::Label('param1', 'Batch') !!}
-            {!! Form::select('param1',['0'=>'Select Batch'] + $batch,  $batch_id, ['class' => 'form-control']) !!}
-        </div> 
-
+            {!! Form::Label('class', 'class') !!}
+            {!! Form::select('class', $batch->class, null, ['class' => 'form-control']) !!}
+        </div>      
+ <div class="form-group">
+            {!! Form::Label('division', 'division') !!}
+            {!! Form::select('division', $batch->division, null, ['class' => 'form-control']) !!}
+        </div>    
         <div class="form-group">
             {!! Form::Label('student_id', 'Student') !!}
             {!! Form::select('student_id',['0'=>'Select Student'] + $users, null, ['class' => 'form-control']) !!}

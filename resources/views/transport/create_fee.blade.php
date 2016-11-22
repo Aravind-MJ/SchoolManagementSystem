@@ -1,24 +1,29 @@
 @extends('layouts.layout')
 
-@section('title', 'Create Bus Fee')
+@section('title', 'Add Bus Fee')
 
 @section('body')
+
 {!! Form::open(['route' => 'BusFee.store','method'=>'POST']) !!}
 <!--{!! Form::open() !!}-->
 <div class="box box-primary">
     <div class="box-body">
         <div class="form-group">
+            {!! Form::Label('param1', 'Batch') !!}
+            {!! Form::select('param1',(['' => 'Select batch'] + $batch),$batch_id,['class' => 'form-control']) !!}
+        </div> 
+
+        <div class="form-group">
             {!! Form::Label('student_id', 'Student') !!}
-            {!! Form::text('student',$users->first_name.' '.$users->last_name, ['class' => 'form-control','readonly']) !!}
-			{!! Form::hidden('student_id', $selected_user, ['class' => 'form-control']) !!}
-			{!! Form::hidden('param1', $selected_batch, ['class' => 'form-control']) !!}
-			
+            {!! Form::select('student_id',(['' => 'Select student'] + $users),  null, ['class' => 'form-control']) !!}
         </div>  
 
         <div class="form-group">
             {!! Form::Label('bus_id', 'Bus') !!}
-            {!! Form::select('bus_id', (['0' => 'Select bus'] + $buses), null, ['class' => 'form-control']) !!}
-        </div>        
+            {!! Form::select('bus_id', (['' => 'Select bus'] + $buses), null, ['class' => 'form-control']) !!}
+        </div>
+
+        
 
         <div class="form-group">
             {!! Form::Label('fee', 'Fee') !!}
@@ -39,7 +44,7 @@
 <script type="text/javascript">
     $('#param1').change(function(){  
         var batch_id = $('#param1').val();
-        window.location.href='{{url("BusFee")}}/?param1='+batch_id;
+        window.location.href='{{url("BusFee/create")}}/?param1='+batch_id;
     });
 </script>
 @endsection

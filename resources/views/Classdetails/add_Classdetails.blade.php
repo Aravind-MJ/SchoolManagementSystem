@@ -2,16 +2,12 @@
 
 @section('title', 'Add ClassDetails')
 
-<!--@section('content')
-
-@if (session()->has('flash_message'))
-<p>{{ session()->get('flash_message') }}</p>
-@endif-->
+@section('content')
 
 @section('body')
 
 {!! Form::open(['route' => 'ClassDetails.store', 'method'=>'post','enctype' => 'multipart/form-data']) !!}
-@include('flash')
+
 <!--{!! Form::open() !!}-->
 <div class="box box-primary">
     <div class="box-body">

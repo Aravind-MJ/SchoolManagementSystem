@@ -12,8 +12,7 @@
 
 
 <div class="box box-primary">
-    <div class="box-body">
-
+    <div class="box-body" style="overflow-y: scroll">
 
         <table id="example2" class="table table-bordered table-hover">
             <thead>

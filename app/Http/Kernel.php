@@ -34,11 +34,13 @@ class Kernel extends HttpKernel
         'standardUser' => \App\Http\Middleware\SentinelStandardUser::class,
         'admin' => \App\Http\Middleware\SentinelAdminUser::class,
         'superadmin' => \App\Http\Middleware\SentinelSuperAdminUser::class,
+        'administrator' => \App\Http\Middleware\SentinelAdministrator::class,
         'faculty' => \App\Http\Middleware\SentinelFacultyUser::class,
         'notCurrentUser' => \App\Http\Middleware\SentinelNotCurrentUser::class,
         'redirectAdmin' => \App\Http\Middleware\SentinelRedirectAdmin::class,
         'redirectStandardUser' => \App\Http\Middleware\SentinelRedirectStandardUser::class,
         'redirectSuperAdmin' => \App\Http\Middleware\SentinelRedirectSuperAdmin::class,
+        'redirectAdministrator' => \App\Http\Middleware\SentinelRedirectAdministrator::class,
         'redirectFaculty' => \App\Http\Middleware\SentinelRedirectFaculty::class,
     ];
 }
