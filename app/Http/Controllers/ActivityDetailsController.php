@@ -50,12 +50,13 @@ class ActivityDetailsController extends Controller {
 
         $activity_types = $data;
        
-        $batch_id = Request::input('param1');
+        $batch_id = Request::input('class');
+        //dd($batch_id);
         //$batch = new Batch;
         $batch = new ClassDetails;
         $batch = $batch->fetch();
         
-            
+   
 
         if($batch_id==null){
             $users = array();

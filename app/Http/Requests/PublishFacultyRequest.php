@@ -36,7 +36,7 @@ class PublishFacultyRequest extends Request {
             'last_name' => 'required|alpha',
             'qualification' => 'required',
             'subject' => 'required',
-            'phone' => 'required|regex:/[0-9]{10}/',
+            'phone' => 'required|regex:/[0-9]{10}/|max:10 min:10',
             'address' => 'required|min:5',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:6',

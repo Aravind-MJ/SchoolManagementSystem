@@ -3,7 +3,7 @@
 @section('title', 'Student | Home')
 
 @section('body')
-    @include('flash')
+    
 	
 	<div class="container">
         <div class="row">
@@ -22,7 +22,7 @@
 						
 						</div>
 						<div class="line"></div>
-						<div class="roll_num"><i class="fa fa-tags icon_pro" style="font-size:18"></i><span class="profile_data"> &nbsp; Batch :</span> {{$student->batch}}						
+						<div class="roll_num"><i class="fa fa-tags icon_pro" style="font-size:18"></i><span class="profile_data"> &nbsp; Class :</span> {{$student->class}}						
 						</div>
 						<div class="line"></div>
 						</div>		
@@ -33,17 +33,16 @@
 						<div class="add"><i class="fa fa-map-marker icon_pro" style="font-size:18"></i> <span class="profile_data"> &nbsp; &nbsp; Guardian :</span> {{ $student->guardian }}
 						
 						<div class="line"></div>
-						<div class="add"><i class="fa fa-map-marker icon_pro" style="font-size:18"></i> <span class="profile_data"> &nbsp; &nbsp;Address :</span> {{ $student->address }}
+						<div class="add"><i class="fa fa-map-marker icon_pro" style="font-size:18"></i> <span class="profile_data"> &nbsp; &nbsp;Address :</span> {{ $student->housename }}
 						<span class="join_profile">&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-users icon_pro" style="font-size:18"></i><span class="profile_data"> &nbsp; Gender :</span> Male </span></div> 
 						</div>
 						<div class="line"></div>
 						<div class="bod"><i class="fa fa-envelope icon_pro" style="font-size:18"></i><span class="profile_data"> &nbsp; Email id:</span> {{ $student->email }}  
 						<span class="join_profile">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-calendar  icon_pro" style="font-size:18"></i>
-						<span class="profile_data"> &nbsp; Rank :</span> {{ $student->cee_rank }}</span></div>
-						<div class="line"></div>
+						
 						<div class="bod"><i class="fa fa-phone icon_pro" style="font-size:18"></i><span class="profile_data"> &nbsp; Phone Number :</span> {{ $student->phone }}
 						<span class="join_profile">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-table icon_pro" style="font-size:18"></i>
-						<span class="profile_data"> &nbsp; Percentage :</span> {{ $student->percentage }}%</span> </div>
+
 						<div class="line"></div>
 						
 						

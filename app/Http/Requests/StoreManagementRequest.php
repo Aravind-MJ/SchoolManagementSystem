@@ -18,10 +18,10 @@ class StoreManagementRequest extends Request {
     public function rules() {
        return [
             'item_brand'       =>  'required|regex:/^[(a-zA-Z\s\!-_)]+$/u' ,
-            'item_cost'        =>  'required|numeric|min:0|max:1000000' ,
+            'item_cost'        =>  'required|numeric|min:1|max:1000000' ,
             //'item_detail'      =>  'required|regex:/^[(a-zA-Z\s\!-_)]+$/u' ,
             'item_stock'       =>  'required|numeric|min:0|max:1000000'  ,
-            'item_limit'       =>  'required|numeric|min:0|max:100000'  ,
+            'item_limit'       =>  'required|numeric|min:5|max:100000'  ,
         ];
     }
 

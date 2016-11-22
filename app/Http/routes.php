@@ -1,5 +1,6 @@
 <?php
 Route::get('/','HomeController@root');
+
 Route::get('blog', 'SiteController\BlogController@new_blog');
 Route::get('blog/new', 'SiteController\BlogController@new_blog');
 Route::get('blog/list','SiteController\BlogController@index');
@@ -16,9 +17,6 @@ Route::get('logout', ['as' => 'logout', 'uses' => 'SessionsController@destroy'])
 Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
 
 # Redirecting all registered users so they cannot access these pages.
-
-
-Route::group(['middleware' => ['redirectAdmin', 'redirectStandardUser', 'redirectSuperAdmin', 'redirectFaculty','redirectAdministrator']], function () {
 
 Route::group(['middleware' => ['redirectAdmin', 'redirectStudentUser', 'redirectManagement', 'redirectFaculty','redirectAdministrator']], function () {
 
@@ -66,9 +64,9 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStudentUser']
     Route::get('dayscholars', ['as' => 'search.dayscholars', 'uses' => 'HostelController@search']);
     Route::get('hostel', ['as' => 'search.hostel', 'uses' => 'HostelController@hostelsearch']);
 
-    # Activity crud Routes.
-    Route::resource('Activity', 'ActivityTypeController');
-
+     # Activity crud Routes.
+     Route::resource('Activity', 'ActivityTypeController');
+ 
     # Activity Details crud Routes.
     Route::resource('ActivityDetails', 'ActivityDetailsController');
 
@@ -195,9 +193,6 @@ Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {
 Route::resource('transportation', 'BusesController');
 Route::resource('BusFee', 'BusFeeController');
 
-Route::get('construction', function(){
-    return view('construction');
-});
 
 Route::filter('permissions', function ($route, $request) {
     $action = $route->getActionName();

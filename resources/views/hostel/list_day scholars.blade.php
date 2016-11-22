@@ -61,6 +61,7 @@
                     <td class=center>
                         <a class="btn btn-primary btn-block" href="{{url('Hostel/'.$student->user_id)}}">Change to hostel</a>
                     </td>
+
                 </tr>
                 <?php $i++ ?>
                 @endforeach

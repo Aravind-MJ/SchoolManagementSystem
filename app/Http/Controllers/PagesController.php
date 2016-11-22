@@ -22,10 +22,11 @@ class PagesController extends Controller {
             //Get results by targeting id
             $student = DB::table('student_details')
                     ->join('users', 'users.id', '=', 'student_details.user_id')
-                    ->join('batch_details', 'batch_details.id', '=', 'student_details.batch_id')
-                    ->select('users.*', 'student_details.*', 'batch_details.batch')
+                    ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
+                    ->select('users.*', 'student_details.*', 'class_details.class','class_details.division')
                     ->where('users.id', $id)
                     ->first();
+                    //dd($student);
             $student->enc_userid = Encrypt::encrypt($student->user_id);
             unset($student->user_id);
             return View('protected.standardUser.home', compact('student'));
@@ -43,9 +44,9 @@ class PagesController extends Controller {
                 ->select('batch_id')->where('user_id', $id)
                 ->first();
         $allNotice = DB::table('notice')
-                ->join('batch_details', 'batch_details.id', '=', 'notice.batch_id')
+                ->join('class_details', 'class_details.id', '=', 'notice.batch_id')
                 ->where('batch_id', $student->batch_id)
-                ->select('notice.*', 'batch_details.batch')
+                ->select('notice.*', 'class_details.class','class_details.division')
                 ->orderBy('created_at','DESC')
                 ->limit(10)
                 ->get();
@@ -65,9 +66,9 @@ class PagesController extends Controller {
                 ->select('batch_id')->where('user_id', $id)
                 ->first();
         $allAssignment = DB::table('assignment')
-                ->join('batch_details', 'batch_details.id', '=', 'assignment.batch_id')
+                ->join('class_details', 'class_details.id', '=', 'assignment.batch_id')
                 ->where('batch_id', $student->batch_id)
-                ->select('assignment.*', 'batch_details.batch')
+                ->select('assignment.*', 'class_details.class','class_details.division')
                 ->orderBy('sdate','DESC')
                 ->limit(10)
                 ->get();

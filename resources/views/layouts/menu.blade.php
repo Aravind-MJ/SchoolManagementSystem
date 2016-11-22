@@ -344,8 +344,8 @@
                         </span>
                         </a>
                      <ul class="treeview-menu">
-                            <li><a href="{{URL::route('StoreType.create')}}"><i class="fa fa-circle-o"></i> Add Items</a></li>
-                            <li><a href="{{URL::route('StoreType.index')}}"><i class="fa fa-circle-o"></i> List Items</a></li>
+                            <li><a href="{{URL::route('StoreType.create')}}"><i class="fa fa-circle-o"></i> add category Items</a></li>
+                            <li><a href="{{URL::route('StoreType.index')}}"><i class="fa fa-circle-o"></i> List category Items</a></li>
                             <li><a href="{{URL::route('StoreManagement.create')}}"><i class="fa fa-circle-o"></i> Add Item Details</a></li>
                             <li><a href="{{URL::route('StoreManagement.index')}}"><i class="fa fa-circle-o"></i> List Item Details</a></li>
                           </ul>

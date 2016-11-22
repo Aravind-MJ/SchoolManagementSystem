@@ -32,6 +32,7 @@ class PublishNoticeRequest extends Request {
         {
             return [
             'class' => 'required',
+            'division'=>'required',
             'message' => 'required|min:5'
         ];
         }

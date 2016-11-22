@@ -37,7 +37,9 @@
                             <div class="form-group">
                                 {!! Form::submit('Edit Admin', ['class' => 'btn btn-lg btn-primary btn-block']) !!}
                             </div>
-
+                            <div class="form-group">
+                            <input class="form-button" type="reset" value="Clear form">
+                            </div>
                         </fieldset>
                         {!! Form::close() !!}
                     </div>

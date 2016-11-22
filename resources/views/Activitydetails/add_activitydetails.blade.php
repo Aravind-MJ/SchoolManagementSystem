@@ -13,11 +13,11 @@
         
       <div class="form-group">
             {!! Form::Label('class', 'class') !!}
-            {!! Form::select('class', $batch->class, null, ['class' => 'form-control']) !!}
+            {!! Form::select('class', $batch->class, null, ['class' => 'form-control', 'id' =>'class' ]) !!}
         </div>      
  <div class="form-group">
             {!! Form::Label('division', 'division') !!}
-            {!! Form::select('division', $batch->division, null, ['class' => 'form-control']) !!}
+            {!! Form::select('division', $batch->division, null, ['class' => 'form-control', 'id' =>'division']) !!}
         </div>    
         <div class="form-group">
             {!! Form::Label('student_id', 'Student') !!}
@@ -49,8 +49,8 @@
 @endsection
 @section('pagescript')
 <script type="text/javascript">
-    $('#param1').change(function(){
-        var batch_id = $('#param1').val();
+    $('#class').change(function(){
+        var batch_id = $('#class').val();
         window.location.href='{{url("ActivityDetails/create")}}/?param1='+batch_id;
     });
 </script>

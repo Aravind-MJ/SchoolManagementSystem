@@ -13,7 +13,7 @@
                         {!! Form::open(['route' => 'registration.store']) !!}
                         <fieldset>
 
-                            @include('flash')
+                          
 
                             <!-- Email field -->
                             <div class="form-group">
