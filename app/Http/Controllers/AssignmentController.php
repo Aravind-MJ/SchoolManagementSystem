@@ -16,7 +16,6 @@ class AssignmentController extends Controller {
 
     public function __construct(Assignment $assignment,  ClassDetails $claz ) {
         $this->assignment = $assignment;
-       
 		$this->claz = $claz;
     }
 
@@ -26,7 +25,7 @@ class AssignmentController extends Controller {
         $allAssignment = $this->assignment
                 ->join('class_details', 'class_details.id', '=', 'assignment.batch_id')
                 ->select('assignment.*', 'class_details.class', 'class_details.division')
-                ->orderBy('assignment.submit', 'DESC')
+                ->orderBy('assignment.sdate', 'DESC')
                 ->get();
 				//dd($allAssignment);
 
@@ -68,7 +67,7 @@ class AssignmentController extends Controller {
 		->where(['class' =>$class, 'division' => $division])
 		->first();
         $assignment->question = $requestData['question'];
-        $assignment->submit = $requestData['submit']; 
+        $assignment->sdate = $requestData['submit'];
 		$assignment->batch_id = $clazdiv->id;
 		
         $assignment->save();
@@ -128,11 +127,23 @@ class AssignmentController extends Controller {
      */
     public function update($id, Requests\AssignmentRequest $requestData) {
         //update values in assignment
+        $batch_id = new ClassDetails;
+        $batch_id = $batch_id->where([
+            'class' => $requestData['class'],
+            'division' => $requestData['division']
+        ])->first();
+        if($batch_id==null){
+            return redirect()->back()
+                ->withFlashMessage('Batch not found!!')
+                ->withType('danger');
+        }else{
+            $batch_id = $batch_id->id;
+        }
 
-        $assignment = \App\assignment::find($id);
-        $assignment->batch_id = $requestData['batch_id'];
+        $assignment = $this->assignment->find($id);
+        $assignment->batch_id = $batch_id;
         $assignment->question = $requestData['question'];
-        $assignment->submit = $requestData['submit'];
+        $assignment->sdate = $requestData['sdate'];
         $assignment->save();
         return redirect()->route('Assignment.index')
                         ->withFlashMessage('assignment Updated successfully!')

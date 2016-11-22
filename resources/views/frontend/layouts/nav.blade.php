@@ -25,13 +25,13 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
 					  <ul class="nav navbar-nav menu__list">
-						<li class="active menu__item menu__item--current @yield('root')"><a class="menu__link" href="{{url('/')}}">Home <span class="sr-only">(current)</span></a></li>
-						<li class=" menu__item"><a class="menu__link" href="{{url('About')}}">About us</a></li>
-						<li class=" menu__item"><a class="menu__link scroll" href="{{url('/')}}#management">Academics</a></li>
-						<li class=" menu__item"><a class="menu__link scroll" href="{{url('/')}}#faculties">Management</a></li>
-						<li class=" menu__item"><a class="menu__link" href="{{url('Blogs')}}">Blogs</a></li>
-						<li class=" menu__item"><a class="menu__link" href="{{url('/Gallery')}}">Gallery</a></li>
-						<li class=" menu__item"><a class="menu__link" href="{{url('Contact')}}">Contact</a></li>
+						<li class="active menu__item @yield('Home')"><a class="menu__link" href="{{url('/')}}">Home <span class="sr-only">(current)</span></a></li>
+						<li class=" menu__item @yield('About')"><a class="menu__link" href="{{url('About')}}">About us</a></li>
+						<li class=" menu__item @yield('Home')"><a class="menu__link scroll" href="{{url('/')}}#management">Academics</a></li>
+						<li class=" menu__item @yield('Home')"><a class="menu__link scroll" href="{{url('/')}}#faculties">Management</a></li>
+						<li class=" menu__item @yield('Blogs')"><a class="menu__link" href="{{url('Blogs')}}">Blogs</a></li>
+						<li class=" menu__item @yield('Gallery')"><a class="menu__link" href="{{url('/Gallery')}}">Gallery</a></li>
+						<li class=" menu__item @yield('Contact')"><a class="menu__link" href="{{url('Contact')}}">Contact</a></li>
 						<li class=" menu__item"><a class="menu__link " href="{{url('login')}}">Login</a></li>
 					  </ul>
 					</div>

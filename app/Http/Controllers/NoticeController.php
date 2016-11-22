@@ -118,7 +118,7 @@ class NoticeController extends Controller {
 		->where(['class' =>$class, 'division' => $division])
 		->first();
 		
-       $notice = $this->notice; 	
+       $notice = $this->notice->find($id);
 	$notice->message = $requestData['message'];
     $notice->batch_id = $clazdiv->id;	
 	$notice->save();

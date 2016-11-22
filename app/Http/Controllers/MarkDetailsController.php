@@ -123,6 +123,10 @@ class MarkDetailsController extends Controller
             $exams = $this->exam_details
                 ->limit(10)
                 ->get();
+            if(count($exams)<=0){
+                return redirect()->back()
+                    ->withFlashMessage('No exams found!')->withType('danger');
+            }
             foreach ($exams as $exam) {
                 $date = date_create($exam['exam_date']);
                 $name = DB::table('Exam_type')
@@ -253,6 +257,10 @@ class MarkDetailsController extends Controller
         try {
             $exams = $this->exam_details
                 ->get();
+            if(count($exams)<=0){
+                return redirect()->back()
+                    ->withFlashMessage('No exams found!')->withType('danger');
+            }
             foreach ($exams as $exam) {
                 $date = date_create($exam['exam_date']);
                 $name = DB::table('Exam_type')

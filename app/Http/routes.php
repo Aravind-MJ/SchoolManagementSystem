@@ -1,14 +1,5 @@
 <?php
 Route::get('/','HomeController@root');
-Route::get('/administrator','HomeController@index');
-Route::get('blog', 'SiteController\BlogController@new_blog');
-Route::get('blog/new', 'SiteController\BlogController@new_blog');
-Route::get('blog/list','SiteController\BlogController@index');
-Route::get('blog/{id}', 'SiteController\BlogController@show');
-Route::post('blog/store','SiteController\BlogController@store');
-Route::get('blog/destroy/{id}','SiteController\BlogController@destroy');
-Route::get('blog/edit/{id}','SiteController\BlogController@edit');
-Route::post('blog/edit/{id}','SiteController\BlogController@update');
 Route::get('Gallery','HomeController@galleries');
 
 
@@ -67,8 +58,6 @@ Route::group(['middleware' => ['auth', 'redirectFaculty', 'redirectStudentUser']
 
     Route::resource('StoreType', 'StoreTypeController');
 
-    Route::resource('Assignment', 'AssignmentController');
-
     Route::resource('StoreManagement', 'StoreManagementController');
 
     # Route to edit student profile.
@@ -105,6 +94,8 @@ Route::group(['middleware' => ['auth', 'redirectStudentUser']], function () {
     # Library crud Route.
     Route::resource('Library', 'LibraryController');
     Route::get('library/issue', ['uses' => 'LibraryController@issueBook']);
+
+    Route::resource('Assignment', 'AssignmentController');
 });
 
 # Standard User Routes.
@@ -214,18 +205,33 @@ Route::get('Gallery/{id}',['uses'=>'HomeController@gallery']);
 Route::get('Management', 'HomeController@root');
 Route::get('Academics', 'HomeController@root');
 
+Route::group(['middleware' => ['auth', 'administrator']], function () {
 
-# Banner Routes
-    Route::get('banner','SiteController\BannerController@edit');
-    Route::post('banner','SiteController\BannerController@update');
-    Route::get('banner/{id}','SiteController\BannerController@destroy');
-    Route::get('event/new','SiteController\EventGalleryController@create');
-    Route::post('event/new','SiteController\EventGalleryController@store');
-    Route::get('event','SiteController\EventGalleryController@index');
-    Route::get('event/destroy/{id}','SiteController\EventGalleryController@destroy');
-    Route::get('event/gallery/{eventid}',['as'=>'image.create','uses'=>'SiteController\ImageController@create']);
-    Route::post('event/gallery',['as'=>'image.store','uses'=>'SiteController\ImageController@store']);
-    Route::post('toggle/{id}','SiteController\ImageController@toggle');
-    Route::post('caption/{id}','SiteController\ImageController@caption');
-    Route::get('event/edit/{id}','SiteController\EventGalleryController@edit');
-    Route::post('event/edit/{id}','SiteController\EventGalleryController@update');
+    Route::get('banner', 'SiteController\BannerController@edit');
+    Route::post('banner', 'SiteController\BannerController@update');
+    Route::get('banner/{id}', 'SiteController\BannerController@destroy');
+    Route::get('event/new', 'SiteController\EventGalleryController@create');
+    Route::post('event/new', 'SiteController\EventGalleryController@store');
+    Route::get('event', 'SiteController\EventGalleryController@index');
+    Route::get('event/destroy/{id}', 'SiteController\EventGalleryController@destroy');
+    Route::get('event/gallery/{eventid}', ['as' => 'image.create', 'uses' => 'SiteController\ImageController@create']);
+    Route::post('event/gallery', ['as' => 'image.store', 'uses' => 'SiteController\ImageController@store']);
+    Route::post('toggle/{id}', 'SiteController\ImageController@toggle');
+    Route::post('caption/{id}', 'SiteController\ImageController@caption');
+    Route::get('event/edit/{id}', 'SiteController\EventGalleryController@edit');
+    Route::post('event/edit/{id}', 'SiteController\EventGalleryController@update');
+
+
+    Route::get('/administrator','HomeController@index');
+    Route::get('blog', 'SiteController\BlogController@new_blog');
+    Route::get('blog/new', 'SiteController\BlogController@new_blog');
+    Route::get('blog/list','SiteController\BlogController@index');
+    Route::get('blog/{id}', 'SiteController\BlogController@show');
+    Route::post('blog/store','SiteController\BlogController@store');
+    Route::get('blog/destroy/{id}','SiteController\BlogController@destroy');
+    Route::get('blog/edit/{id}','SiteController\BlogController@edit');
+    Route::post('blog/edit/{id}','SiteController\BlogController@update');
+});
+Route::get('404', function(){
+    return view('404');
+});

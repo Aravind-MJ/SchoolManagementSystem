@@ -30,7 +30,7 @@
         </div>
         <div class="form-group">
             {!! Form::label('submit', 'Submission Date') !!}
-            {!! Form::text('submit', null, ['class'=>'form-control', 'placeholder'=>'Submission Date', 'id'=>'datepicker']) !!}
+            {!! Form::text('submit', null, ['class'=>'form-control', 'placeholder'=>'Submission Date', 'id'=>'datepicker1']) !!}
             
         </div>
 
@@ -42,11 +42,6 @@
 {!! Form::close() !!}
 @section('ckeditor')
 <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js" />
- <script type="text/javascript">
-  $(function() {
-          $( "#datepicker" ).datepicker( "option", "dateFormat", 'd MM, y');
-  });
-  </script>
 @stop
 @endsection
  

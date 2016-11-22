@@ -1,5 +1,5 @@
 @extends('frontend.layouts.layout')
-@section('Galleries','menu__item--current')
+@section('Gallery','menu__item--current')
 @section('body')
 
 			<div class="callbacks_container">
@@ -18,7 +18,7 @@
 					
 						<h5>{{$row->name}}</h5>
 							<p class="blog-agile2">{{$row->description}}</p>
-							<a class="btn btn-primary" href="{{url('Gallery/'.$row->id)}}">Read More <i class="fa fa-angle-right"></i></a>
+							<a class="btn btn-primary" href="{{url('Gallery/'.$row->id)}}">View More <i class="fa fa-angle-right"></i></a>
 						
 					</div>
 					@endforeach
