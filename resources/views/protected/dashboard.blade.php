@@ -40,7 +40,7 @@
               <!-- small box -->
               <div class="small-box bg-purple">
                 <div class="inner">
-                  <h3>{{$count['users']}}</h3>
+                  <h3>{{$count['administrator']}}</h3>
 
 
                   {{--<p>PTA</p>--}}

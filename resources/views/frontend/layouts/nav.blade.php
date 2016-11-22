@@ -30,7 +30,7 @@
 						<li class=" menu__item @yield('Academics')"><a class="menu__link scroll" href="#management">Academics</a></li>
 						<li class=" menu__item @yield('Management')"><a class="menu__link scroll" href="#faculties">Management</a></li>
 						<li class=" menu__item @yield('Blogs')"><a class="menu__link" href="{{url('Blogs')}}">Blogs</a></li>
-						<li class=" menu__item "><a class="menu__link" href="{{url('Gallery')}}">Gallery</a></li>
+						<li class=" menu__item "><a class="menu__link" href="{{url('/Gallery')}}">Gallery</a></li>
 						<li class=" menu__item "><a class="menu__link" href="{{url('Contact')}}">Contact</a></li>
 						<li class=" menu__item"><a class="menu__link " href="{{url('login')}}">Login</a></li>
 					  </ul>
@@ -42,8 +42,4 @@
 			<div class="clearfix"></div>
 			</div>
 		</div>
-	<!-- //navigation -->
-<!-- Slider -->
-	
-		<!-- //Slider -->
 </div>

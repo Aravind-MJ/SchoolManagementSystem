@@ -3,6 +3,7 @@
 @section('small_title','Upload')
 @section('banner','active')
 @section('body')
+
 <div class="box box-success">
 	<div class="box-body">
 	

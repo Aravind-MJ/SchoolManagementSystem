@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\SiteModels;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\CanResetPassword;

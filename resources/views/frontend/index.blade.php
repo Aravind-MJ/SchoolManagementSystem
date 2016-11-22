@@ -2,6 +2,33 @@
 @section('Home','menu__item--current')
 @section('body')
 
+<div class="slider">
+		
+			<div class="callbacks_container">
+
+				<ul class="rslides" id="slider">
+@foreach($banner as $each_banner)
+					<li>
+
+						<div class="slider-img">
+							<img src="{{url('images/'.$each_banner->name)}}" class="img-responsive" alt="education">
+						</div>
+						<div class="slider-info">
+							<h3>Education</h3>
+							<p>Education is the most powerful weapon which you can use to change the world.</p>
+						</div>
+
+
+					</li>
+@endforeach
+				</ul>
+
+			</div>
+
+
+			<div class="clearfix"></div>
+		</div>
+
 <!--main-content-->
 <div class="agile-main" id="about">
 	<div class="container">
@@ -216,42 +243,25 @@
 <div class="team news" id="news">
 	<div class="container">
 		<div class="open-head">
-			<h6>News & Events</h6>
+			<h6>Gallery</h6>
 			<p>“The King’s School is under the umbrella of The King’s Educational Trust (Registered), floated by the original visionaries of this dream.” </p>
 		</div>
 					<div class="news-grids">
+					@foreach($data as $row)
 						<div class="col-md-4 news-grid">
-							<img src="{{url('frontend/images/p1.jpg')}}" class="img-responsive" alt=""/>
+							<img src="{{url('images/'.$row->image)}}" class="img-responsive" alt=""/>
 							<div class="w3grid col-md-12 news-text">
-								<h5>Polymet Coporation</h5>
+								<h5>{{$row->name}}</h5>
 								<p> 05 December </p>
-								<p class="open-head">To provide stability, sustain momentum and reward significant progress, the Board of Education has proposed another four-year contract for Chief Executive Officer Eric Gordon.</p>
-								<div class="map">
-									<input type="submit" value="Learn more">
-								</div>
+								<p class="open-head">{{$row->description}}</p>
+								
+                         			 <div class="map">
+						  				<a href=  "{{url('Gallery/'.$row->id)}}">Read More
+						  				</a>
+						  			 </div>
 							</div>
 						</div>
-						<div class="col-md-4 news-grid">
-							<img src="{{url('frontend/images/p2.jpg')}}" class="img-responsive" alt=""/>
-							<div class="w3grid col-md-12 news-text">
-								<h5>National Competition</h5>
-								<p> 30 November </p>
-								<p>Gordon was appointed in 2011. At the conclusion of the proposed contract, he would be the District's longest serving superintendent since Paul W. Briggs, who held the job from 1964 through 1978.</p>
-								<div class="map">
-									<input type="submit" value="Learn more">
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4 news-grid">
-							<img src="{{url('frontend/images/p3.jpg')}}" class="img-responsive" alt=""/>
-							<div class="w3grid col-md-12 news-text">
-								<h5>Corporate Meeting</h5>
-								<p> 19 September </p>
-								<p>We are pleased with the work of our CEO in the last four years, and the general feeling was that he should not only be fairly compensated for his work but also rewarded for making significant strides.</p>
-								<div class="map">
-									<input type="submit" value="Learn more">
-								</div>
-							</div>
+					@endforeach
 						</div>
 						<div class="clearfix"></div>
 					</div>
