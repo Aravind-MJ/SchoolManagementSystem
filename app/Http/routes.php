@@ -1,6 +1,6 @@
 <?php
 Route::get('/','HomeController@root');
-
+Route::get('/administrator','HomeController@index');
 Route::get('blog', 'SiteController\BlogController@new_blog');
 Route::get('blog/new', 'SiteController\BlogController@new_blog');
 Route::get('blog/list','SiteController\BlogController@index');

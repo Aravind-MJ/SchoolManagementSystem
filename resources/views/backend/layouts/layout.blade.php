@@ -137,7 +137,7 @@ textarea.form-control{
             ?>
             
             @endif-->
-            @include('backend.layouts.menu')
+            @include('backend.layouts.nav')
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
