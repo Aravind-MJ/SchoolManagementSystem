@@ -178,6 +178,7 @@ Route::resource('Subject', 'SubjectController');
 
 Route::resource('Timetable', 'TimetableController');
 Route::post('Timetable/config', 'TimetableController@timetable_config');
+Route::get('GenerateTimetable',['as'=>'GenerateTimetable','uses'=>'TimetableGeneratorController@create']);
 
 # Routes that only current user can access
 Route::group(['middleware' => ['auth', 'notCurrentUser']], function () {

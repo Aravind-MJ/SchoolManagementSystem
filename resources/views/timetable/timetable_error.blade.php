@@ -12,7 +12,7 @@
             {{--<button type="button" class="close pull-right" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>--}}
         </div>
     @endforeach
-    <a href="{{route('Timetable.index')}}" class="btn btn-primary">Go back to Timetable Generate</a>
+    <a href="{{route('Timetable.index')}}@if($section!='HS')?section={{$section}}@endif" class="btn btn-primary">Go back to Timetable Generate</a>
     </div>
 </div>
 </div>

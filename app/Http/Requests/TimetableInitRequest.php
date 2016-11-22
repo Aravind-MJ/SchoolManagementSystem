@@ -27,7 +27,8 @@ class TimetableInitRequest extends Request
             'batch' => 'required',
             'faculty' => 'required',
             'subject' => 'required',
-            'no_of_periods' => 'required'
+            'no_of_periods' => 'required',
+            'section' => 'required'
         ];
     }
 }
