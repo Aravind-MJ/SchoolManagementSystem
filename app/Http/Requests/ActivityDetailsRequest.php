@@ -17,7 +17,8 @@ class ActivityDetailsRequest extends Request {
 
     public function rules() {
        return [
-            'param1'       =>  'required'          
+            'class'       =>  'required',
+            'division'       =>  'required'
         ];
     }
 
