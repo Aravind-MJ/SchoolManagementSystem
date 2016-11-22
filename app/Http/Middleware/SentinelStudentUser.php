@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Sentinel;
 
-class SentinelStandardUser
+class SentinelStudentUser
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class SentinelStandardUser
     public function handle($request, Closure $next)
     {
         $user = Sentinel::getUser();
-        $users = Sentinel::findRoleByName('Users');
+        $users = Sentinel::findRoleByName('Student');
 
         if (!$user->inRole($users)) {
             return redirect('login');

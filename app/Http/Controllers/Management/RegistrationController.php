@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\SuperAdmin;
+namespace App\Http\Controllers\Management;
 
 use App\Encrypt;
 use App\Http\Controllers\Controller;

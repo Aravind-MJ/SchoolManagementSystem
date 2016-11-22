@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\StandardUser;
+namespace App\Http\Controllers\StudentUser;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 use App\RoleUsers;
 use Illuminate\Support\Facades\DB;
 
-class StandardUserController extends Controller
+class StudentUserController extends Controller
 {
-    protected $faculty, $students, $admins, $users;
+    protected $users;
 
     public function __construct(RoleUsers $user)
     {
@@ -21,14 +21,15 @@ class StandardUserController extends Controller
     {
         $count = array();
         $title = 'User | Home';
-        $roles = ['users', 'admins', 'superadmin', 'faculty'];
+        $roles = [9=>'student', 7=>'admins', 8=>'faculty'];
         $data = $this->users
-            ->select(DB::raw('count(*) as count'))
+            ->select(DB::raw('count(*) as count,id'))
+            ->whereIn('role_id',[7,8,9])
             ->groupBy('role_id')
             ->get()->toArray();
 
         foreach ($data as $key => $each) {
-            $count[$roles[$key]] = $each['count'];
+            $count[$roles[$each['role_id']]] = $each['count'];
         }
 
         return view('protected.dashboard', [
@@ -37,8 +38,8 @@ class StandardUserController extends Controller
         ]);
     }
 
-    public function getUserProtected()
-    {
+   public function getUserProtected()
+   {
         return view('protected.standardUser.userPage');
-    }
+  }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Sentinel;
 
-class SentinelRedirectStandardUser
+class SentinelRedirectManagement
 {
     /**
      * Handle an incoming request.
@@ -18,10 +18,10 @@ class SentinelRedirectStandardUser
     {
         if (Sentinel::check()) {
             $user = Sentinel::getUser();
-            $users = Sentinel::findRoleByName('Users');
+            $admin = Sentinel::findRoleByName('Management');
 
-            if ($user->inRole($users)) {
-                return redirect()->intended('home');
+            if ($user->inRole($admin)) {
+                return redirect()->intended('management');
             }
         }
         return $next($request);

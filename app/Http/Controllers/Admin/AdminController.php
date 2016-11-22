@@ -23,18 +23,18 @@ class AdminController extends Controller
 		
         $count = array();
         $title = 'Admin | Home';
-
         $roles = ['management','admins','faculty','student','parent','pta','alumni','administrator'];
 
         $roles = ['management','Administrator','admins','faculty','student','parent','pta','alumni'];
-
+        $roles = [9=>'student', 7=>'admins', 8=>'faculty'];
         $data = $this->users
-            ->select(DB::raw('count(*) as count,role_id'))
+          ->select(DB::raw('count(*) as count,role_id'))
             ->groupBy('role_id')
+            ->whereIn('role_id',[7,8,9])
             ->get()->toArray();
             
         foreach ($data as $key => $each) {
-            $count[$roles[$key]] = $each['count'];
+            $count[$roles[$each['role_id']]] = $each['count'];
         }
 
         return view('protected.dashboard', [

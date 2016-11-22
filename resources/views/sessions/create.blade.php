@@ -17,8 +17,15 @@
 </head>
 <body>
 <!--header start here-->
+
 <div class="header">
+         <div class="col-md-8 div_back" style="height:100px;"></div>
+			<div class="col-md-4 div_back">
+			<div class="back_admin" > <button class="but1"><span>Back to Home </span></button>	</div>
+			</div>
 		<div class="header-main">
+		
+			
 		       <h1>SMS LOGIN FORM</h1>
 			<div class="header-bottom">
 				<div class="header-right w3agile">
@@ -60,15 +67,19 @@
 		</div>
 		
 		<div style="text-align:center">
-                                        
-                    <p><strong>Super Admin User:</strong> superadmin@superadmin.com<br>
-                    <strong>Super Admin Password:</strong> sentinelsuperadmin</p>
+
+					
+					<p><strong>Management User:</strong> management@management.com<br>
+                    <strong>Management Password:</strong> sentinelmanagement</p>
+
+                    <p><strong>Administrator User:</strong> administrator@administrator.com<br>
+                    <strong>Administrator Password:</strong> sentineladministrator</p>
 
                     <p><strong>Admin User:</strong> admin@admin.com<br>
                     <strong>Admin Password:</strong> sentineladmin</p>
 
-                    <p><strong>Standard User:</strong> user@user.com<br>
-                    <strong>Standard User Password:</strong> sentineluser</p>
+                    <p><strong>Student User:</strong> user@user.com<br>
+                    <strong>Student User Password:</strong> sentineluser</p>
                     
                     <p><strong>Faculty User:</strong> faculty@faculty.com<br>
                     <strong>Faculty Password:</strong> sentinelfaculty</p>

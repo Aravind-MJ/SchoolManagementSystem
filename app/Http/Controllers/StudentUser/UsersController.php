@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\StandardUser;
+namespace App\Http\Controllers\StudentUser;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
@@ -34,7 +34,7 @@ class UsersController extends Controller
     {
         $user = $this->user->find($id);
 
-        return view('protected.standardUser.show')->withUser($user);
+        return view('protected.studentUser.show')->withUser($user);
     }
 
     /**
@@ -47,7 +47,7 @@ class UsersController extends Controller
     {
         $user = $this->user->find($id);
 
-        return view('protected.standardUser.edit')->withUser($user);
+        return view('protected.studentUser.edit')->withUser($user);
     }
 
     /**
