@@ -1,5 +1,5 @@
 <?php
-
+Route::get('/','HomeController@root');
 Route::get('blog', 'SiteController\BlogController@new_blog');
 Route::get('blog/new', 'SiteController\BlogController@new_blog');
 Route::get('blog/list','SiteController\BlogController@index');
@@ -16,8 +16,6 @@ Route::get('logout', ['as' => 'logout', 'uses' => 'SessionsController@destroy'])
 Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
 
 # Redirecting all registered users so they cannot access these pages.
-
-Route::group(['middleware' => ['redirectAdmin','redirect', 'redirectStandardUser', 'redirectSuperAdmin', 'redirectFaculty']], function () {
 
 Route::group(['middleware' => ['redirectAdmin', 'redirectStandardUser', 'redirectSuperAdmin', 'redirectFaculty','redirectAdministrator']], function () {
 
