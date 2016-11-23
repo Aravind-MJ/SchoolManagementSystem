@@ -15,11 +15,11 @@
         
         <div class="form-group">
             {!! Form::Label('class', 'Class') !!}
-            {!! Form::select('class',(['null' => 'Select Class'] + $batch->class),null,['class' => 'form-control']) !!}
+            {!! Form::select('class',($batch->class),$clasz,['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
             {!! Form::Label('division', 'Division') !!}
-            {!! Form::select('division',(['null' => 'Select division'] + $batch->division),null,['class' => 'form-control']) !!}
+            {!! Form::select('division',($batch->division),$division,['class' => 'form-control']) !!}
         </div>
 
         <div class="form-group">
@@ -52,13 +52,20 @@
 @endsection
 @section('pagescript')
 <script>
-    $('#division').change(function(){  
+    $('#class').change(function(){
         var claz = $('#class').val();
         var division=$('#division').val();
-        if(claz!= null ){
+        if(claz!= '' && division!= ''){
             window.location.href='{{url("ActivityDetails/create")}}/?class='+claz+'&division='+division;
         }
     });
+    $('#division').change(function(){
+            var claz = $('#class').val();
+            var division=$('#division').val();
+            if(claz!= '' && division!= ''){
+                window.location.href='{{url("ActivityDetails/create")}}/?class='+claz+'&division='+division;
+            }
+        });
 </script>
 
 @endsection
