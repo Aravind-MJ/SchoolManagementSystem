@@ -39,4 +39,41 @@
 <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js" />
 @stop
 @endsection
+@section('validation')
+<script>
+ $(function () {
+
+	    $("form[name='contact']").validate({
+
+	        rules: {
+	            name: {required: true,lettersonly: true},
+	            email: {required: true,email: true},
+	            phone:{
+	    			required: true,
+	                number: true,
+	                minlength:10,
+	                maxlength:10,
+	                },
+	            message:"required"                    
+	    },
+
+			messages: {
+	            name: {required: "Please enter your name",lettersonly: "Please enter  letters only"},
+	            email:{required: "Please enter email", email: "Please enter valid email!"},
+	            phone:{required: "Please enter your phone number.",minlength: "Enter 10 digit phone number",maxlength: "Enter 10 digit phone number"},
+	            message:"Please enter message"
+	        },
+			submitHandler: function (form) {
+				form.submit();
+
+	        }
+	    });
+    });
+    
+    jQuery.validator.addMethod("lettersonly", function(value, element) {
+                return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);},    "Letters only please"); 
+</script>
+@endsection
+
+
  
