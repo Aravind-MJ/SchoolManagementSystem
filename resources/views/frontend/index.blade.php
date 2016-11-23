@@ -252,7 +252,6 @@
 							<img src="{{url('images/'.$row->image)}}" class="img-responsive" alt=""/>
 							<div class="w3grid col-md-12 news-text">
 								<h5>{{$row->name}}</h5>
-								<p> 05 December </p>
 								<p class="open-head">{{$row->description}}</p>
 								
                          			 <div class="map">

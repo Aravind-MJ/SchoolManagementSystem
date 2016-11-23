@@ -17,12 +17,14 @@
 		</form>
 	</div>
 </div>
+<div class="row">
 @foreach($banner as $col)
-    <div class="image col-lg-3 col-md-3 col-sm-6">
+    <div class="image col-lg-3 col-md-3 col-sm-6" style="margin-bottom: 10px">
         <img src="{{url('images/'.$col->name)}}" />
         <div class="overlay text-center"><br>
             <a onclick="confirmDelete('{{url('banner/'.$col->id)}}')" class="btn btn-danger">Delete</a>
         </div>
     </div>
 @endforeach
+</div>
 @endsection
