@@ -199,10 +199,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
         <script src="{{url('backend/dist/js/imageupload.js')}}"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
         <!-- Bootstrap Filestyle -->
         <script src="{{url('backend/dist/js/bootstrap-filestyle.min.js')}}"></script>
 
         <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+
+
+        <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+
+
         <script>
             $(function () {
                 $('#datepicker').datepicker({
@@ -229,6 +235,8 @@
         @yield('confirmDelete')
         
         @yield('dataTable')
+
+        @yield('validation')
 
   <script>
 

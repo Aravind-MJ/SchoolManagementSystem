@@ -2,16 +2,10 @@
 
 @section('title', 'Edit Activity')
 
-<!--@section('content')
-
-@if (session()->has('flash_message'))
-<p>{{ session()->get('flash_message') }}</p>
-@endif-->
-
 @section('body')
 
 {!! Form::model($Activitytype, ['method' => 'PATCH', 'route' => ['Activity.update',
-$Activitytype->id],'enctype' => 'multipart/form-data']) !!}
+$Activitytype->id],'enctype' => 'multipart/form-data','id'=>'activity']) !!}
 @include('flash')
 <!--{!! Form::open() !!}-->
 <div class="box box-primary">
@@ -23,8 +17,6 @@ $Activitytype->id],'enctype' => 'multipart/form-data']) !!}
             {!! Form::text('activity_type', null, ['class' => 'form-control', 'placeholder'=>'Enter  Activity']) !!}
             <!--{!! errors_for('first_name', $errors) !!}-->
         </div>
-
-        <br>
         <div class="form-group">
             {!! Form::submit( 'Submit', ['class'=>'btn btn-primary']) !!} 
         </div>
@@ -34,6 +26,28 @@ $Activitytype->id],'enctype' => 'multipart/form-data']) !!}
     </div>
 
 </div>
-@stop
+@endsection
+@section('validation')
+<script>
+    
+    $(function () {
 
+        $("form#activity").validate({
+
+            rules: {
+                activity_type: {required: true,lettersonly: true}
+                },
+             messages: {
+                activity_type: {required: "Please enter Activity Type",lettersonly: "Please enter  letters only"}
+                 },
+            submitHandler: function (form) {
+                form.submit();
+
+            }
+        });
+    });
+    
+    jQuery.validator.addMethod("lettersonly", function(value, element) {
+                return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);},    "Letters only please"); 
+</script>
 @endsection

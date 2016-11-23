@@ -29,10 +29,10 @@ class SessionsController extends Controller
     {
 		
         $input = $request->only('email', 'password');
-        // dd(Sentinel::authenticate($input, $request->has('remember')));
+        //dd(Sentinel::authenticate($input, $request->has('remember')));
         try {
 
-            if (Sentinel::authenticate($input, $request->has('remember'))) {
+           if (Sentinel::authenticate($input, $request->has('remember'))) {
                 return $this->redirectWhenLoggedIn();
             }
 

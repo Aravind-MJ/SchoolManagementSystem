@@ -2,42 +2,6 @@
 @section('Contact','menu__item--current')
 @section('body')
 <!-- contact us -->
-<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-<script>
-    
-    $(function () {
-
-	    $("form[name='contact']").validate({
-
-	        rules: {
-	            name: {required: true,lettersonly: true},
-	            email: {required: true,email: true},
-	            phone:{
-	    			required: true,
-	                number: true,
-	                minlength:10,
-	                maxlength:10,
-	                },
-	            message:"required"                    
-	    },
-
-			messages: {
-	            name: {required: "Please enter your name",lettersonly: "Please enter  letters only"},
-	            email:{required: "Please enter email", email: "Please enter valid email!"},
-	            phone:{required: "Please enter your phone number.",minlength: "Enter 10 digit phone number",maxlength: "Enter 10 digit phone number"},
-	            message:"Please enter message"
-	        },
-			submitHandler: function (form) {
-				form.submit();
-
-	        }
-	    });
-    });
-    
-    jQuery.validator.addMethod("lettersonly", function(value, element) {
-                return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);},    "Letters only please"); 
-</script>
-
 			<div class="callbacks_container">
 				<div class="slider-img">
 							<img src="frontend/images/SLIDE.jpg" class="img-responsive" alt="education" width="100%" height="200px">
@@ -90,4 +54,40 @@
 </div>
 <!--contact end here-->
 <!-- end contact -->
+@endsection
+@section('validation')
+<script>
+    
+    $(function () {
+
+	    $("form[name='contact']").validate({
+
+	        rules: {
+	            name: {required: true,lettersonly: true},
+	            email: {required: true,email: true},
+	            phone:{
+	    			required: true,
+	                number: true,
+	                minlength:10,
+	                maxlength:10,
+	                },
+	            message:"required"                    
+	    },
+
+			messages: {
+	            name: {required: "Please enter your name",lettersonly: "Please enter  letters only"},
+	            email:{required: "Please enter email", email: "Please enter valid email!"},
+	            phone:{required: "Please enter your phone number.",minlength: "Enter 10 digit phone number",maxlength: "Enter 10 digit phone number"},
+	            message:"Please enter message"
+	        },
+			submitHandler: function (form) {
+				form.submit();
+
+	        }
+	    });
+    });
+    
+    jQuery.validator.addMethod("lettersonly", function(value, element) {
+                return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);},    "Letters only please"); 
+</script>
 @endsection

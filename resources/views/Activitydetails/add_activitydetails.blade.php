@@ -6,7 +6,7 @@
 
 @section('body')
 
-{!! Form::open(['route' => 'ActivityDetails.store', 'method'=>'post']) !!}
+{!! Form::open(['route' => 'ActivityDetails.store', 'method'=>'post', 'name' => 'ad']) !!}
 <!--{!! Form::open() !!}-->
 
 <div class="box box-primary">
@@ -60,4 +60,38 @@
         }
     });
 </script>
+
+@endsection
+@section('validation')
+<script>
+    
+    $(function () {
+
+        $("form[name='ad']").validate({
+
+            rules: {
+                class:"required",
+                division:"required",
+                student_id:"required",
+                activity_types:"required",
+                remark:{required: true,lettersonly: true}
+                },
+             messages: {
+                class: "Please select Class",
+                division: "Please select division",
+                student_id: "Please select Student",
+                activity_types: "Please select Activity Type",
+                remark: {required: "Please enter Remark",lettersonly: "Please enter  letters only"}
+                 },
+            submitHandler: function (form) {
+                form.submit();
+
+            }
+        });
+    });
+    
+    jQuery.validator.addMethod("lettersonly", function(value, element) {
+                return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);},    "Letters only please"); 
+</script>
+
 @endsection
