@@ -24,10 +24,11 @@ class CreateFeeStatusRequest extends Request
     public function rules()
     {
         return [
-			'param1' 	  =>  'required',
-            'student_id'  =>  'required',
-            'month'       =>  'required',
-            'year'        =>  'required',
+			'class'        =>  'required',
+            'division'     =>  'required',            
+            'student_id'   =>  'required',
+            'month'        =>  'required',
+            'year'         =>  'required',
         ];
     }
 }

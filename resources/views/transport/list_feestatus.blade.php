@@ -33,7 +33,7 @@
                 @foreach( $feestatus as $each_feestatus )
                 <tr>
                     <td>{{ $i }}</td>
-                    <td>{{ $each_feestatus->batch }}</td>
+                    <td>{{ $each_feestatus->class }} {{ $each_feestatus->division }}</td>
                     <td>{{ $each_feestatus->first_name }} {{ $each_feestatus->last_name }}</td>
                    
                     <td>{{ $each_feestatus->month }}</td>

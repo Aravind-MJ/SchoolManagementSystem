@@ -68,14 +68,14 @@ $('#class').change(function(){
         var clasz = $('#class').val();
         var division=$('#division').val();
         if(clasz!= null ){
-            window.location.href='{{url("BusFee/create")}}/?class='+clasz+'&division='+division;
+            window.location.href='{{url("FeeStatus/create")}}/?class='+clasz+'&division='+division;
         }
     });
     $('#division').change(function(){  
         var clasz = $('#class').val();
         var division=$('#division').val();
         if(clasz!= null ){
-            window.location.href='{{url("BusFee/create")}}/?class='+clasz+'&division='+division;
+            window.location.href='{{url("FeeStatus/create")}}/?class='+clasz+'&division='+division;
         }
     });
 </script>

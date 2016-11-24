@@ -8,6 +8,7 @@ use App\Feestatus;
 use App\Http\Student;
 use App\User;
 use App\Batch;
+use App\ClassDetails;
 use DB;
 use App\Http\Requests\CreateBusFeeRequest;
 use App\Http\Requests\CreateFeeStatusRequest;
@@ -52,22 +53,25 @@ class FeeStatusController extends Controller {
         $users=$data;
         }
         
-        $buses = DB::table('buses')
-                  ->select('id','bus_no')
-                  ->get();
-        $data=array();         
-        foreach($buses as $buses){
-            $data[$buses->id]=$buses->bus_no;
-        }
-        $buses = $data;
-        return view('transport.add_feestatus', compact('batch','batch_id','users','buses'));
+        return view('transport.add_feestatus', compact('batch','batch_id','users','buses','clasz','division'));
  
    } 
    public function store(CreateFeeStatusRequest $requestData) {
         try{
         //store bus in create bus table
         $feestatus = new Feestatus;
-        $feestatus->batch = $requestData['param1'];
+        $class = $requestData['class'];
+        $division = $requestData['division'];
+        $claz = new ClassDetails;
+        $clazdiv = $claz
+          ->select('id')
+          ->where(['class' =>$class, 'division' => $division])
+          ->first();
+        if($clazdiv == TRUE){
+          $batch_id = $clazdiv->id;
+        }
+
+        $feestatus->batch = $batch_id;
         $feestatus->student = $requestData['student_id'];
         $feestatus->month = $requestData['month'];
         $feestatus->year = $requestData['year'];
@@ -91,33 +95,26 @@ class FeeStatusController extends Controller {
       $feestatus = DB::table('fee_status')
                 ->join('users','users.id','=','fee_status.student')
                 ->join('student_details','student_details.user_id', '=','users.id')
-                ->join('batch_details','batch_details.id','=','fee_status.batch')
-                ->select('fee_status.*','batch_details.batch','users.first_name','users.last_name')
+                ->join('class_details','class_details.id','=','fee_status.batch')
+                ->select('fee_status.*','class_details.class','class_details.division','users.first_name','users.last_name')
                 ->orderBy('fee_status.id')
                 ->get();
         return View('transport.list_feestatus', compact('feestatus'));   
     }
    
     public function edit($id){
-       $feestats = new Feestatus;
-        $feestats = $feestats->find($id);
-        $batch_id = Request::input('param1');
-        $batch = DB::table('batch_details')
-                ->select('id', 'batch')
-                ->orderBy('batch_details.created_at', 'ASC')
-                ->get();
-//        $batch = Batch::lists('batch', 'id')->prepend('Select Batch', '');
-        $data = array();
-        foreach ($batch as $batch) {
-           $data[$batch->id] = $batch->batch;
-        }
-        $batch = $data;
-          
-      if($batch_id==null){
-        $batch_id = $feestats->batch;
+        $feestatus = new Feestatus;
+        $feestatus = $feestatus->find($id);
+        $batch = new ClassDetails;
+        $batch = $batch->fetch();
+        $batch_id = $feestatus->batch;
+        $class = new ClassDetails;
+        $class = $class->find($batch_id);
+        $clasz = $class->class;
+        $division = $class->division;
         $users = DB::table('users')
                   ->join('student_details','student_details.user_id', '=','users.id')
-                  ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$feestats->batch])         
+                  ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$feestatus->batch])         
                   ->select('users.id','first_name','last_name')
                   ->get();
           $data=array();
@@ -126,28 +123,37 @@ class FeeStatusController extends Controller {
           }
         $users=$data;
         $data=array();
-      }else{
-        $users = DB::table('users')
-                  ->join('student_details','student_details.user_id', '=','users.id')
-                  ->where(['users.deleted_at'=>null,'student_details.batch_id'=>$batch_id])         
-                  ->select('users.id','first_name','last_name')
-                  ->get();
-          $data=array();
-          foreach($users as $each){
-              $data[$each->id]=$each->first_name.' '.$each->last_name;
-          }
-        $users=$data;
+      
+    return view('transport.edit_feestatus', compact('batch','clasz','division','users','feestatus'));
+    }
+        public function update($id, CreateFeeStatusRequest $requestData) {
+        //update values in notice
+      try{
+            $class = $requestData['class'];
+            $division = $requestData['division'];
+            $claz = new ClassDetails;
+            $clazdiv = $claz
+                    ->select('id')
+                    ->where(['class' => $class, 'division' => $division])
+                    ->first();
+             if ($clazdiv == TRUE) {
+                $batch_id = $clazdiv->id;
+            }
+        $feestatus = FeeStatus::find($id);
+        $feestatus->batch = $batch_id;
+        $feestatus->student = $requestData['student_id'];
+        $feestatus->month = $requestData['month'];
+        $feestatus->year = $requestData['year'];
+        $feestatus->status = $requestData['fee_status'];
+        $feestatus->save();
+      }catch(Exception $e){
+       return redirect()->route('FeeStatus.index')
+                        ->withFlashMessage('Fee Status Edition Failed!')
+                        ->withType('danger');
       }
-        
-        $buses = DB::table('buses')
-                  ->select('id','bus_no')
-                  ->get();
-        $data=array();         
-        foreach($buses as $allbuses){
-            $data[$allbuses->id]=$allbuses->bus_no;
-        }
-        $buses = $data;
-    return view('transport.edit_feestatus', compact('batch','batch_id','users','buses','busfees'));
+        return redirect()->route('FeeStatus.index')
+                        ->withFlashMessage('Fee Status Edited Successfully!')
+                        ->withType('success');
     }
     public function destroy($id) { 
         $feestatus = new Feestatus;
