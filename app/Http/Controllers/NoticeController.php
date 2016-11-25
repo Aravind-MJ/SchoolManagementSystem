@@ -55,21 +55,28 @@ class NoticeController extends Controller {
     public function store(Requests\PublishNoticeRequest $requestData) {
 
         //store notice in notice table
-        
+         $notice = $this->notice; 
 		$class = $requestData['class'];
 		$division = $requestData['division'];
 		$clazdiv = $this->claz
-		->select('id')
+	    ->select('id')
 		->where(['class' =>$class, 'division' => $division])
 		->first();
-		
-       $notice = $this->notice; 	
-	$notice->message = $requestData['message'];
-    $notice->batch_id = $clazdiv->id;	
+	if($clazdiv==true)
+    {
+        $notice->message = $requestData['message'];
+         $notice->batch_id = $clazdiv->id;   
         $notice->save();
         return Redirect::back()
                         ->withFlashMessage('Notice Added successfully!')
                         ->withType('success');
+    }
+      	else
+        {
+        return Redirect::back()
+                        ->withFlashMessage('class not found')
+                        ->withType('danger');
+        }
     }
 
     /**
