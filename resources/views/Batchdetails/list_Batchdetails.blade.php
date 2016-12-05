@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'List Batchdetails')
+@section('title', 'List Batch Details')
 
 @section('body')
 @include('flash')

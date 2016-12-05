@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'List Feetypes')
+@section('title', 'List Fee Types')
 
 @section('content')
 

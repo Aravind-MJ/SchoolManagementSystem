@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Edit Classdetails')
+@section('title', 'Edit Class Details')
 
 <!--@section('content')
 

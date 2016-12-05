@@ -98,41 +98,41 @@
             <li class="treeview {{ set_active('ExamType') }}">
                 <a href="#">
                     <i class="fa fa-edit"></i>
-                    <span>Examtype</span>
+                    <span>Exam Type</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::route('ExamType.create')}}"><i class="fa fa-circle-o"></i> Add Examtype</a></li>
-                    <li><a href="{{URL::route('ExamType.index')}}"><i class="fa fa-circle-o"></i> List Examtype</a></li>
+                    <li><a href="{{URL::route('ExamType.create')}}"><i class="fa fa-circle-o"></i> Add Exam Type</a></li>
+                    <li><a href="{{URL::route('ExamType.index')}}"><i class="fa fa-circle-o"></i> List Exam Type</a></li>
                 </ul>
             </li>
             
             <li class="treeview {{ set_active('ExamDetails') }}">
                 <a href="#">
                     <i class="fa fa-file-text-o"></i>
-                    <span>ExamDetails</span>
+                    <span>Exam Details</span>
                     <span class="pull-right-container">
                         <span class="fa fa-angle-left pull-right"></span>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::route('ExamDetails.create')}}"><i class="fa fa-circle-o"></i> Add ExamDetails</a></li>
-                    <li><a href="{{URL::route('ExamDetails.index')}}"><i class="fa fa-circle-o"></i> List ExamDetails</a></li>
+                    <li><a href="{{URL::route('ExamDetails.create')}}"><i class="fa fa-circle-o"></i> Add Exam Details</a></li>
+                    <li><a href="{{URL::route('ExamDetails.index')}}"><i class="fa fa-circle-o"></i> List Exam Details</a></li>
                 </ul>
             </li>
             <li class="treeview {{ set_active('FeeTypes') }}">
                 <a href="#">
                     <i class="fa fa-twitch"></i>
-                    <span>FeeTypes</span>
+                    <span>Fee Types</span>
                     <span class="pull-right-container">
                         <span class="fa fa-angle-left pull-right"></span>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::route('FeeTypes.create')}}"><i class="fa fa-circle-o"></i> Add FeeTypes</a></li>
-                    <li><a href="{{URL::route('FeeTypes.index')}}"><i class="fa fa-circle-o"></i> ListFeeTypes</a></li>
+                    <li><a href="{{URL::route('FeeTypes.create')}}"><i class="fa fa-circle-o"></i> Add Fee Types</a></li>
+                    <li><a href="{{URL::route('FeeTypes.index')}}"><i class="fa fa-circle-o"></i> ListFee Types</a></li>
                 </ul>
             </li>
 
@@ -145,8 +145,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::route('ClassDetails.create')}}"><i class="fa fa-circle-o"></i> Add ClassDetails</a></li>
-                    <li><a href="{{URL::route('ClassDetails.index')}}"><i class="fa fa-circle-o"></i> List ClassDetails</a></li>
+                    <li><a href="{{URL::route('ClassDetails.create')}}"><i class="fa fa-circle-o"></i> Add Class Details</a></li>
+                    <li><a href="{{URL::route('ClassDetails.index')}}"><i class="fa fa-circle-o"></i> List Class Details</a></li>
                 </ul>
             </li>
             @endif
@@ -328,14 +328,14 @@
                     <li class="treeview {{ set_active('StoreType') }}">
                     <a href="#">
                         <i class="fa fa-shopping-cart "></i>
-                        <span>StoreManagement</span>
+                        <span>Store Management</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                         </a>
                      <ul class="treeview-menu">
-                            <li><a href="{{URL::route('StoreType.create')}}"><i class="fa fa-circle-o"></i> add category Items</a></li>
-                            <li><a href="{{URL::route('StoreType.index')}}"><i class="fa fa-circle-o"></i> List category Items</a></li>
+                            <li><a href="{{URL::route('StoreType.create')}}"><i class="fa fa-circle-o"></i> Add Category Items</a></li>
+                            <li><a href="{{URL::route('StoreType.index')}}"><i class="fa fa-circle-o"></i> List Category Items</a></li>
                             <li><a href="{{URL::route('StoreManagement.create')}}"><i class="fa fa-circle-o"></i> Add Item Details</a></li>
                             <li><a href="{{URL::route('StoreManagement.index')}}"><i class="fa fa-circle-o"></i> List Item Details</a></li>
                           </ul>
