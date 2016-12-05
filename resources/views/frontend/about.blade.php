@@ -18,15 +18,24 @@
 			</div>
 			<div class="about-bottom">
 				<div class="col-md-6 about-left">
-					<h4>There's something about Education Hub</h4>
-					<p>The home school that started at Elizabeth and Jacob K. Mathai’s residence in 1998, with the goal to provide quality pre-school education for their son Joel and niece Sara Abraham, was the stage for the genesis of ‘The King’s School’. Elizabeth used the internationally acclaimed phonic system called Letterland to teach these first students and was excited with the rapid progress. Learning became fun and rewarding for the children as well as the parents.</p>
+					<p>As per the references in ‘Aithihya mala’ written by kottarathil Sankunny, the name ‘Mookkuthala’ is derived  from ‘ Mukthisthalam’ or Mukkavala. This village is situated at the southern border of Malappuram district, in Nannammukku panchayath.  </p>
 				</div>
+
 				<div class="col-md-6 about-right">
 					<img src="{{url('frontend/images/ab.jpg')}}" width="100%" height="400px" alt="" class="img-responsive">
 				</div>
-			   <div class="clearfix"> </div>
-			</div>
+				<div class="col-md-12 about-left">
+					<p>This village was educationally backward in the past Because the people had to go faraway places like Ponnani,Kumaranellure and Chavakkad for their studies.At this  juncture came the most generous and benevolent intellectual called Pakaravoor Manakkal Chithran Namboodirippad. He had been in Madras for his higher studies. Sri Chithran Namboodirippad found the frail educational background of his village and determined to start up a new school for his people.He built a school with a landed properties of 5 acres and named it ‘The school Mookkuthala.’He started the school on 07-06-1946. The school was inagurated by Sri A V Kutty Krishna Menon. Sri.K C Kunjettan was the first Head Master of the school. There was 166 students and 14 teaching and non-teaching staff. 
+					Sri . Chithran Namboodirippad decided to hand over the school to the EMS Govt in 1957. He presented the school to his master and then educacation minister Dr. Joseph Mundessery for ‘1’ rupee on 01-10-1957. Thus he declared his social commitment. This great man,later became the joint director of education.
+                                                                             
+					This historic event played a vital role on the educational upgradation of the Alamkode,Nannammukku panchayaths and nearby areas.Higher Secondary classes started in 2000. It is one of the best schools in Malappuram district. It is our proud that our sghool has created so many great men in educational  cuitural and social realm. Now there are almost 100 teachers and more than 2000 students studying in this school.</p>
+				</div>
+			
+            </div>
 		</div>
+			   <!--<div class="clearfix"> </div>-->
+	</div>
+</div>
 	</div>
 </div>
 <!--about end here-->

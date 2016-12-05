@@ -15,7 +15,6 @@
                 <tr>
                     <th>class</th>
                      <th>Division</th>
-                    <th>year</th>
                     <th>In_charge</th>              
                     <th>Edit</th>
                     <th>Delete</th>
@@ -26,7 +25,7 @@
                 <tr>
                      <td>{{ $Batchdetails->class}}</td>
                      <td>{{ $Batchdetails->division}}</td>
-                     <td>{{ $Batchdetails->year}}</td>
+<!--                     <td>{{ date('d-m-Y', strtotime($Batchdetails->year))}}</td>-->
                      <td>{{ $Batchdetails->first_name}}</td>
               
 
