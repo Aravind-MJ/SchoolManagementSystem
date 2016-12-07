@@ -8,9 +8,9 @@
 				</div>
 <div class="team_gal news" id="news">
 	<div class="container">
-		<div class="about-top">
-				<h2>Galleries</h2>
-			</div>
+			<div class="contact-top">
+                <h2>Gallery</h2>
+            </div>
 		<div class="news-grids">
 		@foreach($data as $row)
 			<div class="col-md-4 news-grid">

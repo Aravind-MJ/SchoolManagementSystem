@@ -34,6 +34,7 @@ $Activitytype->id],'enctype' => 'multipart/form-data','id'=>'activity']) !!}
 
         $("form#activity").validate({
 
+            errorElement: 'div',
             rules: {
                 activity_type: {required: true,lettersonly: true}
                 },

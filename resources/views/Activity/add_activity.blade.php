@@ -4,7 +4,6 @@
 
 @section('body')
 
-
 {!! Form::open(['route' => 'Activity.store', 'method'=>'post','enctype' => 'multipart/form-data', 'name' => 'activity']) !!}
 <!--{!! Form::open() !!}-->
 <div class="box box-primary">
@@ -29,7 +28,7 @@
     $(function () {
 
         $("form[name='activity']").validate({
-
+            errorElement: 'div',
             rules: {
                 activity_type: {required: true,lettersonly: true}
                 },

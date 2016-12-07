@@ -34,7 +34,7 @@
 	<div class="container">
 	<!--about-->
 		<div class="about">
-			<h2>about us</h2>
+			<h2>ABOUT US</h2>
 			
 			<h4>Sri Pakaravoor Manakkal Chithran Namboodirippad found the frail educational background of the village ‘Mookkuthala’ and determined to start up a new school for his people. He built a school with a landed properties of 5 acres and named it ‘The school Mookkuthala.’He started the school on 07-06-1946. The school was inagurated by Sri A V Kutty Krishna Menon. Sri.K C Kunjettan was the first Head Master of the school. There was 166 students and 14 teaching and non-teaching staff. </h4>
 			<img src="{{url('frontend/images/su.jpg')}}" alt="sucess">
