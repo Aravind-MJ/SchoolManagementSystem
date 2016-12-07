@@ -19,9 +19,9 @@ class TimeTableInit extends Model
     public function getInCharge($section)
     {
         $result = $this
-            ->join('batch_details', function ($join) {
-                $join->on('batch_timetable_config.batch_id', '=', 'batch_details.id');
-                $join->on('batch_timetable_config.faculty_id', '=', 'batch_details.in_charge');
+            ->join('class_details', function ($join) {
+                $join->on('batch_timetable_config.batch_id', '=', 'class_details.id');
+                $join->on('batch_timetable_config.faculty_id', '=', 'class_details.in_charge');
             })
             ->select('batch_timetable_config.id', 'batch_id', 'subject_id', 'faculty_id', 'no_of_periods', 'sticky')
             ->where('section', $section)

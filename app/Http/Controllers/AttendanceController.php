@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\ClassDetails;
+use App\Variables;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use App\User;
 use App\Attendance;
@@ -20,9 +22,9 @@ use Mockery\CountValidator\Exception;
 class AttendanceController extends Controller
 {
 
-    protected $attendance, $batch, $users, $student_details;
+    protected $attendance, $batch, $users, $student_details,$variable;
 
-    public function __construct(User $user, Attendance $attendance, ClassDetails $batch, StudentDetails $student_details)
+    public function __construct(User $user, Attendance $attendance, ClassDetails $batch, StudentDetails $student_details, Variables $variable)
     {
         $this->middleware('redirectStudentUser', ['except' => ['ofStudent']]);
         $this->middleware('redirectFaculty', ['only' => ['edit', 'update', 'destroy']]);
@@ -30,6 +32,7 @@ class AttendanceController extends Controller
         $this->attendance = $attendance;
         $this->batch = $batch;
         $this->student_details = $student_details;
+        $this->ay = $variable->get('AY');
     }
 
     /**
@@ -144,9 +147,10 @@ class AttendanceController extends Controller
         if ($request->ajax()) {
             $attendance = array();
             $id = Encrypt::decrypt($request['id']);
+
             $count = sizeof($request['present']);
             if (empty($request['present'])) {
-                $present = '';
+                $present = '[]';
             } else {
                 foreach ($request['present'] as $each) {
                     $attendance [] = (int)Encrypt::decrypt($each);
@@ -157,7 +161,8 @@ class AttendanceController extends Controller
                 $this->attendance->insert(array(
                     'batch_id' => $id,
                     'present_count' => $count,
-                    'attendance' => $present
+                    'attendance' => $present,
+                    'AY'=>$this->ay
                 ));
             } catch (Exception $e) {
                 return 'error';
@@ -303,7 +308,9 @@ class AttendanceController extends Controller
         }
         try {
             $data = $this->attendance
-                ->where('batch_id', $id)
+                ->where([
+                    'batch_id'=> $id
+                ])
                 ->get();
 
             if (count($data) <= 0) {
@@ -326,7 +333,6 @@ class AttendanceController extends Controller
      */
     public function ofBatchDate($id, $date)
     {
-        $enc_id = $id;
         $data = array();
         $id = Encrypt::decrypt($id);
         $date = Encrypt::decrypt($date);
@@ -459,7 +465,20 @@ class AttendanceController extends Controller
      */
     public function ofStudent($id)
     {
+        $enc_id = $id;
         $id = Encrypt::decrypt($id);
+        $ay = Request::input('AY');
+        $academic_year = $this->attendance
+            ->select(DB::raw('DISTINCT AY'))
+            ->orderBy('AY')
+            ->get();
+        $AY = array();
+        foreach($academic_year as $each){
+            $AY[$each['AY']] = $each['AY'].' - '.($each['AY']+1);
+        }
+        if($ay!=null){
+            $this->ay = $ay;
+        }
         $data = array();
 
         if (!is_numeric($id)) {
@@ -495,7 +514,10 @@ class AttendanceController extends Controller
 
             $months = $this->attendance
                 ->select('created_at')
-                ->where('batch_id', $batch_id['batch_id'])
+                ->where([
+                    'batch_id'=> $batch_id['batch_id'],
+                    'AY'=>$this->ay
+                    ])
                 ->get()
                 ->toArray();
 
@@ -513,13 +535,12 @@ class AttendanceController extends Controller
             }
 
             $months = $data;
-
             $attendance = $this->attendance
-                ->select('created_at')
-                ->where('attendance', 'like', '%[' . $id . ',%')
+                ->orwhere('attendance', 'like', '%[' . $id . ',%')
                 ->orWhere('attendance', 'like', '%,' . $id . ']%')
                 ->orWhere('attendance', 'like', '%,' . $id . ',%')
                 ->orWhere('attendance', 'like', '%[' . $id . ']%')
+                ->where('AY',$this->ay)
                 ->get()
                 ->toArray();
 
@@ -552,7 +573,10 @@ class AttendanceController extends Controller
             'last_month' => $last_month,
             'present' => $present,
             'absent' => $absent,
-            'working_days' => $working_days
+            'working_days' => $working_days,
+            'AY'=>$AY,
+            'ay'=>$this->ay,
+            'std_id'=>$enc_id
         ]);
     }
 
@@ -595,6 +619,18 @@ class AttendanceController extends Controller
     {
         $enc_id = $id;
         $id = Encrypt::decrypt($id);
+        $ay = Request::input('AY');
+        $academic_year = $this->attendance
+            ->select(DB::raw('DISTINCT AY'))
+            ->orderBy('AY')
+            ->get();
+        $AY = array();
+        foreach($academic_year as $each){
+            $AY[$each['AY']] = $each['AY'].' - '.($each['AY']+1);
+        }
+        if($ay!=null){
+            $this->ay = $ay;
+        }
         $data = array();
 
         if (!is_numeric($id)) {
@@ -605,6 +641,7 @@ class AttendanceController extends Controller
             $dates = $this->attendance
                 ->select('created_at')
                 ->where('batch_id', $id)
+                ->where('AY',$this->ay)
                 ->orderBy('created_at', 'DESC')
                 ->get()->toArray();
 
@@ -623,7 +660,12 @@ class AttendanceController extends Controller
             return redirect()->back()->withFlashMessage('Error Selecting date!!')->withType('danger');
         }
 
-        return view('attendance.attendance_select_date', ['dates' => $dates, 'id' => $enc_id]);
+        return view('attendance.attendance_select_date', [
+            'dates' => $dates,
+            'id' => $enc_id,
+            'AY'=>$AY,
+            'ay'=>$this->ay
+        ]);
     }
 
     /**
@@ -747,9 +789,13 @@ class AttendanceController extends Controller
             return redirect('edit/attendance/' . $enc_id)->withFlashMessage('Invalid Date token')->withtype('danger');
         }
         try {
-            $this->attendance
+            $attendance = $this->attendance
                 ->whereRaw("batch_id = " . $id . " AND created_at like '" . $date . "%'")
-                ->update('del_status', 1);
+                ->first();
+
+            $attendance->deleted_at = 1;
+            $attendance->save();
+
         } catch (Exception $e) {
             return redirect('edit/attendance/')->withFlashMessage('Failed to delete Attendance!!')->withtype('danger');
         }

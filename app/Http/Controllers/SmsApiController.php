@@ -20,10 +20,10 @@ use DB;
 class SmsApiController extends Controller
 {
     protected $students, $faculty, $batches;
-    protected $user_name = 'aspirant';
-    protected $password = 'aspirant@123';
-    protected $sender = 'ASPRNT';
-    protected $route = 'TA';
+    protected $user_name = 'null';
+    protected $password = 'null';
+    protected $sender = 'null';
+    protected $route = 'null';
     protected $msg_type = 1;
     protected $receiver, $message;
 

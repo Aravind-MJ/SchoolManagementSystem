@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\DB;
 use Mockery\CountValidator\Exception;
 use App\User;
-use App\Batch;
+use App\ClassDetails;
 use App\Faculty;
 use App\Subject;
 use App\Error;
@@ -67,14 +67,14 @@ class TimetableGeneratorController extends Controller
             $this->validateData();
             $this->initOptions();
             $this->generate();
-            if(count($this->COLLECTED)<=0) {
+            if (count($this->COLLECTED) <= 0) {
                 $table = new Timetable();
                 $slots = new Slots();
-                $table->json = json_encode($slots->select('key','entities')->get()->toArray());
+                $table->json = json_encode($slots->select('key', 'entities')->get()->toArray());
                 $table->section = $this->SECTION;
                 $table->save();
                 return redirect('/Timetable?section=' . $this->SECTION);
-            }else{
+            } else {
                 dd('Failed. Please try again');
             }
         } catch (Exception $e) {
@@ -131,26 +131,26 @@ class TimetableGeneratorController extends Controller
             ->groupBy('batch_id')->get();
         foreach ($check_batch as $check) {
             if ($check->nop > $this->TOTAL_PERIODS) {
-                $batch = new Batch;
+                $batch = new ClassDetails;
                 $batch = $batch->find($check->batch_id);
                 $difference = $check->nop - $this->TOTAL_PERIODS;
                 array_push($this->ERRORS,
                     new Error(
                         'Total no of periods of Batch '
-                        . $this->bold($batch, 'batch') . ' exceeds TOTAL NO OF PERIODS A WEEK by '
+                        . $this->bold($batch, ['class','division']) . ' exceeds TOTAL NO OF PERIODS A WEEK by '
                         . $this->bold($difference) . ' periods',
                         'danger'
                     )
                 );
             }
             if ($check->nop < $this->TOTAL_PERIODS) {
-                $batch = new Batch;
+                $batch = new ClassDetails;
                 $batch = $batch->find($check->batch_id);
                 $difference = $this->TOTAL_PERIODS - $check->nop;
                 array_push($this->ERRORS,
                     new Error(
                         'Total no of periods of Batch '
-                        . $this->bold($batch, 'batch') . ' is less than the TOTAL NO OF PERIODS A WEEK by '
+                        . $this->bold($batch, ['class','division']) . ' is less than the TOTAL NO OF PERIODS A WEEK by '
                         . $this->bold($difference) . ' periods',
                         'info'
                     )
@@ -165,13 +165,13 @@ class TimetableGeneratorController extends Controller
             if ($check->no_of_periods % 2 != 0) {
                 $subject = new Subject;
                 $subject = $subject->find($check->subject_id);
-                $batch = new Batch;
+                $batch = new ClassDetails();
                 $batch = $batch->find($check->batch_id);
                 array_push($this->ERRORS,
                     new Error(
                         'The sticky Subject '
                         . $this->bold($subject, 'subject_name') . ' of batch '
-                        . $this->bold($batch, 'batch') . ' doesn\'t have even no of periods',
+                        . $this->bold($batch, ['class','division']) . ' doesn\'t have even no of periods',
                         'info'
                     )
                 );
@@ -180,8 +180,8 @@ class TimetableGeneratorController extends Controller
         unset($check_sticky);
 
 //      Checks whether a faculty in charge of a Class/Batch have periods assigned to that Class/Batch
-        $check_incharge = $options->select(DB::raw('DISTINCT(batch_timetable_config.batch_id) as batch_id,batch_details.in_charge'))
-            ->join('batch_details', 'batch_details.id', '=', 'batch_timetable_config.batch_id')
+        $check_incharge = $options->select(DB::raw('DISTINCT(batch_timetable_config.batch_id) as batch_id,class_details.in_charge'))
+            ->join('class_details', 'class_details.id', '=', 'batch_timetable_config.batch_id')
             ->where('section', $this->SECTION)
             ->get();
         foreach ($check_incharge as $check) {
@@ -189,7 +189,7 @@ class TimetableGeneratorController extends Controller
                 ->where(['batch_id' => $check->batch_id, 'faculty_id' => $check->in_charge, 'section' => $this->SECTION])
                 ->first();
             if (count($in_charge) <= 0) {
-                $batch = new Batch;
+                $batch = new ClassDetails;
                 $batch = $batch->find($check->batch_id);
                 $faculty = new User;
                 $faculty = $faculty->find($check->in_charge);
@@ -197,7 +197,7 @@ class TimetableGeneratorController extends Controller
                     new Error(
                         'The Faculty  '
                         . $this->bold($faculty, ['first_name', 'last_name']) . ' in charge of batch '
-                        . $this->bold($batch, 'batch') . ' doesn\'t have any periods on this batch',
+                        . $this->bold($batch, ['class', 'division']) . ' doesn\'t have any periods on this batch',
                         'info'
                     )
                 );
@@ -206,23 +206,23 @@ class TimetableGeneratorController extends Controller
         unset($check_incharge);
 
         //Check whether multiple faculties are in charge of any batch.
-        $cmic = new Batch;
-        $cmic = $cmic->select(DB::raw('COUNT(*) as count,batch,in_charge'))->groupBy('in_charge')->get();
-        foreach ($cmic as $check) {
-            if ($check->count > 1) {
-                $faculty = new User;
-                $faculty = $faculty->find($check->in_charge);
-                array_push($this->ERRORS,
-                    new Error(
-                        'Faculty '
-                        . $this->bold($faculty, ['first_name', 'last_name'])
-                        . ' is in charge of multiple classes',
-                        'danger'
-                    )
-                );
-            }
-        }
-        unset($cmic);
+//        $cmic = new ClassDetails;
+//        $cmic = $cmic->select(DB::raw('COUNT(*) as count,in_charge'))->groupBy('in_charge')->get();
+//        foreach ($cmic as $check) {
+//            if ($check->count > 1) {
+//                $faculty = new User;
+//                $faculty = $faculty->find($check->in_charge);
+//                array_push($this->ERRORS,
+//                    new Error(
+//                        'Faculty '
+//                        . $this->bold($faculty, ['first_name', 'last_name'])
+//                        . ' is in charge of multiple classes',
+//                        'danger'
+//                    )
+//                );
+//            }
+//        }
+//        unset($cmic);
 
         unset($in_charge);
         unset($options);
@@ -238,7 +238,7 @@ class TimetableGeneratorController extends Controller
     private function initOptions()
     {
         $option = new TimeTableInit;
-        $this->TNB = count($option->groupBy('batch_id')->where('section',$this->SECTION)->get());
+        $this->TNB = count($option->groupBy('batch_id')->where('section', $this->SECTION)->get());
         $this->IC = $option->getInCharge($this->SECTION);
         $this->STICKY = $option->getSticky($this->SECTION);
         $this->SUBJECTS = $option->getOthers($this->SECTION);
@@ -272,24 +272,24 @@ class TimetableGeneratorController extends Controller
     {
         $slots = new Slots();
         foreach ($this->IC as $entity) {
-            while($entity['no_of_periods'] > 0) {
+            while ($entity['no_of_periods'] > 0) {
                 $slot = $slots->getStartFreeSlot($entity);
-                if($slot==null){
-                    $this->COLLECTED []= $entity;
+                if ($slot == null) {
+                    $this->COLLECTED [] = $entity;
                     break;
                 }
                 $entities = json_decode($slot->entities);
-                if(!is_array($entities)){
+                if (!is_array($entities)) {
                     $entities = array();
                 }
-                array_push($entities,$entity);
+                array_push($entities, $entity);
                 $slot->entities = json_encode($entities);
                 $slot->left--;
                 $slot->save();
                 $entity['no_of_periods']--;
             }
-            while($entity['no_of_periods'] > 0) {
-                $this->COLLECTED []= $entity;
+            while ($entity['no_of_periods'] > 0) {
+                $this->COLLECTED [] = $entity;
             }
         }
         unset($this->IC);
@@ -303,20 +303,20 @@ class TimetableGeneratorController extends Controller
     private function allotSticky()
     {
         $slots = new Slots();
-        foreach ($this->STICKY as $entity){
-            while($entity['no_of_periods'] > 0) {
-                $slot = $slots->getStickySlot($entity,$this->TNP);
-                if($slot[0]==null OR $slot[1]==null){
-                    $this->COLLECTED []= $entity;
+        foreach ($this->STICKY as $entity) {
+            while ($entity['no_of_periods'] > 0) {
+                $slot = $slots->getStickySlot($entity, $this->TNP);
+                if ($slot[0] == null OR $slot[1] == null) {
+                    $this->COLLECTED [] = $entity;
                     break;
                 }
 
                 //First period
                 $entities = json_decode($slot[0]->entities);
-                if(!is_array($entities)){
+                if (!is_array($entities)) {
                     $entities = array();
                 }
-                array_push($entities,$entity);
+                array_push($entities, $entity);
                 $slot[0]->entities = json_encode($entities);
                 $slot[0]->left--;
                 $slot[0]->save();
@@ -324,10 +324,10 @@ class TimetableGeneratorController extends Controller
 
                 //Second Period
                 $entities = json_decode($slot[1]->entities);
-                if(!is_array($entities)){
+                if (!is_array($entities)) {
                     $entities = array();
                 }
-                array_push($entities,$entity);
+                array_push($entities, $entity);
                 $slot[1]->entities = json_encode($entities);
                 $slot[1]->left--;
                 $slot[1]->save();
@@ -345,24 +345,24 @@ class TimetableGeneratorController extends Controller
     {
         $slots = new Slots();
         foreach ($this->SUBJECTS as $entity) {
-            while($entity['no_of_periods'] > 0) {
+            while ($entity['no_of_periods'] > 0) {
                 $slot = $slots->getFreeSlot($entity);
-                if($slot==null){
-                    $this->COLLECTED []= $entity;
+                if ($slot == null) {
+                    $this->COLLECTED [] = $entity;
                     break;
                 }
                 $entities = json_decode($slot->entities);
-                if(!is_array($entities)){
+                if (!is_array($entities)) {
                     $entities = array();
                 }
-                array_push($entities,$entity);
+                array_push($entities, $entity);
                 $slot->entities = json_encode($entities);
                 $slot->left--;
                 $slot->save();
                 $entity['no_of_periods']--;
             }
-            while($entity['no_of_periods'] > 0) {
-                $this->COLLECTED []= $entity;
+            while ($entity['no_of_periods'] > 0) {
+                $this->COLLECTED [] = $entity;
             }
         }
         unset($this->SUBJECTS);

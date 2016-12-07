@@ -36,10 +36,9 @@ class ClassDetails extends Model
 
     public function singleDropdown(){
         $data = array();
-        $batch = $this->get();
+        $batch = $this->orderBy('class')->get();
         foreach ($batch as $each_batch) {
-            $enc_id = Encrypt::encrypt($each_batch->id);
-            $data[$enc_id] = strtoupper($each_batch->class) . ' ' . strtoupper($each_batch->division);
+            $data[$each_batch->id] = strtoupper($each_batch->class) . ' ' . strtoupper($each_batch->division);
         }
         return $data;
     }

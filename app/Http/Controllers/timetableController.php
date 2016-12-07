@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Encrypt;
 use App\TimeTableInit;
 use App\User;
 use App\Variables;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Timetable;
 use App\Http\Requests\TimetableInitRequest;
 use App\Http\Requests\TimetableConfigRequest;
-use App\Batch;
+use App\ClassDetails;
 use App\Faculty;
 use App\Subject;
 use Illuminate\Support\Facades\Request;
@@ -149,9 +150,9 @@ class TimetableController extends Controller
             $latest = $options
                 ->join('subject', 'subject.id', '=', 'subject_id')
                 ->join('users', 'users.id', '=', 'faculty_id')
-                ->join('batch_details', 'batch_details.id', '=', 'batch_timetable_config.batch_id')
+                ->join('class_details', 'class_details.id', '=', 'batch_timetable_config.batch_id')
                 ->select('batch_timetable_config.id', 'batch_timetable_config.no_of_periods',
-                    'batch_timetable_config.sticky', 'batch_details.batch', 'batch_details.in_charge',
+                    'batch_timetable_config.sticky', 'class_details.class','class_details.division', 'class_details.in_charge',
                     'users.first_name', 'users.last_name', 'subject.subject_name', 'batch_timetable_config.batch_id',
                     'batch_timetable_config.faculty_id', 'batch_timetable_config.subject_id')
                 ->where('batch_timetable_config.section', $section)
@@ -172,9 +173,9 @@ class TimetableController extends Controller
             $options = $options
                 ->join('subject', 'subject.id', '=', 'subject_id')
                 ->join('users', 'users.id', '=', 'faculty_id')
-                ->join('batch_details', 'batch_details.id', '=', 'batch_timetable_config.batch_id')
+                ->join('class_details', 'class_details.id', '=', 'batch_timetable_config.batch_id')
                 ->select('batch_timetable_config.id', 'batch_timetable_config.no_of_periods',
-                    'batch_timetable_config.sticky', 'batch_details.batch', 'batch_details.in_charge',
+                    'batch_timetable_config.sticky', 'class_details.class','class_details.division', 'class_details.in_charge',
                     'users.first_name', 'users.last_name', 'subject.subject_name', 'batch_timetable_config.batch_id',
                     'batch_timetable_config.faculty_id', 'batch_timetable_config.subject_id')
                 ->where('batch_timetable_config.section', $section)
@@ -190,15 +191,8 @@ class TimetableController extends Controller
                 }
             }
 
-            $batch = new Batch;
-            $batch = $batch
-                ->get();
-            $data = array();
-            $data[null] = 'Select a batch';
-            foreach ($batch as $each_batch) {
-                $data[$each_batch->id] = $each_batch->batch;
-            }
-            $batch = $data;
+            $batch = new ClassDetails;
+            $batch = $batch->singleDropdown();
 
             $faculty = new Faculty;
             $faculty = $faculty

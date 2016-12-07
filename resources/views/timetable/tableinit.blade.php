@@ -68,7 +68,7 @@
                 <tbody>
                     @foreach($latest as $option)
                     <tr>
-                        <td>{{$option->batch}}<br>({{$option->in_charge}})</td>
+                        <td>{{$option->class}} {{$option->division}}<br>({{$option->in_charge}})</td>
                         <td>{{$option->subject_name}}<br>({{$option->first_name}} {{$option->last_name}})</td>
                         <td>{{$option->no_of_periods}}</td>
                         <td>{{$option->sticky}}</td>
@@ -106,7 +106,7 @@
             <tbody>
             @foreach($options as $option)
                 <tr>
-                    <td>{{$option->batch}}<br>({{$option->in_charge}})</td>
+                    <td>{{$option->class}} {{$option->division}}<br>({{$option->in_charge}})</td>
                     <td>{{$option->subject_name}}<br>({{$option->first_name}} {{$option->last_name}})</td>
                     <td>{{$option->no_of_periods}}</td>
                     <td>{{$option->sticky}}</td>

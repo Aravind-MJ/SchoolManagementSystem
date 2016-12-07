@@ -6,6 +6,16 @@
     <?php
         $weeks = array('Sun','Mon','Tue','Wed','Thu','Fri','Sat');
     ?>
+    <div class="box box-success">
+        <div class="box-body">
+            <label>Academic year</label>
+            <select id="ay" class="form-control">
+                @foreach($AY as $key=>$value)
+                    <option value="{{$key}}" @if($key == $ay) selected @endif>{{$value}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
     <div class="box box-primary">
         <div class="box-body">
             <ul class="nav nav-tabs">
@@ -77,5 +87,12 @@
 @endsection
 
 @section('pagescript')
-
+    <script>
+        $(document).ready(function(){
+            $('#ay').change(function(){
+                var value = $('#ay').val();
+                window.location.href='{{url()}}/attendance/student/{{$std_id}}?AY='+value;
+            });
+        });
+    </script>
 @stop
