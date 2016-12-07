@@ -1,5 +1,5 @@
 @extends('backend.layouts.layout')
-@section('title','Blog')
+@section('title','Add Blog')
 @section('small_title','New')
 @section('blog','active')
 @section('body')
