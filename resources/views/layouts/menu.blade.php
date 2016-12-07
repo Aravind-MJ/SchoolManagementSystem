@@ -31,8 +31,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ url('create/admin') }}"><i class="fa fa-circle-o"></i>Add admin</a></li>
-                    <li><a href="{{ url('list/admins') }}"><i class="fa fa-circle-o"></i>List admin</a></li>
+                    <li><a href="{{ url('create/admin') }}"><i class="fa fa-circle-o"></i>Add Admin</a></li>
+                    <li><a href="{{ url('list/admins') }}"><i class="fa fa-circle-o"></i>List Admin</a></li>
                 </ul>
             </li>
             @endif
@@ -61,7 +61,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{ route("Student.create") }}"><i class="fa fa-circle-o"></i> Add Student</a></li>
-                    <li><a href="{{ route("Student.index") }}"><i class="fa fa-circle-o"></i> List Students</a></li>
+                    <li><a href="{{ route("Student.index") }}"><i class="fa fa-circle-o"></i> List Student</a></li>
                 </ul>
             </li>
             @endif
@@ -132,7 +132,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{URL::route('FeeTypes.create')}}"><i class="fa fa-circle-o"></i> Add Fee Types</a></li>
-                    <li><a href="{{URL::route('FeeTypes.index')}}"><i class="fa fa-circle-o"></i> ListFee Types</a></li>
+                    <li><a href="{{URL::route('FeeTypes.index')}}"><i class="fa fa-circle-o"></i> List Fee Types</a></li>
                 </ul>
             </li>
 
@@ -190,7 +190,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{URL::route('mark.create')}}"><i class="fa fa-circle-o"></i> Add Mark</a></li>
-                        <li><a href="{{URL::route('mark.index')}}"><i class="fa fa-circle-o"></i> View Mark</a></li>
+                        <li><a href="{{URL::route('mark.index')}}"><i class="fa fa-circle-o"></i> List Mark</a></li>
                     </ul>
                 </li>
                 @else
@@ -206,10 +206,10 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ set_active('SendAnSms/students') }}"><a href="{{ url('SendAnSms/students') }}"><i class="fa fa-circle-o"></i> Sms Students</a></li>
-                        <li class="{{ set_active('SendAnSms/batches') }}"><a href="{{ url('SendAnSms/batches') }}"><i class="fa fa-circle-o"></i> Sms Batch</a></li>
-                        <li class="{{ set_active('SendAnSms/faculty') }}"><a href="{{ url('SendAnSms/faculty') }}"><i class="fa fa-circle-o"></i> Sms Faculty</a></li>
-                        <li class="{{ set_active('SmsHistory') }}"><a href="{{ url('SmsHistory') }}"><i class="fa fa-circle-o"></i> Sms History</a></li>
+                        <li class="{{ set_active('SendAnSms/students') }}"><a href="{{ url('SendAnSms/students') }}"><i class="fa fa-circle-o"></i> SMS Students</a></li>
+                        <li class="{{ set_active('SendAnSms/batches') }}"><a href="{{ url('SendAnSms/batches') }}"><i class="fa fa-circle-o"></i> SMS Batch</a></li>
+                        <li class="{{ set_active('SendAnSms/faculty') }}"><a href="{{ url('SendAnSms/faculty') }}"><i class="fa fa-circle-o"></i> SMS Faculty</a></li>
+                        <li class="{{ set_active('SmsHistory') }}"><a href="{{ url('SmsHistory') }}"><i class="fa fa-circle-o"></i> SMS History</a></li>
                     </ul>
                 </li>
                 @endif
@@ -260,7 +260,7 @@
                         </a>
                         <ul class="treeview-menu">
                         <li><a href="{{URL::route('Library.create')}}"><i class="fa fa-circle-o"></i> Add Book</a></li>
-                        <li><a href="{{URL::route('Library.index')}}"><i class="fa fa-circle-o"></i> View Book</a></li>
+                        <li><a href="{{URL::route('Library.index')}}"><i class="fa fa-circle-o"></i> List Book</a></li>
                         {{--<li><a href="{{ url('library/issue') }}"><i class="fa fa-circle-o"></i> Issue Book</a></li>--}}
                     </ul>
                     </li>
@@ -283,7 +283,7 @@
                     <li class="treeview {{ set_active('Fee') }}">
                         <a href="{{url('/hostel')}}">
                         <i class="fa fa-hotel"></i>
-                        <span>Feedetails for Hostel Students</span>
+                        <span>Fee Details for Hostel Students</span>
                         <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                         </span>
