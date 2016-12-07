@@ -44,8 +44,8 @@
         </div> 
                 <div class="form-group">
             {!! Form::Label('fee_status', 'Fee Status') !!}&nbsp;&nbsp;
-            {!! Form::hidden('fee_status',0,false) !!} 
-            {!! Form::checkbox('fee_status',1,true) !!} 
+            {!! Form::hidden('fee_status',1,true) !!} 
+            {!! Form::checkbox('fee_status',0,false) !!} 
         
         <br>
         
@@ -59,9 +59,10 @@
 
 </div>
 @endsection
- @section('pagescript')
+@section('pagescript')
 <script type="text/javascript">
-    $('#class').change(function(){  
+
+$('#class').change(function(){  
         var clasz = $('#class').val();
         var division=$('#division').val();
         if(clasz!= null ){

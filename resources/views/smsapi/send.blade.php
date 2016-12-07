@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Send an Sms - '.ucwords($type))
+@section('title', 'Send an SMS - '.ucwords($type))
 
 @section('body')
 {!! Form::open(['url' => 'SmsApi', 'method'=>'post']) !!}

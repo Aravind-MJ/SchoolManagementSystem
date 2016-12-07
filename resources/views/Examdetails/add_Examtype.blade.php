@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Add Examtype')
+@section('title', 'Add Exam Type')
 
 @section('content')
 

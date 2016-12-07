@@ -63,33 +63,30 @@ class ClassDetailsController extends Controller {
      * @return Response
      */
     public function store(Requests\PublishClassdetailsRequest $requestData) {
-        $user = new \App\User;
-        $user->first_name = $requestData['first_name'];
-        $user->last_name  =$requestData['last_name'];
-        $time_shift = ['morning'=>1,'afternoon'=>2,'evening'=>3];
-
-
-
-        // Assign the role to the users
-        {
+       
             $Batchdetails = new \App\ClassDetails;
             $Batchdetails->class = $requestData['class'];
-              $Batchdetails->division = $requestData['division'];
-//            $Batchdetails->time_shift = $time_shift[strtolower($requestData['time_shift'])];
-            $Batchdetails->year = $requestData['year'];
+            $Batchdetails->division = $requestData['division'];            
             $Batchdetails->in_charge = $requestData['in_charge'];
         
-        $Batchdetails->save();
-        }
- 
-      if ($Batchdetails->save()) {
-            return redirect()->route('ClassDetails.create')
+                
+                $claz = $requestData['class'];
+               $division = $requestData['division'];
+        
+              $class = DB::table('class_details') 
+                      ->select('id')
+                      ->where(['class'=> $claz,'division'=> $division])
+                      ->first();
+                if(count($class)<=0){
+                    $Batchdetails->save();
+                    return redirect()->route('ClassDetails.create')
                              ->with('flash_message', 'New Class  added successfully.')
                              ->withType('success');
-        } else {
+                 
+               } else {
             return redirect()->route('ClassDetails.create')
-                             ->with('flash_message', 'New Classcould not be succeeded.')
-                             ->withType('Danger');
+                             ->with('flash_message', 'This class and division has already taken.')
+                             ->withType('danger');
         }
     }
 
@@ -160,7 +157,6 @@ class ClassDetailsController extends Controller {
         $Batchdetails = \App\ClassDetails::find($id);
         $Batchdetails->class = $requestData['class'];
          $Batchdetails->division = $requestData['division'];
-        $Batchdetails->year = $requestData['year'];
         $Batchdetails->in_charge = $requestData['in_charge'];
 
         $Batchdetails->save();

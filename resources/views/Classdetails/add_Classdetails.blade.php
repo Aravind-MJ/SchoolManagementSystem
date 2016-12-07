@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Add ClassDetails')
+@section('title', 'Add Class Details')
 
 @section('content')
 
@@ -16,19 +16,14 @@
         <div class="form-group">
             {!! Form::label('class', 'Class') !!}
             {!! Form::text('class', null, ['class' => 'form-control', 'placeholder'=>'Enter  Batch']) !!}
-            {!! errors_for('batch', $errors) !!}
+           {!! errors_for('class', $errors) !!}
         </div>
          <div class="form-group">
             {!! Form::label('division', 'Division') !!}
             {!! Form::text('division', null, ['class' => 'form-control', 'placeholder'=>'Enter Syllabus']) !!}
-            {!! errors_for('syllabus', $errors) !!}
+             {!! errors_for('division', $errors) !!}
         </div>
        
-         <div class="form-group">
-            {!! Form::label('year', 'Year') !!}
-            {!!Form::selectYear('year', 2010, 2020,null,['class' => 'form-control', 'placeholder'=>'Enter  year'])!!}
-            {!! errors_for('year', $errors) !!}
-        </div>
         <div class="form-group">
             {!! Form::label('in_charge', 'Incharge') !!}
             {!! Form::select('in_charge',$users,null,['class' => 'form-control', 'placeholder'=>''])!!}

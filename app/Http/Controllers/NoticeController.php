@@ -40,7 +40,7 @@ class NoticeController extends Controller {
     public function create() {
 
         //Fetch Batch Details
-        $batch = new ClassDetails;
+                $batch = new ClassDetails;
 		$batch = $batch->fetch();
         //Redirecting to add_notice.blade.php 
 
@@ -62,17 +62,19 @@ class NoticeController extends Controller {
 	    ->select('id')
 		->where(['class' =>$class, 'division' => $division])
 		->first();
-	if($clazdiv==true)
-    {
-        $notice->message = $requestData['message'];
-         $notice->batch_id = $clazdiv->id;   
+
+		
+     if($clazdiv==true)
+	{        	
+	$notice->message = $requestData['message'];
+    	$notice->batch_id = $clazdiv->id;	
         $notice->save();
         return Redirect::back()
                         ->withFlashMessage('Notice Added successfully!')
                         ->withType('success');
-    }
-      	else
-        {
+         
+         } else{
+  
         return Redirect::back()
                         ->withFlashMessage('class not found')
                         ->withType('danger');
@@ -125,16 +127,26 @@ class NoticeController extends Controller {
 		->where(['class' =>$class, 'division' => $division])
 		->first();
 		
+
        $notice = $this->notice->find($id);
+	
+	if($clazdiv==true)
+	{        	
 	$notice->message = $requestData['message'];
-    $notice->batch_id = $clazdiv->id;	
-	$notice->save();
-        
-        return redirect()->route('Notice.index')
-                        ->withFlashMessage('Notice Updated successfully!')
+    	$notice->batch_id = $clazdiv->id;	
+        $notice->save();
+        return Redirect::back()
+                        ->withFlashMessage('Notice Added successfully!')
                         ->withType('success');
-                        
+         }
+         else
+         {
+          return Redirect::back()
+                        ->withFlashMessage('Class not found')
+                        ->withType('danger');
+         }
     }
+
 
     /**
      * Remove the specified resource from storage.

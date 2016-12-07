@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Edit Classdetails')
+@section('title', 'Edit Class Details')
 
 <!--@section('content')
 
@@ -32,12 +32,7 @@
             {!! Form::select('time_shift',array('Morning' => 'Morning', 'AfterNoon' => 'AfterNoon','Evening' =>'Evening'),null, ['class' => 'form-control', 'placeholder'=>'00.00-00.00','id' => 'calendar1'])!!}
             {!! errors_for('time_shift', $errors) !!}
         </div>-->
-       
-         <div class="form-group">
-            {!! Form::label('year', 'Year') !!}
-            {!!Form::selectYear('year', 2010, 2020,null,['class' => 'form-control', 'placeholder'=>'Enter  year'])!!}
-            {!! errors_for('year', $errors) !!}
-        </div>
+        
         <div class="form-group">
             {!! Form::label('in_charge', 'Incharge') !!}
             {!! Form::select('in_charge',$users,null,['class' => 'form-control', 'placeholder'=>''])!!}

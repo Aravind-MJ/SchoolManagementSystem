@@ -439,7 +439,7 @@ a.menu__link {
 	padding: 4% 7% 40% 7%;
 	}
 .about h2 {
-    text-transform: uppercase;
+    
     padding-bottom: 32px;
     letter-spacing: 2px;
     color: #ce1126;
@@ -457,6 +457,11 @@ a.menu__link {
 .about img {
     float: left;
     width: 50%;
+}
+
+img.abtimg {
+    float: left;
+    width: 80%;
 }
 .about p {
     float: left;

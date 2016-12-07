@@ -34,12 +34,13 @@
 	<div class="container">
 	<!--about-->
 		<div class="about">
-			<h2>about us</h2>
+			<h2>ABOUT US</h2>
 			
-			<h4>The home school that started at Elizabeth and Jacob K. Mathai’s residence in 1998, with the goal to provide quality pre-school education for their son Joel and niece Sara Abraham, was the stage for the genesis of ‘The King’s School’. Elizabeth used the internationally acclaimed phonic system called Letterland to teach these first students and was excited with the rapid progress. Learning became fun and rewarding for the children as well as the parents.</h4>
+			<h4>Sri Pakaravoor Manakkal Chithran Namboodirippad found the frail educational background of the village ‘Mookkuthala’ and determined to start up a new school for his people. He built a school with a landed properties of 5 acres and named it ‘The school Mookkuthala.’He started the school on 07-06-1946. The school was inagurated by Sri A V Kutty Krishna Menon. Sri.K C Kunjettan was the first Head Master of the school. There was 166 students and 14 teaching and non-teaching staff. </h4>
 			<img src="{{url('frontend/images/su.jpg')}}" alt="sucess">
-			<p>Following their remarkable progress, many parents began to request admission for their own children. Out of passion to see a child develop and excel, ’The King’s Kindergarten’ was birthed in June 1999.</p>		
-			<p>Receiving a clear vision from the Lord along with a growing need from parents, the year 2003 saw the school management expand and develop the kindergarten into a full-fledged school. In June 2003, years 1 and 3 started simultaneously at the very spacious premises in Bethany, Town Limit – Kollam. The school was registered under the ‘The King’s Educational Trust’ in 2003.</p>
+            <p>Sri . Chithran Namboodirippad decided to hand over the school to the EMS Govt in 1957. He presented the school to his master and then educacation minister Dr. Joseph Mundessery for ‘1’ rupee on 01-10-1957. Thus he declared his social commitment. This great man,later became the joint director of education.</p>
+                                            
+            <p>This historic event played a vital role on the educational upgradation of the Alamkode,Nannammukku panchayaths and nearby areas.Higher Secondary classes started in 2000.  It is our proud that our school has created so many great men in educational  cuitural and social realm. Now there are almost 100 teachers and more than 2000 students studying in this school.</p>		
 		</div>
 		<div class="clearfix"></div>
 	<!--//about-->

@@ -10,7 +10,7 @@
                         <h3 class="box-title">Edit</h3>
                     </div>
                     <div class="box-body">
-                        {!! Form::open(['route' => ['registration.update',$user->enc_id]]) !!}
+                        {!! Form::open(['route' => ['registration.update',$user->enc_id], 'name' => 'edit']) !!}
                         <fieldset>
 
                             @include('flash')
@@ -48,4 +48,31 @@
             </div>
         </div>
 
+@endsection
+
+@section('validation')
+<script>
+ $(function () {
+
+        $("form[name='edit']").validate({
+            errorElement: 'div',
+            rules: {
+                first_name: {required: true,lettersonly: true},
+                last_name: {required: true,lettersonly: true},                 
+            },
+
+            messages: {
+                first_name: {required: "Please Enter the First Name",lettersonly: "Please Enter  Letters Only"},
+                last_name: {required: "Please Enter the Last Name",lettersonly: "Please Enter  Letters Only"},
+            },
+            submitHandler: function (form) {
+                form.submit();
+
+            }
+        });
+    });
+    
+    jQuery.validator.addMethod("lettersonly", function(value, element) {
+                return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);},    "Letters only please"); 
+</script>
 @endsection

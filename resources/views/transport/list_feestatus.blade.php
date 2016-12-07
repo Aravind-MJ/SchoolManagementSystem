@@ -1,7 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Fee Status')
-
+@section('title', 'List Fee Status')
 @section('content')
 
 @if (session()->has('flash_message'))
