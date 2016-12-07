@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'List SMS History')
+@section('title', 'SMS History')
 
 @section('content')
 
