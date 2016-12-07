@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Create Admin')
+@section('title', 'Add Admin')
 
 @section('body')
         <div class="row">
