@@ -439,7 +439,6 @@ a.menu__link {
 	padding: 4% 7% 40% 7%;
 	}
 .about h2 {
-    
     padding-bottom: 32px;
     letter-spacing: 2px;
     color: #ce1126;
@@ -461,8 +460,9 @@ a.menu__link {
 
 img.abtimg {
     float: left;
-    width: 80%;
+    width: 75%;
 }
+
 .about p {
     float: left;
     width: 50%;
@@ -1649,7 +1649,7 @@ input#search {
 		float: left;
 	}
 	.about img {
-		padding-top: 26px;
+		padding-top: 20px;
 	}
 	.team h3 {
 		font-size: 30px;
@@ -1808,7 +1808,7 @@ input#search {
 		font-size: 15px;
 	}
 	.about img {
-		padding-top: 22px;
+		padding-top: 20px;
 	}
 	.icons {
 		margin: 9px 0px 33px 12px;
@@ -2356,7 +2356,7 @@ input#search {
 		width: 60%;
 	}
 	.about img {
-		padding-top: 10px;
+		padding-top: 0px;
 	}
 	.map input[type="submit"] {
 		margin: 5px 84px;

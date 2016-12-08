@@ -45,11 +45,11 @@
                         <input type="hidden" name="id" value="{{$faculty->id}}">
                         <button type="submit" class="btn btn-danger">Delete</button>
                         {!! Form::close() !!}
-                    </td>
-                </tr>
-                <?php $i++ ?>
-                @endforeach
-            </tbody>
+                                        </td>
+                                    </tr>
+                                    <?php $i++ ?>
+                                    @endforeach
+                                </tbody>
 
         </table>
     </div>
