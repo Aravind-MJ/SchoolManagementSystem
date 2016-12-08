@@ -7,7 +7,7 @@
 @section('body')
 
 
-{!! Form::open(['action' => 'FacultyController@store','enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['action' => 'FacultyController@store','enctype' => 'multipart/form-data', 'name' => 'Faculty']) !!}
 <!--{!! Form::open() !!}-->
 <div class="box box-primary">
     <div class="box-body">
@@ -30,11 +30,6 @@
             {!! Form::label('qualification', 'Qualification') !!}
             {!! Form::text('qualification', null, ['class'=>'form-control', 'placeholder'=>'Enter Qualification']) !!}
             {!! errors_for('qualification', $errors) !!}
-        </div>
-        <div class="form-group">
-            {!! Form::label('subject', 'Subject') !!}
-            {!! Form::text('subject', null, ['class'=>'form-control', 'placeholder'=>'Enter Subject']) !!}
-            {!! errors_for('subject', $errors) !!}
         </div>
 
         <div class="form-group">
@@ -93,41 +88,66 @@
 
 </div>
 @stop
-
 @endsection
+
 @section('validation')
 <script>
  $(function () {
 
-	    $("form[name='contact']").validate({
+        $("form[name='Faculty']").validate({
+            errorElement: 'div',
+            rules: {
+                first_name: {required: true,lettersonly: true},
+                last_name: {required: true,lettersonly: true},
+                qualification: {required: true,dot: true},
+                email: {required: true,email: true},
+                phone:{
+                    required: true,
+                    number: true,
+                    minlength:10,
+                    maxlength:10,
+                    },
+                address:{
+                    required: true,
+                    minlength:6,
+                    },
+                password:{
+                    required: true,
+                    minlength:6,
+                    },
+                password_confirmation:{
+                    required: true,
+                    minlength:6,
+                    },
+                photo:{
+                    required:true,
+                    accept: "jpeg,jpg,png"
+                }
+                                 
+            },
 
-	        rules: {
-	            name: {required: true,lettersonly: true},
-	            email: {required: true,email: true},
-	            phone:{
-	    			required: true,
-	                number: true,
-	                minlength:10,
-	                maxlength:10,
-	                },
-	            message:"required"                    
-	    },
+            messages: {
+                first_name: {required: "Please Enter the First Name",lettersonly: "Please Enter Letters only"},
+                last_name: {required: "Please Enter the Last Name",lettersonly: "Please Enter  Letters only"},
+                email:{required: "Please Enter Mail-id", email: "Please Enter a valid Mail-id!"},
+                phone:{required: "Please Enter the Phone Number.",minlength: "Enter 10 Digit Phone Number",maxlength: "Enter 10 Digit Phone Number",number: "Please Enter a valid Phone Number"},
+                qualification: {required: "Please Enter the Qualification",dot: "Please Enter a valid Qualification"},
+                address:{required: "Please Enter the Address",minlength: "Please Enter a valid Address"},
+                password:{required: "Please Enter the Address",minlength: "Password should contain atleast 6 characters"},
+                password_confirmation:{required: "Please Confirm the Password",minlength: "Please Confirm the Password"},
+                photo:{required: "Please Add the Photo", accept: "Please add a jpg,jpeg or png image"},
+            },
+            submitHandler: function (form) {
+                form.submit();
 
-			messages: {
-	            name: {required: "Please enter your name",lettersonly: "Please enter  letters only"},
-	            email:{required: "Please enter email", email: "Please enter valid email!"},
-	            phone:{required: "Please enter your phone number.",minlength: "Enter 10 digit phone number",maxlength: "Enter 10 digit phone number"},
-	            message:"Please enter message"
-	        },
-			submitHandler: function (form) {
-				form.submit();
-
-	        }
-	    });
+            }
+        });
     });
     
     jQuery.validator.addMethod("lettersonly", function(value, element) {
                 return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);},    "Letters only please"); 
+    jQuery.validator.addMethod("dot", function(value, element) {
+                return this.optional(element) || /^[a-zA-Z\ .-]+$/.test(value);},    " only please"); 
 </script>
 @endsection
 
