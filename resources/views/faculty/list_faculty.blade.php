@@ -15,7 +15,6 @@
                 <tr>
                     <th>Sl.No</th>
                     <th>Full name</th>
-                    <th>Subject</th>
                     <th>Phone</th>
                     <th>Photo</th>
                     <th>View more</th>
@@ -29,7 +28,6 @@
                 <tr>
                     <td>{{ $i }}</td>
                     <td>{{ $faculty->first_name }} {{ $faculty->last_name}}</td>
-                    <td>{{ $faculty->subject}}</td>
                     <td>{{ $faculty->phone }}</td>
                     <td><img src="{{ asset('images/'. $faculty->photo) }}"  alt="photo" width="50" height="50"/></td>
                     <td class=center>                       

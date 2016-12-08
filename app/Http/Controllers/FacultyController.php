@@ -75,7 +75,6 @@ class FacultyController extends Controller {
         $faculty = new Faculty;
         $faculty->user_id = $user['id'];
         $faculty->qualification = $requestData['qualification'];
-        $faculty->subject = $requestData['subject'];
         $faculty->phone = $requestData['phone'];
         $faculty->address = $requestData['address'];
 
@@ -176,7 +175,6 @@ class FacultyController extends Controller {
         //Update Query       
         $faculty = Faculty::find($id);
         $faculty->qualification = $requestData['qualification'];
-        $faculty->subject = $requestData['subject'];
         $faculty->phone = $requestData['phone'];
         $faculty->address = $requestData['address'];
         if ($requestData['photo'] != null) {

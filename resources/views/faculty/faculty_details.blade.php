@@ -19,7 +19,6 @@
                     <tr><th>First name</th><td>{{ $faculty->first_name }}</td></tr>
                     <tr><th>Last name</th><td>{{ $faculty->last_name}}</td></tr>
                     <tr><th>Qualification</th><td>{{ $faculty->qualification }}</td></tr>
-                    <tr><th>Subject</th><td>{{ $faculty->subject}}</td></tr>
                     <tr><th>Phone</th><td>{{ $faculty->phone }}</td></tr>
                     <tr><th>Address</th><td>{{ $faculty->address }}</td></tr>
                     <tr><th>Photo</th><td><img src="{{ asset('images/'. $faculty->photo) }}"  alt="photo" width="50" height="50"/></td>

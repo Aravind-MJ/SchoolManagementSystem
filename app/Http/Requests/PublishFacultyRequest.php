@@ -35,7 +35,6 @@ class PublishFacultyRequest extends Request {
             'first_name' => 'required|alpha',
             'last_name' => 'required|alpha',
             'qualification' => 'required',
-            'subject' => 'required',
             'phone' => 'required|regex:/[0-9]{10}/|max:10 min:10',
             'address' => 'required|min:5',
             'email' => 'required|email|unique:users,email',
@@ -49,7 +48,6 @@ class PublishFacultyRequest extends Request {
         {
             return [
             'qualification' => 'required',
-            'subject' => 'required',
             'phone' => 'required|regex:/[0-9]{10}/',
             'address' => 'required|min:5',
             'photo' =>'mimes:jpeg,png,jpg|max:2000'
