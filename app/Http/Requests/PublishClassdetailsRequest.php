@@ -25,7 +25,6 @@ class PublishClassdetailsRequest extends Request {
                     return [
                         'class' => 'required',
                         'division' => 'required',
-                        'year' => 'required',
                         'in_charge' => 'required',
                     ];
                 }
@@ -34,7 +33,6 @@ class PublishClassdetailsRequest extends Request {
                     return [
                         'class' => 'required',
                         'division' => 'required',
-                        'year' => 'required',
                         'in_charge' => 'required',
                     ];
                 }

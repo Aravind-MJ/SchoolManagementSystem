@@ -13,48 +13,54 @@ use Input;
 use DB;
 use App\Encrypt;
 
-class ClassDetailsController extends Controller {
+class ClassDetailsController extends Controller
+{
 
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index() {
-        $time_shift = [1=>'Morning',2=>'Afternoon',3=>'Evening'];
+    public function index()
+    {
         $allBatchdetails = DB::table('class_details')
-                ->join('users','users.id','=', 'class_details.in_charge')
-                 ->join('faculty_details','faculty_details.user_id', '=','users.id')     
-                ->select('users.*', 'class_details.*')
-                ->get();
-        foreach($allBatchdetails as $Batchdetails){
-             $Batchdetails->enc_id = Encrypt::encrypt($Batchdetails->id);
-//             $Batchdetails->time_shift = $time_shift[$Batchdetails->time_shift];
+            ->get();
+        foreach ($allBatchdetails as $Batchdetails) {
+            $in_charge = DB::table('users')
+                ->where('id', $Batchdetails->in_charge)
+                ->first();
+            $Batchdetails->enc_id = Encrypt::encrypt($Batchdetails->id);
+            if (count($in_charge) <= 0) {
+                $Batchdetails->name = 'No Incharge Assigned';
+            } else {
+                $Batchdetails->name = $in_charge->first_name . ' ' . $in_charge->last_name;
+            }
         }
 
         return View('Classdetails.list_Classdetails', compact('allBatchdetails'));
     }
 
-        
+
     /**
      * Show the form for creating a new resource.
      *
      * @return Response
      */
-    public function create() {
+    public function create()
+    {
         $users = DB::table('users')
-                  ->join('faculty_details','faculty_details.user_id', '=','users.id')              
-                  ->select('users.id','first_name','last_name')
-                  ->get();
-        $data=array();
-        foreach($users as $each){
-            $data[$each->id]=$each->first_name.' '.$each->last_name;
+            ->join('faculty_details', 'faculty_details.user_id', '=', 'users.id')
+            ->select('users.id', 'first_name', 'last_name')
+            ->get();
+        $data = array();
+        foreach ($users as $each) {
+            $data[$each->id] = $each->first_name . ' ' . $each->last_name;
         }
-        $users=$data;
+        $users = $data;
 //          
 //                \App\User::lists('first_name','last_name', 'id');
 //      dd($users);
-        return view('Classdetails.add_Classdetails', compact('Batchdetails','in_charge','users','id'));
+        return view('Classdetails.add_Classdetails', compact('Batchdetails', 'in_charge', 'users', 'id'));
     }
 
     /**
@@ -62,52 +68,54 @@ class ClassDetailsController extends Controller {
      *
      * @return Response
      */
-    public function store(Requests\PublishClassdetailsRequest $requestData) {
-       
-            $Batchdetails = new \App\ClassDetails;
-            $Batchdetails->class = $requestData['class'];
-            $Batchdetails->division = $requestData['division'];            
-            $Batchdetails->in_charge = $requestData['in_charge'];
-        
-                
-                $claz = $requestData['class'];
-               $division = $requestData['division'];
-        
-              $class = DB::table('class_details') 
-                      ->select('id')
-                      ->where(['class'=> $claz,'division'=> $division])
-                      ->first();
-                if(count($class)<=0){
-                    $Batchdetails->save();
-                    return redirect()->route('ClassDetails.create')
-                             ->with('flash_message', 'New Class  added successfully.')
-                             ->withType('success');
-                 
-               } else {
+    public function store(Requests\PublishClassdetailsRequest $requestData)
+    {
+
+        $Batchdetails = new \App\ClassDetails;
+        $Batchdetails->class = $requestData['class'];
+        $Batchdetails->division = $requestData['division'];
+        $Batchdetails->in_charge = $requestData['in_charge'];
+
+
+        $claz = $requestData['class'];
+        $division = $requestData['division'];
+
+        $class = DB::table('class_details')
+            ->select('id')
+            ->where(['class' => $claz, 'division' => $division])
+            ->first();
+        if (count($class) <= 0) {
+            $Batchdetails->save();
             return redirect()->route('ClassDetails.create')
-                             ->with('flash_message', 'This class and division has already taken.')
-                             ->withType('danger');
+                ->with('flash_message', 'New Class  added successfully.')
+                ->withType('success');
+
+        } else {
+            return redirect()->route('ClassDetails.create')
+                ->with('flash_message', 'This class and division has already taken.')
+                ->withType('danger');
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
-    public function show($id) {
-         $enc_id=$id;
-        $time_shift = [1=>'morning',2=>'afternoon',3=>'evening'];
+    public function show($id)
+    {
+        $enc_id = $id;
+        $time_shift = [1 => 'morning', 2 => 'afternoon', 3 => 'evening'];
         $id = Encrypt::decrypt($id);
-          $Batchdetails = DB::table('class_details')
-                ->join('users', 'users.id', '=', 'class_details.in_charge')
-                ->select('users.*', 'class_details.*')
-                ->where('class_details.id', $id)
-                ->first();
+        $Batchdetails = DB::table('class_details')
+            ->join('users', 'users.id', '=', 'class_details.in_charge')
+            ->select('users.*', 'class_details.*')
+            ->where('class_details.id', $id)
+            ->first();
         //Redirecting to showBook.blade.php with $book variable
-            $Batchdetails->time_shift = $time_shift[$Batchdetails->time_shift];
-        
+        $Batchdetails->time_shift = $time_shift[$Batchdetails->time_shift];
+
 
 //         dd($Batchdetails);
         return View('Classdetails.Class_details', compact('Classdetails'));
@@ -117,67 +125,78 @@ class ClassDetailsController extends Controller {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
-    public function edit($id) {
-    $enc_id=$id;
-     $id = Encrypt::decrypt($id);
-        
-    $Batchdetails = DB::table('class_details')
-                ->join('users', 'users.id', '=', 'class_details.in_charge')  
-                ->where('class_details.id', $id)
-                ->select('users.*', 'class_details.*')
-                ->first();
-    
-    
-     $users = DB::table('users')
-                  ->join('faculty_details','faculty_details.user_id', '=','users.id')              
-                  ->select('users.id','first_name','last_name')
-                  ->get();
-        $data=array();
-        foreach($users as $each){
-            $data[$each->id]=$each->first_name.' '.$each->last_name;
+    public function edit($id)
+    {
+        $enc_id = $id;
+        $id = Encrypt::decrypt($id);
+
+        $Batchdetails = DB::table('class_details')
+            ->where('class_details.id', $id)
+            ->first();
+
+        $Batchdetails->enc_id = Encrypt::encrypt($Batchdetails->id);
+
+        $in_charge = DB::table('users')
+            ->where('id',$Batchdetails->in_charge)
+            ->first();
+
+        if(count($in_charge)<=0){
+            $in_charge = null;
+        } else {
+            $in_charge = $in_charge->id;
         }
-        $users=$data;
-//        $users = \App\User::lists('first_name', 'id');
-        return view('Classdetails.edit_Classdetails', compact('Batchdetails', 'in_charge', 'users', 'id'));
+
+
+        $users = DB::table('users')
+            ->join('faculty_details', 'faculty_details.user_id', '=', 'users.id')
+            ->select('users.id', 'first_name', 'last_name')
+            ->get();
+        $data = array();
+        foreach ($users as $each) {
+            $data[$each->id] = $each->first_name . ' ' . $each->last_name;
+        }
+        $users = $data;
+        return view('Classdetails.edit_Classdetails', compact('Batchdetails', 'in_charge', 'users', 'enc_id'));
     }
-//
-////
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
-    public function update($id, Requests\PublishClassdetailsRequest $requestData) {
-        $time_shift = ['morning'=>1,'afternoon'=>2,'evening'=>3];
-        $Batchdetails = \App\ClassDetails::find($id);
+    public function update($id, Requests\PublishClassdetailsRequest $requestData)
+    {
+        $id = Encrypt::decrypt($id);
+        $Batchdetails = new ClassDetails;
+        $Batchdetails = $Batchdetails->find($id);
         $Batchdetails->class = $requestData['class'];
-         $Batchdetails->division = $requestData['division'];
+        $Batchdetails->division = $requestData['division'];
         $Batchdetails->in_charge = $requestData['in_charge'];
 
         $Batchdetails->save();
         return redirect()->route('ClassDetails.index')
-                        ->withFlashMessage('ClassDetails Updated successfully!')
-                        ->withType('success');
+            ->withFlashMessage('ClassDetails Updated successfully!')
+            ->withType('success');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
-    public function destroy($id) {
-         $enc_id=$id;
+    public function destroy($id)
+    {
+        $enc_id = $id;
         $id = Encrypt::decrypt($id);
         \App\ClassDetails::find($id)->delete();
 
         //Redirecting to index() method
         return redirect()->route('ClassDetails.index');
-    }  
+    }
 
 }

@@ -2,40 +2,24 @@
 
 @section('title', 'Edit Class Details')
 
-<!--@section('content')
-
-@if (session()->has('flash_message'))
-<p>{{ session()->get('flash_message') }}</p>
-@endif-->
-
 @section('body')
-
-{!! Form::model($Batchdetails, ['method' => 'PATCH', 'route' => ['ClassDetails.update',$Batchdetails->id],'enctype' => 'multipart/form-data']) !!}
-@include('flash')
-<!--{!! Form::open() !!}-->
 <div class="box box-primary">
     <div class="box-body">
-
-        <!-- first_name Field -->
+        {!! Form::open(['route' => ['ClassDetails.update',$Batchdetails->enc_id],'method'=>'PUT']) !!}
         <div class="form-group">
             {!! Form::label('class', 'Class') !!}
-            {!! Form::text('class', null, ['class' => 'form-control', 'placeholder'=>'Enter  Batch']) !!}
+            {!! Form::text('class', $Batchdetails->class, ['class' => 'form-control', 'placeholder'=>'Enter  Batch']) !!}
             {!! errors_for('batch', $errors) !!}
         </div>
          <div class="form-group">
             {!! Form::label('division', 'Division') !!}
-            {!! Form::text('division', null, ['class' => 'form-control', 'placeholder'=>'Enter Syllabus']) !!}
+            {!! Form::text('division', $Batchdetails->division, ['class' => 'form-control', 'placeholder'=>'Enter Syllabus']) !!}
             {!! errors_for('syllabus', $errors) !!}
         </div>
-<!--        <div class="form-group">
-            {!! Form::label('time_shift', 'Time_shift') !!}
-            {!! Form::select('time_shift',array('Morning' => 'Morning', 'AfterNoon' => 'AfterNoon','Evening' =>'Evening'),null, ['class' => 'form-control', 'placeholder'=>'00.00-00.00','id' => 'calendar1'])!!}
-            {!! errors_for('time_shift', $errors) !!}
-        </div>-->
         
         <div class="form-group">
-            {!! Form::label('in_charge', 'Incharge') !!}
-            {!! Form::select('in_charge',$users,null,['class' => 'form-control', 'placeholder'=>''])!!}
+            {!! Form::label('in_charge', 'In charge') !!}
+            {!! Form::select('in_charge',$users,$in_charge,['class' => 'form-control', 'placeholder'=>''])!!}
             {!! errors_for('name', $errors) !!}
            
         </div>

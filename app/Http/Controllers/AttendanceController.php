@@ -75,6 +75,8 @@ class AttendanceController extends Controller
 
                     $batch = $this->batch
                         ->select('id', 'class', 'division')
+                        ->orderBy(DB::raw('class+0'))
+                        ->orderBy('division')
                         ->get();
 
                     if (count($batch) <= 0) {
@@ -186,6 +188,7 @@ class AttendanceController extends Controller
 
             $batch = $this->batch
                 ->select('id', 'class', 'division')
+                ->orderBy(DB::raw('class+0'))
                 ->get();
 
         } catch (Exception $e) {
@@ -593,6 +596,7 @@ class AttendanceController extends Controller
 
             $batch = $this->batch
                 ->select('id', 'class', 'division')
+                ->orderBy(DB::raw('class+0'))
                 ->get();
 
         } catch (Exception $e) {
