@@ -2,8 +2,6 @@
 
 @section('title', 'Add Faculty')
 
-@section('content')
-
 @section('body')
 
 

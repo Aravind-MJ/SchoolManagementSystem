@@ -20,7 +20,7 @@
         </div>
          <div class="form-group">
             {!! Form::label('division', 'Division') !!}
-            {!! Form::text('division', null, ['class' => 'form-control', 'placeholder'=>'Enter Syllabus']) !!}
+            {!! Form::text('division', null, ['class' => 'form-control', 'placeholder'=>'Enter Division']) !!}
              {!! errors_for('division', $errors) !!}
         </div>
        

@@ -3,7 +3,6 @@
 @section('title', 'Add Item Details')
 
 @section('body')
-
 {!! Form::open(['route' => 'StoreManagement.store', 'method'=>'post']) !!}
 
 <!--{!! Form::open() !!}-->
@@ -12,7 +11,7 @@
 
         <div class="form-group">
             {!! Form::Label('store_type','Item') !!}
-            {!! Form::select('store_type',['0'=>'Select Item'] + $store_type,null, ['class' => 'form-control']) !!}
+            {!! Form::select('store_type',[''=>'Select Item'] + $store_type,null, ['class' => 'form-control']) !!}
         </div>
 
          <div class="form-group">

@@ -6,16 +6,14 @@
 @section('body')
 <div class="box box-primary">
     <div class="box-body">
-
-
-        <table id="example2" class="table table-bordered table-hover">
+	
+	<table id="example2" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Sl.No</th>
                     <th>Date</th>
                     <th>Message</th>
-                    <th>class</th>
-					<th>division</th>
+                    <th>classes</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -27,8 +25,7 @@
                     <td>{{ $i }}</td>
                     <td>{{ date('d-m-Y', strtotime($notice->created_at)) }}</td>
                     <td>{!! $notice->message !!}</td>
-                    <td>{{ $notice->class}}</td>
-					<td>{{$notice->division}}</td>
+                    <td>{{str_replace(['[',']','"'],'',$notice->batch_id)}}</td>
                     <td class=center>
                        
                         <a href='Notice/{{ $notice->id }}/edit' class='btn btn-primary'>Edit</a>

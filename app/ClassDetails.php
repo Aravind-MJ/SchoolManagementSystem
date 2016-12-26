@@ -42,4 +42,14 @@ class ClassDetails extends Model
         }
         return $data;
     }
+
+    public function singleDropdownClass(){
+        $data = array();
+        $batch = $this->orderBy('class')->get();
+        foreach ($batch as $each_batch) {
+            $name = strtoupper($each_batch->class) . ' ' . strtoupper($each_batch->division);
+            $data[$name] = $name;
+        }
+        return $data;
+    }
 }

@@ -187,12 +187,13 @@
         <script>
             $(function () {
                 $('#datepicker').datepicker({
-                    format: 'dd/mm/yyyy',
+                    format: 'dd-mm-yyyy',
                     endDate: '0',
                     autoclose: true
                 });
 
                 $( "#datepicker1" ).datepicker({
+                    format: 'dd-mm-yyyy',
                     startDate:'-1d'
                 });
             });

@@ -32,7 +32,6 @@ class PublishNoticeRequest extends Request {
         {
             return [
             'class' => 'required',
-            'division'=>'required',
             'message' => 'required|min:5'
         ];
         }
@@ -40,7 +39,7 @@ class PublishNoticeRequest extends Request {
         case 'PATCH':
         {
             return [
-            'class' => 'required',
+            'batch_id' => 'required',
             'message' => 'required:min:5'
         ];
         }

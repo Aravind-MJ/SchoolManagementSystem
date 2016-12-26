@@ -31,15 +31,13 @@ class RegisterStudentRequest extends Request {
         case 'POST':
         {
             return [
-            'first_name' => 'required|alpha',
-            'last_name' => 'required|alpha',
+            'first_name' => 'required|regex:/^[A-Za-z ]+$/',
+            'last_name' => 'required|regex:/^[A-Za-z ]+$/',
             'class' => 'required',
             'gender' => 'required',
             'dob' => 'required',
             'guardian' => 'required',
             'religion' => 'required',
-//            'category' => 'required',
-//            'hostelfee' => 'required',
             'housename' => 'required',
             'place' => 'required',
             'district' => 'required',
@@ -56,20 +54,15 @@ class RegisterStudentRequest extends Request {
         case 'PATCH':
         {
             return [
-//            'class' => 'required',
             'gender' => 'required',
             'dob' => 'required',
             'guardian' => 'required',
-//            'category' => 'required',
-//            'hostelfee' => 'required',
             'housename' => 'required',
             'place' => 'required',
             'district' => 'required',
          
             'phone' => 'required|regex:/[0-9]{10}/',
             'school' => 'required|regex:/^[A-Za-z. - ,]+$/'
-           // 'photo' =>'mimes:jpeg,png,jpg|max:2000'
-        
         ];
 
 

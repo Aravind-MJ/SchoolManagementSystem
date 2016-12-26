@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -16,24 +17,26 @@ use App\Encrypt;
 use Illuminate\Support\Facades\Request;
 use DateTime;
 
-class StudentController extends Controller {
+class StudentController extends Controller
+{
 
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index() {
+    public function index()
+    {
         //select list of student
-		
+
         $allStudents = DB::table('student_details')
-                ->join('users', 'users.id', '=', 'student_details.user_id')
-                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
-                ->select('users.*', 'student_details.*', 'class_details.class')
+            ->join('users', 'users.id', '=', 'student_details.user_id')
+            ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
+            ->select('users.*', 'student_details.*', 'class_details.class')
 //                ->where('student_details.gender', 'male')
-                ->where('student_details.deleted_at', NULL)
-                ->orderBy('student_details.created_at', 'DESC')
-                ->get();
+            ->where('student_details.deleted_at', NULL)
+            ->orderBy('student_details.created_at', 'DESC')
+            ->get();
         foreach ($allStudents as $student) {
             $student->enc_id = Encrypt::encrypt($student->id);
             $student->enc_userid = Encrypt::encrypt($student->user_id);
@@ -41,7 +44,7 @@ class StudentController extends Controller {
         //Fetch Batch Details
         $batch = new ClassDetails;
         $batch = $batch->fetch();
-        return View('student.list_student', compact('allStudents', 'class','new','batch', 'id'));
+        return View('student.list_student', compact('allStudents', 'class', 'new', 'batch', 'id'));
     }
 
     /**
@@ -50,13 +53,14 @@ class StudentController extends Controller {
      * @return Response
      */
 
-    public function create() {
+    public function create()
+    {
         //Fetch Batch Details
 
         $batch = new ClassDetails;
         $batch = $batch->fetch();
 
-		
+
         return view('student.add_student', compact('id', 'batch'));
     }
 
@@ -65,8 +69,8 @@ class StudentController extends Controller {
      *
      * @return Response
      */
-    public function store(Requests\RegisterStudentRequest $requestData) {
-
+    public function store(Requests\RegisterStudentRequest $requestData)
+    {
         //store student data to student_details table
         $user = new User;
         $user->first_name = $requestData['first_name'];
@@ -82,22 +86,22 @@ class StudentController extends Controller {
 
         // Assign the role to the users
         $usersRole->users()->attach($user);
-        
-           $claz = $requestData['class'];
-           $division = $requestData['division'];
-        
-              $class = new ClassDetails;
-              $class = DB::table('class_details') 
-                      ->select('id')
-                      ->where(['class'=> $claz,'division'=> $division])
-                      ->first();
-                if($class==null){
-                  $class=new ClassDetails;
-                  $class->class=$claz;
-                  $class->division=$division;
-                  $class->save();
-              }
-      
+
+        $claz = $requestData['class'];
+        $division = $requestData['division'];
+
+        $class = new ClassDetails;
+        $class = DB::table('class_details')
+            ->select('id')
+            ->where(['class' => $claz, 'division' => $division])
+            ->first();
+        if ($class == null) {
+            $class = new ClassDetails;
+            $class->class = $claz;
+            $class->division = $division;
+            $class->save();
+        }
+
         $student = new StudentDetails;
         $student->batch_id = $class->id;
         $student->user_id = $user['id'];
@@ -107,21 +111,17 @@ class StudentController extends Controller {
         $student->religion = $requestData['religion'];
         $student->category = $requestData['category'];
         $student->hostel = $requestData['hostel'];
-        $student->hostelfee = $requestData['hostelfee'];
+        if($requestData['hostel']!='no') {
+            $student->hostelfee = $requestData['hostelfee'];
+        }
         $student->housename = $requestData['housename'];
         $student->place = $requestData['place'];
         $student->district = $requestData['district'];
         $student->state = $requestData['state'];
         $student->phone = $requestData['phone'];
+        $student->adhar = $requestData['adhar'];
+        $student->sampoorna = $requestData['sampoorna'];
         $student->school = $requestData['school'];
-       
-        
-
-
-//        $this->validate($requestData['photo'], [
-//
-//            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-//        ]);
 
 
         if ($requestData->hasFile('photo')) {
@@ -132,28 +132,24 @@ class StudentController extends Controller {
 
             $file = $file->move(public_path() . '/images/students', $name);
 
-//        $image      = Imag::make($file->getRealPath())->resize('320','240')->save($file);
-
             $student->photo = $name;
         }
 
-        
-        
+
         $fee = new FeeDetails;
-        $fee->user_id= $user->id;
-        if($requestData['hostel']=='yes')
-        $fee->paid = $requestData['hostelfee'];
+        $fee->user_id = $user->id;
+        if ($requestData['hostel'] == 'yes')
+            $fee->paid = $requestData['hostelfee'];
         $fee->save();
-            
-        $student->save();
+
         if ($student->save()) {
             return Redirect::back()
-                            ->withFlashMessage('Student Added successfully!')
-                            ->withType('success');
+                ->withFlashMessage('Student Added successfully!')
+                ->withType('success');
         } else {
             return Redirect::back()
-                            ->withFlashMessage('Failed!')
-                            ->withType('danger');
+                ->withFlashMessage('Failed!')
+                ->withType('danger');
         }
     }
 
@@ -163,19 +159,17 @@ class StudentController extends Controller {
      * @param  int $id
      * @return Response
      */
-    public function show($id) {
-        $enc_id = $id;
+    public function show($id)
+    {
         $id = Encrypt::decrypt($id);
-        //Get results by targeting id
         $student = DB::table('student_details')
-                ->join('users', 'users.id', '=', 'student_details.user_id')
-                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
-                ->select('users.*', 'student_details.*', 'class_details.class')
-                ->where('student_details.id', $id)
-                ->first();
+            ->join('users', 'users.id', '=', 'student_details.user_id')
+            ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
+            ->select('users.*', 'student_details.*', 'class_details.class')
+            ->where('student_details.id', $id)
+            ->first();
         $student->enc_id = Encrypt::encrypt($student->id);
         $student->enc_userid = Encrypt::encrypt($student->user_id);
-//        return view('protected.admin.student_details')->with('student', $student);
         return View('student.student_details', compact('student'));
     }
 
@@ -185,31 +179,32 @@ class StudentController extends Controller {
      * @param  int $id
      * @return Response
      */
-    public function edit($id) {
+    public function edit($id)
+    {
 
         $enc_id = $id;
         $id = Encrypt::decrypt($id);
         //Fetch Student Details
         $student = DB::table('student_details')
-                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
-                ->select('student_details.*', 'class_details.class','class_details.division')
-                ->where('student_details.id', $id)
-                ->first();
-       
-         //Fetch Batch Details
+            ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
+            ->select('student_details.*', 'class_details.class', 'class_details.division')
+            ->where('student_details.id', $id)
+            ->first();
+
+        //Fetch Batch Details
         $batch = new ClassDetails;
         $batch = $batch->fetch();
-        
+
 
         //Fetch User Details
         $user = DB::table('users')
-                ->select('id', 'first_name', 'last_name', 'email')
-                ->where('id', $student->user_id)
-                ->first();
+            ->select('id', 'first_name', 'last_name', 'email')
+            ->where('id', $student->user_id)
+            ->first();
         $user->enc_id = Encrypt::encrypt($user->id);
 
         //Redirecting to edit_student.blade.php 
-        return View('student.edit_student', compact('user', 'class', 'id', 'student' , 'batch'));
+        return View('student.edit_student', compact('user', 'class', 'id', 'student', 'batch'));
     }
 
     /**
@@ -218,29 +213,19 @@ class StudentController extends Controller {
      * @param  int $id
      * @return Response
      */
-    public function update($id, Requests\RegisterStudentRequest $requestData) {
-        //update student_details data
-        $enc_id = $id;
-         // $id = Encrypt::decrypt($id); 
-          
-      
-           $claz = $requestData['class'];
-           $division = $requestData['division'];
-           $class = new ClassDetails;
-             $class = DB::table('class_details') 
-                      ->select('id')
-                      ->where(['class'=> $claz,'division'=> $division])
-                      ->first();
-           // dd($class->id);
-//         if($student == null) {
-//            $class=new ClassDetails;
-//                $class->class=$claz;
-//                $class->division=$division;
-//                $class->save();
-//        }
-       
+    public function update($id, Requests\RegisterStudentRequest $requestData)
+    {
+
+        $claz = $requestData['class'];
+        $division = $requestData['division'];
+        $class = new ClassDetails;
+        $class = DB::table('class_details')
+            ->select('id')
+            ->where(['class' => $claz, 'division' => $division])
+            ->first();
+
         $student = StudentDetails::find($id);
-        
+
         $student->batch_id = $class->id;
         $student->gender = $requestData['gender'];
         $student->religion = $requestData['religion'];
@@ -248,12 +233,16 @@ class StudentController extends Controller {
         $student->dob = date('Y-m-d', strtotime($requestData['dob']));
         $student->guardian = $requestData['guardian'];
         $student->hostel = $requestData['hostel'];
-        $student->hostelfee = $requestData['hostelfee'];
+        if($requestData['hostel']!='no') {
+            $student->hostelfee = $requestData['hostelfee'];
+        }
         $student->housename = $requestData['housename'];
         $student->place = $requestData['place'];
         $student->district = $requestData['district'];
         $student->state = $requestData['state'];
         $student->phone = $requestData['phone'];
+        $student->adhar = $requestData['adhar'];
+        $student->sampoorna = $requestData['sampoorna'];
         $student->school = $requestData['school'];
         if ($requestData->hasFile('photo')) {
 
@@ -272,12 +261,12 @@ class StudentController extends Controller {
 
         if ($student->save()) {
             return redirect::back()
-                            ->withFlashMessage('Student Details Updated successfully!')
-                            ->withType('success');
+                ->withFlashMessage('Student Details Updated successfully!')
+                ->withType('success');
         } else {
             return redirect::back()
-                            ->withFlashMessage('Student Details Update Failed!')
-                            ->withType('danger');
+                ->withFlashMessage('Student Details Update Failed!')
+                ->withType('danger');
         }
     }
 
@@ -287,15 +276,16 @@ class StudentController extends Controller {
      * @param  int $id
      * @return Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $enc_id = $id;
         $id = Encrypt::decrypt($id);
         //find result by id and delete 
 
         $student = DB::table('student_details')
-                ->select('user_id')
-                ->where('student_details.id', $id)
-                ->first();
+            ->select('user_id')
+            ->where('student_details.id', $id)
+            ->first();
 
         $user_id = $student->user_id;
         $now = new DateTime();
@@ -306,20 +296,21 @@ class StudentController extends Controller {
         return Redirect::back();
     }
 
-    public function search() {
+    public function search()
+    {
 
         // Gets the query string and batch from our form submission 
 
-       $search = Request::input('param2');
-      
+        $search = Request::input('param2');
+
         // Returns an array of articles that have the query string located somewhere within 
 
         $query = DB::table('student_details')
-                ->join('users', 'users.id', '=', 'student_details.user_id')
-                ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
-                ->select('users.*', 'student_details.*', 'class_details.class')
-                ->where('student_details.deleted_at', NULL);
-       
+            ->join('users', 'users.id', '=', 'student_details.user_id')
+            ->join('class_details', 'class_details.id', '=', 'student_details.batch_id')
+            ->select('users.*', 'student_details.*', 'class_details.class')
+            ->where('student_details.deleted_at', NULL);
+
         if (!empty($search)) {
             $query->where('users.first_name', 'LIKE', '%' . $search . '%');
         }

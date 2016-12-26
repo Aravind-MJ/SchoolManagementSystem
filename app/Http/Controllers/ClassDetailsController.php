@@ -48,9 +48,11 @@ class ClassDetailsController extends Controller
      */
     public function create()
     {
-        $users = DB::table('users')
-            ->join('faculty_details', 'faculty_details.user_id', '=', 'users.id')
-            ->select('users.id', 'first_name', 'last_name')
+        $users = DB::table('faculty_details')
+            ->join('users', 'users.id', '=', 'faculty_details.user_id')
+            ->select('users.*', 'faculty_details.*')
+            ->where('faculty_details.deleted_at', NULL)
+            ->orderBy('faculty_details.created_at', 'DESC')
             ->get();
         $data = array();
         foreach ($users as $each) {
@@ -149,10 +151,11 @@ class ClassDetailsController extends Controller
             $in_charge = $in_charge->id;
         }
 
-
-        $users = DB::table('users')
-            ->join('faculty_details', 'faculty_details.user_id', '=', 'users.id')
-            ->select('users.id', 'first_name', 'last_name')
+        $users = DB::table('faculty_details')
+            ->join('users', 'users.id', '=', 'faculty_details.user_id')
+            ->select('users.*', 'faculty_details.*')
+            ->where('faculty_details.deleted_at', NULL)
+            ->orderBy('faculty_details.created_at', 'DESC')
             ->get();
         $data = array();
         foreach ($users as $each) {

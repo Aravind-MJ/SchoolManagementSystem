@@ -21,9 +21,11 @@
                     <tr><th>Gender</th><td>{{ $student->gender }}</td></tr>
                     <tr><th>Religion</th><td>{{$student->religion}}</td></tr>
                     <tr><th>category</th><td>{{$student->category}}</td></tr>
-                    <tr><th>hostel</th><td>{{ $student->hostel}}</td></tr>
-                    <tr><th>hostelfee</th> <td>{{ $student->hostelfee}}</td></tr>
-                    <tr><th>DOB</th><td>{{ $student->dob }}</td></tr>
+                    <tr><th>hostel</th><td>{{ strtoupper($student->hostel)}}</td></tr>
+                    @if($student->hostel=='yes')
+                    <tr><th>hostelfee</th> <td>{{ strtoupper($student->hostelfee)}}</td></tr>
+                    @endif
+                    <tr><th>DOB</th><td>{{ date('d/m/Y',strtotime($student->dob))}}</td></tr>
                     <tr><th>Email</th><td>{{ $student->email }}</td></tr>
                     <tr><th>Guardian</th><td>{{ $student->guardian }}</td></tr>
                     <tr><th>Address</th><td>{{ $student->housename }}</td></tr>
@@ -31,6 +33,8 @@
                     <tr><th>District</th><td>{{ $student->district}}</td></tr>
                     <tr><th>State</th> <td>{{ $student->state}}</td></tr>
                     <tr><th>Phone</th><td>{{ $student->phone }}</td></tr>
+                    <tr><th>Adhaar Number</th><td>{{ $student->adhar }}</td></tr>
+                    <tr><th>Sampoorna ID</th><td>{{ $student->sampoorna}}</td></tr>
                     <tr><th>School</th><td>{{ $student->school }}</td></tr>
                     
                     <tr><th>Photo</th><td><img src="{{ asset('images/students/'. $student->photo) }}"  alt="photo" width="50" height="50"/></td></tr>                   
@@ -38,13 +42,7 @@
                         <td><a href='{{ $student->enc_id }}/edit' class='btn btn-primary btn-block'>Edit Student</a>
                         </td>                   
 
-                        {!! Form::open(['action' => ['StudentController@destroy', $student->enc_id], 'method' => 'POST', 'class' => 'delete']) !!}
-                        {!! csrf_field() !!}
-                <input type="hidden" name="_method" value="delete">
-                <input type="hidden" name="id" value="{{$student->id}}">
-                <td><button type="submit" class="btn btn-danger btn-block">Delete Student</button>
-                    {!! Form::close() !!}
-                </td>
+
                 </tr>
                 </tbody>
 

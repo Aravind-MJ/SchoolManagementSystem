@@ -2,9 +2,7 @@
 
 @section('title', 'Edit Student Details')
 
-@section('content')
 @section('body')
-
 <div class="row">
     
     <div class="col-md-6 col-md-offset-1">
@@ -33,7 +31,7 @@
                     </div>
                     <!-- Submit field -->
                     <div class="form-group">
-                        {!! Form::submit('Edit Student', ['class' => 'btn btn-lg btn-primary btn-block']) !!}
+                        {!! Form::submit('Update Student', ['class' => 'btn btn-lg btn-primary btn-block']) !!}
                     </div>
                 </fieldset>
                 {!! Form::close() !!}
@@ -72,7 +70,7 @@
                     <div class="form-group col-md-6">
                         <!--div class="form-group"-->
                         {!! Form::label('dob', 'Date Of Birth') !!}
-                        {!! Form::text('dob', date('d/m/Y',strtotime($student->dob)), ['class'=>'form-control', 'placeholder'=>'Date Of Birth', 'id'=>'datepicker']) !!}
+                        {!! Form::text('dob', date('d-m-Y',strtotime($student->dob)), ['class'=>'form-control', 'placeholder'=>'Date Of Birth', 'id'=>'datepicker']) !!}
                         {!! errors_for('dob', $errors) !!}
                     </div>
                     <div class="form-group col-md-6">
@@ -86,24 +84,24 @@
                     <div class="form-group col-md-12">
                        <!--div class="form-group"-->
                        {!! Form::label('religion', 'Religion') !!}
-                       {!!Form::select('religion', array(0 =>'Select',1 => 'Hindu',2 => 'Christian', 3 =>'Muslim',4 => 'Jain',5 =>'Buddhist',6 => 'Secular'),null,['class' => 'form-control', 'placeholder'=>'Enter  year'])!!}
+                       {!!Form::select('religion', array(0 =>'Select','Hindu' => 'Hindu','Christian' => 'Christian', 'Muslim' =>'Muslim','Jain' => 'Jain','Buddhist' =>'Buddhist','Secular' => 'Secular'),null,['class' => 'form-control', 'placeholder'=>'Enter  year'])!!}
                    </div>
                </div>
                <div class= "col-md-12">
                    <div class="form-group col-md-12">
                        <!--div class="form-group"-->
                        {!! Form::label('category', 'Category') !!}
-                       {!!Form::select('category', array(0 =>'Select',1 => 'General',2 => 'SC', 3 =>'ST',4 => 'OBC'),null,['class' => 'form-control', 'placeholder'=>'Enter  year'])!!}
+                       {!!Form::select('category', array(0 =>'Select','General' => 'General','SC' => 'SC', 'ST' =>'ST','OBC' => 'OBC'),null,['class' => 'form-control', 'placeholder'=>'Enter  year'])!!}
                    </div>
                </div>
                <div class= "col-md-12">
                    <div class="form-group col-md-6">
                        <b>Hostel Facilites Needed?</b>
-                       <input type="radio" id="hostel" value="yes" name="hostel" onclick="sasi()" /> Yes
-                       <input type="radio" id="hostel" value="no" name="hostel" onclick="sasi()" /> NO
+                       <input type="radio" id="hostel" value="yes" name="hostel" onclick="sasi()" @if($student->hostel=='yes') checked @endif/> Yes
+                       <input type="radio" id="hostel" value="no" name="hostel" onclick="sasi()" @if($student->hostel=='no') checked @endif/> NO
                    </div>
            
-                   <div class="form-group col-md-6" id="sasi1">
+                   <div class="form-group col-md-6" id="sasi1" @if($student->hostel=='no') style="display: none;" @endif>
                        {!! Form::Label('hostelfee', 'Hostel fee paid?') !!}
                        {!! Form::radio('hostelfee', 'yes') !!}{!! Form::Label('hostelfee', 'yes') !!}
                        {!! Form::radio('hostelfee', 'no') !!}{!! Form::Label('hostelfee', 'no') !!}
@@ -180,7 +178,7 @@
             
                <div class= "col-md-12">
                  <div class="form-group">
-                        {!! Form::submit('Edit Student', ['class' => 'btn btn-lg btn-primary btn-block']) !!}
+                        {!! Form::submit('Update Student', ['class' => 'btn btn-lg btn-primary btn-block']) !!}
                     </div>
                </div> 
   </div>

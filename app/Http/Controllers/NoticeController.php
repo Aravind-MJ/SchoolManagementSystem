@@ -10,23 +10,24 @@ use App\Assignment;
 use App\Notice;
 use App\ClassDetails;
 
-class NoticeController extends Controller {
+class NoticeController extends Controller
+{
 
     protected $notice, $batch, $claz;
 
-    public function __construct(Notice $notice, ClassDetails $claz ) {
+    public function __construct(Notice $notice, ClassDetails $claz)
+    {
         $this->notice = $notice;
-		$this->claz = $claz;
+        $this->claz = $claz;
     }
 
-    public function index() {
+    public function index()
+    {
 
         //Select all records from notice table    
         $allNotice = $this->notice
-                ->join('class_details', 'class_details.id', '=', 'notice.batch_id')
-                ->select('notice.*', 'class_details.class', 'class_details.division')
-                ->orderBy('notice.created_at', 'DESC')
-                ->get();
+            ->orderBy('notice.created_at', 'DESC')
+            ->get();
 
         return View('notice.list_notice', compact('allNotice'));
     }
@@ -35,16 +36,15 @@ class NoticeController extends Controller {
      * Show the form for creating a new resource.
      *
      * @return Re
-     sponse
+    sponse
      */
-    public function create() {
-
-        //Fetch Batch Details
-                $batch = new ClassDetails;
-		$batch = $batch->fetch();
+    public function create()
+    {
+        $batch = new ClassDetails;
+        $batch = $batch->singleDropdownClass();
         //Redirecting to add_notice.blade.php 
 
-        return view('notice.add_notice', compact('id', 'batch'));
+        return view('notice.add_notice', compact('batch'));
     }
 
     /**
@@ -52,33 +52,18 @@ class NoticeController extends Controller {
      *
      * @return Response
      */
-    public function store(Requests\PublishNoticeRequest $requestData) {
+    public function store(Requests\PublishNoticeRequest $requestData)
+    {
 
         //store notice in notice table
-         $notice = $this->notice; 
-		$class = $requestData['class'];
-		$division = $requestData['division'];
-		$clazdiv = $this->claz
-	    ->select('id')
-		->where(['class' =>$class, 'division' => $division])
-		->first();
-
-		
-     if($clazdiv==true)
-	{        	
-	$notice->message = $requestData['message'];
-    	$notice->batch_id = $clazdiv->id;	
+        $class = $requestData['class'];
+        $notice = new Notice;
+        $notice->message = $requestData['message'];
+        $notice->batch_id = json_encode($class);
         $notice->save();
         return Redirect::back()
-                        ->withFlashMessage('Notice Added successfully!')
-                        ->withType('success');
-         
-         } else{
-  
-        return Redirect::back()
-                        ->withFlashMessage('class not found')
-                        ->withType('danger');
-        }
+            ->withFlashMessage('Notice Added successfully!')
+            ->withType('success');
     }
 
     /**
@@ -87,7 +72,8 @@ class NoticeController extends Controller {
      * @param  int $id
      * @return Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         //
     }
 
@@ -97,18 +83,17 @@ class NoticeController extends Controller {
      * @param  int $id
      * @return Response
      */
-    public function edit($id) {
-               $notice = $this->notice
-                ->join('class_details', 'class_details.id', '=', 'notice.batch_id')
-                ->select('notice.*', 'class_details.class', 'class_details.division')
-                ->where('notice.id', $id)
-                ->first();
+    public function edit($id)
+    {
+        $notice = $this->notice
+            ->where('notice.id', $id)
+            ->first();
 
         //Fetch Batch Details
         $batch = new ClassDetails;
-		$batch = $batch->fetch();        
+        $batch = $batch->singleDropdownClass();
 
-        return View('notice.edit_notice', compact('notice', 'batch', 'id'));             		
+        return View('notice.edit_notice', compact('notice', 'batch', 'id'));
     }
 
     /**
@@ -117,34 +102,19 @@ class NoticeController extends Controller {
      * @param  int $id
      * @return Response
      */
-    public function update($id, Requests\PublishNoticeRequest $requestData) {
+    public function update($id, Requests\PublishNoticeRequest $requestData)
+    {
         //update values in notice
-      
-       $class = $requestData['class'];
-		$division = $requestData['division'];
-		$clazdiv = $this->claz
-		->select('id')
-		->where(['class' =>$class, 'division' => $division])
-		->first();
-		
 
-       $notice = $this->notice->find($id);
-	
-	if($clazdiv==true)
-	{        	
-	$notice->message = $requestData['message'];
-    	$notice->batch_id = $clazdiv->id;	
+
+        $notice = $this->notice->find($id);
+        $notice->message = $requestData['message'];
+        $notice->batch_id = json_encode($requestData['batch_id']);
         $notice->save();
         return Redirect::back()
-                        ->withFlashMessage('Notice Added successfully!')
-                        ->withType('success');
-         }
-         else
-         {
-          return Redirect::back()
-                        ->withFlashMessage('Class not found')
-                        ->withType('danger');
-         }
+            ->withFlashMessage('Notice Updated successfully!')
+            ->withType('success');
+
     }
 
 
@@ -154,12 +124,15 @@ class NoticeController extends Controller {
      * @param  int $id
      * @return Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         //find result by id and delete 
         \App\Notice::find($id)->delete();
 
         //Redirecting to index() method
-        return Redirect::back();
+        return Redirect::back()
+            ->withFlashMessage('Notice Deleted successfully!')
+            ->withType('success');;
     }
 
 }

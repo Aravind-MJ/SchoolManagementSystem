@@ -5,14 +5,16 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 
 
-class PublishFacultyRequest extends Request {
+class PublishFacultyRequest extends Request
+{
 
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize() {
+    public function authorize()
+    {
         return true;
     }
 
@@ -21,41 +23,38 @@ class PublishFacultyRequest extends Request {
      *
      * @return array
      */
-    public function rules() {
-        switch($this->method())
+    public function rules()
     {
-        case 'GET':
-        case 'DELETE':
-        {
-            return [];
+        switch ($this->method()) {
+            case 'GET':
+            case 'DELETE': {
+                return [];
+            }
+            case 'POST': {
+                return [
+                    'first_name' => 'required',
+                    'last_name' => 'required',
+                    'qualification' => 'required',
+                    'phone' => 'required|regex:/[0-9]{10}/|max:10 min:10',
+                    'address' => 'required|min:5',
+                    'email' => 'required|email|unique:users,email',
+                    'password' => 'required|confirmed|min:6',
+                    'password_confirmation' => 'required',
+                    'photo' => 'required|mimes:jpeg,png,jpg|max:2000'
+                ];
+            }
+            case 'PUT':
+            case 'PATCH': {
+                return [
+                    'qualification' => 'required',
+                    'phone' => 'required|regex:/[0-9]{10}/|max:10 min:10',
+                    'address' => 'required|min:5'
+                ];
+            }
+            default:
+                break;
         }
-        case 'POST':
-        {
-            return [
-            'first_name' => 'required|alpha',
-            'last_name' => 'required|alpha',
-            'qualification' => 'required',
-            'phone' => 'required|regex:/[0-9]{10}/|max:10 min:10',
-            'address' => 'required|min:5',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed|min:6',
-            'password_confirmation' => 'required',
-            'photo' => 'required|mimes:jpeg,png,jpg|max:2000'
-        ];
-        }
-        case 'PUT':
-        case 'PATCH':
-        {
-            return [
-            'qualification' => 'required',
-            'phone' => 'required|regex:/[0-9]{10}/',
-            'address' => 'required|min:5',
-            'photo' =>'mimes:jpeg,png,jpg|max:2000'
-        ];
-        }
-        default:break;
-    }
-        
+
     }
 
 }
