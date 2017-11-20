@@ -13,10 +13,10 @@ class CreateMarkDetailsTable extends Migration {
     public function up() {
         Schema::create('mark_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->forgein('user_id')->references('id')->on('users');
-            $table->integer('exam_id');
-            $table->forgein('exam_id')->references('id')->on('exam_details');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('exam_id')->unsigned();
+            $table->foreign('exam_id')->references('id')->on('exam_details');
             $table->integer('mark');
             $table->integer('total_mark');
             $table->timestamps();
@@ -29,7 +29,7 @@ class CreateMarkDetailsTable extends Migration {
      * @return void
      */
     public function down() {
-        //
+        Schema::dropIfExists('mark_details');
     }
 
 }

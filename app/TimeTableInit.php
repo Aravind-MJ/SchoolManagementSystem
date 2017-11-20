@@ -28,7 +28,7 @@ class TimeTableInit extends Model
             ->where('sticky', '!=', 'YES')
             ->get()->toArray();
         foreach ($result as $entity) {
-            array_push($this->fetched,$entity['id']);
+            array_push($this->fetched, $entity['id']);
             $entity['locked'] = true;
         }
         return $result;
@@ -42,7 +42,7 @@ class TimeTableInit extends Model
             ->where('sticky', 'YES')
             ->get()->toArray();
         foreach ($result as $entity) {
-            array_push($this->fetched,$entity['id']);
+            array_push($this->fetched, $entity['id']);
             $entity['locked'] = true;
         }
         return $result;
@@ -53,19 +53,20 @@ class TimeTableInit extends Model
         $result = $this
             ->select('batch_timetable_config.id', 'batch_id', 'subject_id', 'faculty_id', 'no_of_periods', 'sticky')
             ->where('section', $section)
-            ->whereNotIn('id',$this->fetched)
+            ->whereNotIn('id', $this->fetched)
             ->get()->toArray();
         return $result;
     }
 
-    public function filter(){
+    public function filter()
+    {
         $temp = new \stdClass();
         $temp->batch_id = $this->batch_id;
         $temp->faculty_id = $this->faculty_id;
         $temp->subject_id = $this->subject_id;
         $temp->sticky = $this->sticky;
         $temp->no_of_periods = $this->no_of_periods;
-        if(isset($this->locked)){
+        if (isset($this->locked)) {
             $temp->locked = $this->locked;
         }
         return $temp;
