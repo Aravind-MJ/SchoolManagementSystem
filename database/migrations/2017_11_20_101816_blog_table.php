@@ -18,6 +18,7 @@ class BlogTable extends Migration
             $table->text('blog_cont');
             $table->string('blog_img');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class EventTable extends Migration
+class LibraryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,7 @@ class EventTable extends Migration
      */
     public function up()
     {
-        Schema::create('event',function (Blueprint $table){
-            $table->increments('id');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        //
     }
 
     /**
@@ -26,6 +22,6 @@ class EventTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event');
+        //
     }
 }
