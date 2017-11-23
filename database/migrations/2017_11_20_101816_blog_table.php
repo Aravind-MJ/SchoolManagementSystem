@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExamDetailsTable extends Migration
+class BlogTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,13 @@ class CreateExamDetailsTable extends Migration
      */
     public function up()
     {
-       Schema::create('exam_details', function (Blueprint $table) {
+        Schema::create('blog',function (Blueprint $table){
             $table->increments('id');
-            $table->integer('type_id')->unsigned();
-            $table->foreign('type_id')->references('id')->on('exam_type');
-            $table->date('exam_date');
-            $table->integer('total_mark');
+            $table->string('blog_title');
+            $table->text('blog_cont');
+            $table->string('blog_img');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +29,6 @@ class CreateExamDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exam_details');
+        Schema::dropIfExists('blog');
     }
 }
